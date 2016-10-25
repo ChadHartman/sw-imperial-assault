@@ -22,6 +22,13 @@
                     </a>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
                 </h2>
+                {% for post in site.categories[campaignId] reversed %}
+                    {% if post.slug == page.previous_mission %}
+                        <a href="{{ post.url }}">
+                            <p>{{ post.title }}</p>
+                        </a>
+                    {% endif %}
+                {% endfor %}
                 <h1>{{ page.title }}</h1>
             </div>
             <div class="post">

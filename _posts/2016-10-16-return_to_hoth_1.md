@@ -18,7 +18,7 @@ excerpt_separator: <!--more-->
 
 <!--more-->
 
-{% for post in site.categories.return_to_hoth_1 %}
+{% for post in site.categories.return_to_hoth_1 reversed %}
     {% if post.url %}
 [{{ post.title }}]({{ site.baseurl }}{{ post.url }})
     {% endif %}

@@ -27,3 +27,5 @@ At this point, the Rebels final task is to kill all remaining Imperials.
 ###### battle_of_hoth_4
 
 > A single Imperial Officer stands with 1 HP before Verena Talos coldy executes him; securing victory for the Rebels.
+
+[Mission 2: Open to Interpretation]({% post_url 2016-10-23-open_to_interpretation %})
