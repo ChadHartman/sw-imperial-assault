@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% include head.html %}
+        <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/assets/css/post.css">
+        <script type="text/javascript" src="{{ site.baseurl }}/assets/js/jquery-3.1.1.min.js" defer></script>
+        <script type="text/javascript" src="{{ site.baseurl }}/webapp/campaign/{{ page.categories[0] }}.js" defer></script>
+        <script type="text/javascript" src="{{ site.baseurl }}/webapp/image-loader.js" defer></script>
+    </head>
+    <body>
+        
+        <div class="content">
+            <div class="navigation">
+                {% assign campaignId = page.categories[0] %}
+                <h2>
+                    <a href="{{ site.url}}{{ site.baseurl }}">
+                        <span>{{ site.title }}</span>
+                    </a>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <a href="{{ site.url }}{{ site.baseurl }}{{ site.campaign[campaignId].url }}">
+                        <span>{{ site.campaign[campaignId].name }}</span>
+                    </a>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </h2>
+                <h1>{{ page.title }}</h1>
+            </div>
+            <div class="post">
+                {{content}}
+            </div>
+        </div>
+    </body>
+</html>

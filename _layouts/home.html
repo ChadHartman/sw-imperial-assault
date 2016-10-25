@@ -1,0 +1,15 @@
+---
+layout: default
+---
+<h1>{{ site.title }}</h1>
+{% for post in site.categories.campaign %}
+    {% if post.url %}
+    <a href="{{ site.baseurl }}{{ post.url }}">
+        <h2>{{ post.title }}</h2>
+    </a>
+    <h5>Started {{ post.started }}</h5>
+    <p>{{ post.description }}</p>
+    {{ post.excerpt }}
+    {% endif %}
+{% endfor %}    
+</ul>

@@ -1,0 +1,52 @@
+html {
+    font-family: sans-serif;
+    /*background-color: white;*/
+    color: black;
+    background: url("../images/css/background.svg");
+    background-size: 100%;
+}
+a {
+    color: black;
+}
+h1, h2 {
+    font-family: "Distant-Galaxy";
+}
+h1 {
+    text-align: center;
+}
+h5 {
+    margin: 0 5em 0 0;
+}
+.content {
+    max-width: 50em;
+    margin: 0 auto;
+}
+.winner-rebel {
+    color: red;
+}
+#cards + p {
+    text-align: center;
+}
+#cards + p > img {
+    border: 0.3em solid grey;
+    border-radius: 0.3em;
+    width: 7em;
+}
+#cards + p > img:nth-child(n+2):nth-child(-n+4) {
+    margin-left: -0.5em;
+}
+#cards + p > img:nth-child(1) {
+    transform: rotate(-10deg);
+}
+#cards + p > img:nth-child(2) {
+    transform: rotate(-5deg);
+}
+#cards + p > img:nth-child(3) {
+    transform: rotate(5deg);
+}
+#cards + p > img:nth-child(4) {
+    transform: rotate(10deg);
+}
+#cards + p > img:nth-child(5) {
+    margin-left: 2em;
+}

@@ -1,0 +1,7 @@
+_site
+.sass-cache
+.jekyll-metadata
+images-originals
+Gemfile.lock
+serve.sh
+credentials.txt

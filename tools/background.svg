@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="1024" version="1.1">
+    <rect x="0" y="0" width="512" height="1024" fill="white"/>
+    <defs>
+        <radialGradient id="cloud">
+            <stop offset="10%" stop-color="#ccc"/>
+            <stop stop-opacity="0" offset="95%" stop-color="#fff"/>
+        </radialGradient>
+    </defs>
+    <circle fill="url(#cloud)" cx="399" cy="502" r="238"/>
+    <circle fill="url(#cloud)" cx="348" cy="241" r="179"/>
+    <circle fill="url(#cloud)" cx="471" cy="373" r="131"/>
+    <circle fill="url(#cloud)" cx="72" cy="741" r="176"/>
+    <circle fill="url(#cloud)" cx="436" cy="777" r="160"/>
+    <circle fill="url(#cloud)" cx="57" cy="461" r="249"/>
+    <circle fill="url(#cloud)" cx="396" cy="566" r="234"/>
+    <circle fill="url(#cloud)" cx="322" cy="762" r="147"/>
+    <circle fill="url(#cloud)" cx="0" cy="314" r="153"/>
+    <circle fill="url(#cloud)" cx="339" cy="365" r="233"/>
+    <circle fill="url(#cloud)" cx="264" cy="688" r="139"/>
+    <circle fill="url(#cloud)" cx="295" cy="131" r="152"/>
+    <circle fill="url(#cloud)" cx="285" cy="866" r="152"/>
+    <circle fill="url(#cloud)" cx="107" cy="402" r="216"/>
+    <circle fill="url(#cloud)" cx="217" cy="97" r="209"/>
+    <circle fill="url(#cloud)" cx="272" cy="603" r="158"/>
+    <circle fill="url(#cloud)" cx="173" cy="706" r="245"/>
+    <circle fill="url(#cloud)" cx="188" cy="1024" r="184"/>
+    <circle fill="url(#cloud)" cx="466" cy="369" r="171"/>
+    <circle fill="url(#cloud)" cx="181" cy="304" r="202"/>
+    <circle fill="url(#cloud)" cx="39" cy="232" r="255"/>
+    <circle fill="url(#cloud)" cx="154" cy="799" r="232"/>
+    <circle fill="url(#cloud)" cx="22" cy="939" r="183"/>
+    <circle fill="url(#cloud)" cx="199" cy="774" r="239"/>
+    <circle fill="url(#cloud)" cx="336" cy="621" r="235"/>
+    <circle fill="url(#cloud)" cx="285" cy="62" r="201"/>
+    <circle fill="url(#cloud)" cx="95" cy="387" r="161"/>
+    <circle fill="url(#cloud)" cx="0" cy="400" r="173"/>
+    <circle fill="url(#cloud)" cx="351" cy="183" r="189"/>
+    <circle fill="url(#cloud)" cx="315" cy="105" r="139"/>
+    <circle fill="url(#cloud)" cx="53" cy="684" r="155"/>
+    <circle fill="url(#cloud)" cx="179" cy="141" r="177"/>
+    <circle fill="url(#cloud)" cx="235" cy="46" r="130"/>
+    <circle fill="url(#cloud)" cx="401" cy="0" r="152"/>
+    <circle fill="url(#cloud)" cx="14" cy="26" r="159"/>
+    <circle fill="url(#cloud)" cx="415" cy="308" r="153"/>
+    <circle fill="url(#cloud)" cx="16" cy="311" r="242"/>
+    <circle fill="url(#cloud)" cx="342" cy="310" r="237"/>
+    <circle fill="url(#cloud)" cx="225" cy="891" r="209"/>
+</svg>
