@@ -24,7 +24,7 @@
                 </h2>
                 {% for post in site.categories[campaignId] reversed %}
                     {% if post.slug == page.previous_mission %}
-                        <a href="{{ post.url }}">
+                        <a href="{{ site.base_url }}{{ post.url }}">
                             <p>{{ post.title }}</p>
                         </a>
                     {% endif %}
@@ -33,6 +33,15 @@
             </div>
             <div class="post">
                 {{content}}
+            </div>
+            <div class="navigation">
+                {% for post in site.categories[campaignId] reversed %}
+                    {% if post.slug == page.next_mission %}
+                        <a href="{{ site.base_url }}{{ post.url }}">
+                            <p style="clear:both;">{{ post.title }}</p>
+                        </a>
+                    {% endif %}
+                {% endfor %}
             </div>
         </div>
     </body>
