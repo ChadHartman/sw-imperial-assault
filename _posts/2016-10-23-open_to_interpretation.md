@@ -15,7 +15,7 @@ A hologram with valuable intel has been located! However, C-3PO is the only one 
 
 ###### open_to_interpretation_2
 
-> The Imperials were waiting for the Rebels and sprung a trap! An E-Web Engineer is deployed behind a door, scraping his gun against the door in anticipation of the oncoming bloodbath. An Imperial Officer and Stormtrooper block the tunnels (represented by Rebel tokens) to funnel the Rebels in the hallway.  
+> An E-Web Engineer is deployed behind a door, scraping his gun against the door in anticipation of the oncoming bloodbath. An Imperial Officer and Stormtrooper block the tunnels (represented by Rebel tokens) to funnel the Rebels in the hallway.  
 
 ###### open_to_interpretation_3
 
