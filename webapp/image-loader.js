@@ -20,18 +20,18 @@ app.imageLoader.downloadImage = function(i, element) {
     
     app.imageLoader.setDimensions(imgHolder, app.resources.images[imgId].w_x_h_ratio);
     imgHolder.text('');
-    var imgElement = $('<img/>');
+    var img = new Image();
 
-    var imgDownloader = new Image();
-
-    imgDownloader.onload = function(){
-        imgElement.attr('src', this.src);
+    img.onload = function(){
+        img = $(img);
         imgHolder
-            .append(imgElement)
-            .height('');
+            .height('')
+            .append(img);
+
+        img.fadeIn();
     };
 
-    imgDownloader.src = imgSrc;
+    img.src = imgSrc;
 };
 
 app.imageLoader.loadImages = function() {

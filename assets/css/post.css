@@ -1,34 +1,44 @@
-.post > h2, .post > h3, .post > h4, .post > h5, .post > p {
+.post > h5, .post > h6 {
+    background-color: white;
+    padding: 0.5em;
+    margin: 0;
+}
+.post > div {
     clear: both;
 }
-
 /* Banner */
 .post > h5 > img {
     width: 100%;
 }
-
-/* --- EVENTS --- */
-.post > h6 {
-    width: 45%;
-    margin: 0 0 5em 0;
+/* labels */
+.post > h2, .post > h3, .post > h4, .post > h5, .post > p {
+    clear: both;
+    background-color: white;
+    padding: 1em;
+    margin: 0em 0 3em 0;
 }
 .post > blockquote {
-    width: 50%;
-    background:rgba(0,0,0,0.5);
-    color: white;
-    margin: 0 0 5em 0;
+    width: 45%;
+    background:white;
+    margin: 0em 0 3em 0;
     padding: 1em;
 }
 .post > blockquote > p {
     margin: 0;
+    font-size: 12pt;
+}
+/* --- EVENTS --- */
+.post > h6 {
+    width: 45%;
+    margin: 0 0 3em 0;
 }
 .post > h6 > img {
     width: 100%;
     float: left;
 }
-
-.post > h6 > img, .post > blockquote {
-    box-shadow: 0 1em 2em 0 rgba(0, 0, 0, 0.75), 0 1em 2em 0 rgba(0, 0, 0, 0.2);
+.post > p, .post > h5, .post > h6, .post > blockquote {
+    box-shadow: 0 0 0.5em 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
 }
 
 /* --- ODDS --- */
