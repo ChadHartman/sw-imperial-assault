@@ -10,11 +10,11 @@ A faint distress signal has been found, originating from a survivor of the Battl
 
 ###### survival_of_the_fittest_1
 
-> "Reddy" narrowly avoids a disemboweling from the hungry Wampa to scout ahead. Diala cleans up what's left of the Wampa.
+> "Bluey" narrowly avoids a disemboweling from the hungry Wampa to scout ahead. Diala cleans up what's left of the Wampa.
 
 ###### survival_of_the_fittest_2
 
-> Unfortunately for "Bluey" he's ambushed by Snowtroopers and meets his demise. 
+> Unfortunately for "Reddy" he's ambushed by Snowtroopers and meets his demise. 
 
 ###### survival_of_the_fittest_3
 
