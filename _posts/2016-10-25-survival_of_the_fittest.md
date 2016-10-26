@@ -6,11 +6,11 @@ categories: return_to_hoth_0
 
 ##### survival_of_the_fittest_0
 
-A faint distress signal has been found, originating from a survivor of the Battle of Hoth. The Rebels' rescue speeder crashes, seperating them. The wind is thick, and most of the terrain is out of sight. Fenn, Gaarkhan, and Echo Base Trooper "Red" spot a Probe droid and prepare for combat. Diala, Jyn, and Echo Base Trooper "Blue", met with a hungry Wampa, begin their fight.
+A faint distress signal has been found, originating from a survivor of the Battle of Hoth. The Rebels' rescue speeder crashes, separating them. The wind is thick, and most of the terrain is out of sight. Fenn, Gaarkhan, and Echo Base Trooper "Red" spot a Probe droid and prepare for combat. Diala, Jyn, and Echo Base Trooper "Blue", met with a hungry Wampa, begin their fight.
 
 ###### survival_of_the_fittest_1
 
-> "Red" narrowly avoids a disembowling from the hungry Wampa to scout ahead. Diala cleans up what's left of the Wampa.
+> "Red" narrowly avoids a disemboweling from the hungry Wampa to scout ahead. Diala cleans up what's left of the Wampa.
 
 ###### survival_of_the_fittest_2
 
@@ -30,5 +30,5 @@ A faint distress signal has been found, originating from a survivor of the Battl
 
 ###### survival_of_the_fittest_6
 
-> Diala runs for the survivor, and is successful in riving him. The Rebels signal their ship and secure the man for transport. 
+> Diala runs for the survivor, and is successful in reviving him. The Rebels signal their ship and secure the man for transport. 
 
