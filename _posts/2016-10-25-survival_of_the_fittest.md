@@ -26,9 +26,9 @@ A faint distress signal has been found, originating from a survivor of the Battl
 
 ###### survival_of_the_fittest_5
 
-> Jyn is wounded by the Wampa, and he turned his attention to Diala. Lucky for her the force was with her as she dodges a crippling blow. 
+> After wounding Jyn, the Wampa turns his attention to Diala. Lucky for her the force is with her as she dodges a crippling blow. 
 
 ###### survival_of_the_fittest_6
 
-> Diala runs for the survivor, and is successful in reviving him. The Rebels signal their ship and secure the man for transport. 
+> Diala runs for the survivor, and successfully revives him. The victorious Rebels signal their ship and secure the man for transport. 
 
