@@ -2,14 +2,30 @@
 layout: default
 ---
 <h1>{{ site.title }}</h1>
-{% for post in site.categories.campaign %}
-    {% if post.url %}
-    <a href="{{ site.baseurl }}{{ post.url }}">
-        <h2>{{ post.title }}</h2>
-    </a>
-    <h5>Started {{ post.started }}</h5>
-    <p>{{ post.description }}</p>
-    {{ post.excerpt }}
-    {% endif %}
-{% endfor %}    
-</ul>
+{% for campaign in site.campaign %}
+<hr/>
+<div class="campaign-row">
+  {% assign campaignId = campaign[0] %}
+  <div class="campaign-links">
+    <h2>{{ campaign[1].name }}</h2>
+    <ul>
+        {% for post in site.categories[campaignId] reversed %}
+        {% if post.url %}
+            <li>
+            <a href="{{ site.baseurl }}{{ post.url }}">
+                <p>{{ post.title }}</p>
+            </a>
+            </li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+    </div>
+    <div class="campaign-excerpt">
+    {% for post in site.categories.campaign %}
+        {% if post.slug == campaignId %}
+            {{ post.excerpt }}
+        {% endif %}
+    {% endfor %}
+    </div>
+</div>
+{% endfor %}

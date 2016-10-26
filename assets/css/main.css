@@ -35,7 +35,7 @@ h3 {
 #cards + p > img {
     border: 0.3em solid grey;
     border-radius: 0.3em;
-    width: 7em;
+    width: 15%;
 }
 #cards + p > img:nth-child(n+2):nth-child(-n+4) {
     margin-left: -0.5em;
@@ -54,4 +54,15 @@ h3 {
 }
 #cards + p > img:nth-child(5) {
     margin-left: 2em;
+}
+.campaign-row {
+    overflow: auto;
+}
+.campaign-links {
+    float: left;
+    clear: left; 
+}
+.campaign-excerpt {
+    float: right;
+    clear: right;
 }
