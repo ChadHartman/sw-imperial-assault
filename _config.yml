@@ -30,6 +30,9 @@ campaign:
   return_to_hoth_1:
     name: Return to Hoth
     url: /campaign/2016/10/16/return_to_hoth_1.html
+  return_to_hoth_0:
+    name: Return to Hoth
+    url: /campaign/2016/01/01/return_to_hoth_0.html
   
 # Build settings
 markdown: kramdown
