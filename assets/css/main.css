@@ -4,6 +4,10 @@ html {
     background: linear-gradient(to bottom right, #eee, #bbb) no-repeat center center fixed;
     background-size: cover;
 }
+.campaign-links li {
+    list-style-position: inside;
+    margin-bottom: .75em;
+}
 /* labels */
 a {
     color: black;

@@ -2,6 +2,7 @@
 title: "Mission 4: Survival of the Fittest <i class=\"fa fa-rebel winner-rebel\" aria-hidden=\"true\"></i>"
 layout: post
 categories: return_to_hoth_0
+next_mission: binary_revolution
 ---
 
 ##### survival_of_the_fittest_0
