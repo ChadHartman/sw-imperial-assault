@@ -38,7 +38,7 @@
 
 ## MHD-19
 
-![](images/hoth_mhd-19.png)
+![](images/hoth_mhd-19.jpg)
 
 ## Verena Talos
 
