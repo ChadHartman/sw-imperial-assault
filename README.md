@@ -1,37 +1,43 @@
 # Hero Intros
 
+Recommended compisition:
+
+* 1 Tank
+* 2 Fighters
+* 1 Support Unit
+
 ## Diala Passil
 
 * **Class** Melee
-* **Strategy** Supporting Tanks
+* **Strategy** Fighter/Tank Support
 
 ![](images/core_diala-passil.png)
 
 ## Fenn Signis
 
 * **Class** Ranged
-* **Strategy** Breaking from the pack and fighting independant
+* **Strategy** Fighting unsupported
 
 ![](images/core_fenn-signis.jpg)
 
 ## Gaarkhan
 
 * **Class** Melee
-* **Strategy** Tank
+* **Strategy** Fighter/Tank
 
 ![](images/core_gaarkhan.png)
 
 ## Gideon Argus
 
 * **Class** Ranged
-* **Strategy** Support/Buff other units
+* **Strategy** Support/Utilize other units
 
 ![](images/core_gideon-argus.jpg)
 
 ## Jyn Odan
 
 * **Class** Ranged
-* **Strategy** Support Tanks
+* **Strategy** Fighter/Tank Support/Objective and positioning focused
 
 ![](images/core_jyn-odan.jpg)
 
@@ -52,14 +58,14 @@
 ## Saska Teft
 
 * **Class** Ranged
-* **Strategy** Support and equip units
+* **Strategy** Support and equip allies
 
 ![](images/ts_saska-teft.jpg)
 
 ## Loku Kanoloa
 
 * **Class** Ranged
-* **Strategy** Ranged Fire
+* **Strategy** Ranged Fire (sniper)
 
 ![](images/hoth_loku-kanoloa.jpg)
 
@@ -73,14 +79,14 @@
 ## Verena Talos
 
 * **Class** Ranged and Melee
-* **Strategy** Support Tanks
+* **Strategy** Fighter/Tank Support/Enemy Executor
 
 ![](images/hoth_verena-talos.jpg)
 
 ## Davith Elso
 
 * **Class** Melee
-* **Strategy** Objective & positioning focused
+* **Strategy** Fighter/Tank Support/Objective and positioning focused
 
 ![](images/bespin_davith-elso.jpg)
 
@@ -101,13 +107,13 @@
 ## Shyla Varad
 
 * **Class** Melee
-* **Strategy**
+* **Strategy** Fighter/Tank Support
 
 ![](images/jabba_shyla-varad.jpg)
 
 ## Vinto Hreeda
 
 * **Class** Ranged
-* **Strategy**
+* **Strategy** Fighter/Tank Support
 
 ![](images/jabba_vinto-hreeda.jpg)
