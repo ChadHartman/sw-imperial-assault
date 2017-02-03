@@ -57,16 +57,16 @@
 
 ## Hostile Takeover
 
-> Page
+> Page 18
 
 | ![](images/empire-small.png) | ![](images/rebel-small.png) |
 | --- | --- |
-| [](#) | [](#) |
+| Win | Win |
 
 ## Cloud City's Secret
 
-> Page
+> Page 16
 
 | ![](images/empire-small.png) | ![](images/rebel-small.png) |
 | --- | --- |
-| [](#) | [](#) |
+| Win | Win |
