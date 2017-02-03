@@ -83,7 +83,7 @@
 | ![](images/rebel-small.png) | ![](images/empire-small.png) |
 | --- | --- |
 | 1xp per hero | 1xp for Imperial |
-| [Chain of Command](#) | [Captured](#captured) |
+| [Chain of Command](#chain-of-command) | [Captured](#captured) |
 
 ## Drawn In
 
