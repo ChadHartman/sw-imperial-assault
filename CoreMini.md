@@ -17,19 +17,33 @@
 
 ### Map
 
+
 Aftermath
+
 ![](images/rebel-text.png) A New Threat
+
 &rarr;![](images/rebel-text.png) Imperial Hospitality
+
 &rarr;&rarr;![](images/rebel-text.png) Incoming
+
 &rarr;&rarr;&rarr;![](images/rebel-text.png) Chain of Command
+
 &rarr;&rarr;&rarr;&rarr;![](images/rebel-text.png) Last Stand
+
 &rarr;&rarr;&rarr;&rarr;![](images/empire-text.png) Desperate Hour
+
 &rarr;&rarr;&rarr;![](images/empire-text.png) Captured
+
 &rarr;&rarr;&rarr;&rarr;The Source
+
 &rarr;&rarr;&rarr;&rarr;&rarr;![](images/rebel-text.png) Last Stand
+
 &rarr;&rarr;&rarr;&rarr;&rarr;![](images/empire-text.png) Desperate Hour
+
 &rarr;&rarr;![](images/empire-text.png) Drawn In
+
 &rarr;![](images/empire-text.png) Fly Solo
+
 ![](images/empire-text.png) Under Siege
 
 ### Setup
