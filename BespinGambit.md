@@ -2,22 +2,39 @@
 
 ## Reclamation
 
+> Page 10
+
+2xp x player
+$300 x hero
+1 Influence
+
 | ![](images/empire-small.png) | ![](images/rebel-small.png) |
 | --- | --- |
 | 2 Influence | *Lando Calrissian* |
-| 2xp x player | 2xp x Player |
-| $300 x hero | $300 x Hero |
-| 1 Influence | 1 Influence |
 | [Panic in the Streets](#panic-in-the-streets) | [Reclassified](#reclassified) |
 
 ## Panic in the Streets
 
+> Page 12
+
+* $300 x hero
+* 1 Influence
+
 | ![](images/empire-small.png) | ![](images/rebel-small.png) |
 | --- | --- |
-|||
+| 2 Influence | Cam Droid for *Murne Rin* **or** $150 x hero |
+| 2xp x hero | 3xp x hero |
+| 3xp Imperial | 2xp Imperial|
+| [Freedom Fighters](#freedom-fighters) | [Freedom Fighters](#freedom-fighters) |
 
 ## Reclassified
 
 | ![](images/empire-small.png) | ![](images/rebel-small.png) |
 | --- | --- |
+|||
+
+## Freedom Fighters
+| ![](images/empire-small.png) | ![](images/rebel-small.png) |
+| --- | --- |
+|||
 |||
