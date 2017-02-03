@@ -1,5 +1,9 @@
 # Bespin Gambit
 
+* 3xp per player
+* $400 per hero
+ * 10 Tier 1 cards
+
 ## Reclamation
 
 > Page 8
