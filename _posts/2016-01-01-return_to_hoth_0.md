@@ -8,10 +8,11 @@ excerpt_separator: <!--more-->
 
 <div id="cards"></div>
 
-
+![]({{ site.baseurl }}/assets/images/rebel/fenn-signis_256x409.png)
 ![]({{ site.baseurl }}/assets/images/rebel/diala-passil_256x409.png)
 ![]({{ site.baseurl }}/assets/images/rebel/gaarkhan_256x409.png)
 ![]({{ site.baseurl }}/assets/images/rebel/jyn-odan_256x409.png)
+![]({{ site.baseurl }}/assets/images/imperial/military-might_256x409.png)
 
 <!--more-->
 

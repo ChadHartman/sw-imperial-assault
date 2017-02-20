@@ -4,21 +4,11 @@ var app = app || {};
 
 app.imageLoader = {};
 
-app.imageLoader.setDimensions = function(container, ratio) {
-
-    if(!ratio) {
-        return;
-    }
-
-    container.height(container.width() / ratio);
-};
-
 app.imageLoader.downloadImage = function(i, element) {
     var imgHolder = $(element);
     var imgId = imgHolder.text();
-    var imgSrc = app.baseUrl + app.resources.images[imgId].src;
+    var imgSrc = `/assets/images/campaign/${app.campaign}/${imgId}.png`;
     
-    app.imageLoader.setDimensions(imgHolder, app.resources.images[imgId].w_x_h_ratio);
     imgHolder.text('');
     var img = new Image();
 
@@ -31,10 +21,13 @@ app.imageLoader.downloadImage = function(i, element) {
         img.fadeIn();
     };
 
-    img.src = imgSrc;
+    setTimeout(function() {
+        img.src = imgSrc;
+    }, 3000);
 };
 
 app.imageLoader.loadImages = function() {
+    app.campaign = $('meta[name="campaign"]').attr('content');
     $('.post > h6, .post > h5').each(app.imageLoader.downloadImage);
 };
 

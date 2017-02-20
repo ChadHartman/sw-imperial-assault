@@ -30,6 +30,7 @@
 /* --- EVENTS --- */
 .post > h6 {
     width: 42%;
+    height: 42vw; 
     margin: 0 0 3em 0;
 }
 .post > h6 > img {

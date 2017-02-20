@@ -3,6 +3,7 @@ title: "Mission 2: Open to Interpretation <i class=\"fa fa-empire winner-empire\
 layout: post
 categories: return_to_hoth_1
 previous_mission: battle_of_hoth
+next_mission: white_noise
 ---
 
 ##### open_to_interpretation_0
