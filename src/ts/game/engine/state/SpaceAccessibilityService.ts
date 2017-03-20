@@ -1,5 +1,45 @@
 namespace App.Game.Engine.State {
 
+    enum Orientation {
+        TOP_RIGHT,
+        TOP,
+        TOP_LEFT,
+        LEFT,
+        BOTTOM_LEFT,
+        BOTTOM,
+        BOTTOM_RIGHT,
+        RIGHT,
+        CENTER
+    }
+
+    function orientation(x1: number, y1: number, x2: number, y2: number): Orientation {
+        if (y1 > y2) {
+            if (x1 > x2) {
+                return Orientation.TOP_LEFT;
+            } else if (x1 < x2) {
+                return Orientation.TOP_RIGHT
+            } else {
+                return Orientation.TOP;
+            }
+        } else if (y1 < y2) {
+            if (x1 > x2) {
+                return Orientation.BOTTOM_LEFT;
+            } else if (x1 < x2) {
+                return Orientation.BOTTOM_RIGHT;
+            } else {
+                return Orientation.BOTTOM;
+            }
+        } else {
+            if (x1 > x2) {
+                return Orientation.LEFT;
+            } else if (x1 < x2) {
+                return Orientation.RIGHT;
+            } else {
+                return Orientation.CENTER;
+            }
+        }
+    }
+
     function obstructed(border: Border): boolean {
         return border === Game.Border.BLOCKING ||
             border === Game.Border.IMPASSABLE ||
@@ -31,57 +71,39 @@ namespace App.Game.Engine.State {
                 return false;
             }
 
-            if (y1 > y2) {
+            let upRoute: boolean;
+            let downRoute: boolean;
+            let leftRoute: boolean;
+            let rightRoute: boolean;
 
-                // s2 is above
-                if (x1 > x2) {
-                    // s2 is above-left
-                    let upRoute = !obstructed(s1.top) && !obstructed(s2.right);
-                    let leftRoute = !obstructed(s1.left) && !obstructed(s2.bottom);
-                    return upRoute || leftRoute;
-                }
-
-                if (x1 < x2) {
-                    // s2 is above-right
-                    let upRoute = !obstructed(s1.top) && !obstructed(s2.left);
-                    let rightRoute = !obstructed(s1.right) && !obstructed(s2.bottom);
+            switch (orientation(x1, y1, x2, y2)) {
+                case Orientation.TOP_RIGHT:
+                    upRoute = !obstructed(s1.top) && !obstructed(s2.left);
+                    rightRoute = !obstructed(s1.right) && !obstructed(s2.bottom);
                     return upRoute || rightRoute;
-                }
-
-                return !obstructed(s1.top);
-            }
-
-            if (y1 < y2) {
-
-                // s2 is below
-                if (x1 > x2) {
-                    // s2 is below-left
-                    let downRoute = !obstructed(s1.bottom) && !obstructed(s2.right);
-                    let leftRoute = !obstructed(s1.left) && !obstructed(s2.top);
+                case Orientation.TOP:
+                    return !obstructed(s1.top);
+                case Orientation.TOP_LEFT:
+                    upRoute = !obstructed(s1.top) && !obstructed(s2.right);
+                    leftRoute = !obstructed(s1.left) && !obstructed(s2.bottom);
+                    return upRoute || leftRoute;
+                case Orientation.LEFT:
+                    return !obstructed(s1.left);
+                case Orientation.BOTTOM_LEFT:
+                    downRoute = !obstructed(s1.bottom) && !obstructed(s2.right);
+                    leftRoute = !obstructed(s1.left) && !obstructed(s2.top);
                     return downRoute || leftRoute;
-                } else if (x1 < x2) {
-                    // s2 is below-right
-                    let downRoute = !obstructed(s1.bottom) && !obstructed(s2.left);
-                    let rightRoute = !obstructed(s1.right) && !obstructed(s2.top);
+                case Orientation.BOTTOM:
+                    return !obstructed(s1.bottom);
+                case Orientation.BOTTOM_RIGHT:
+                    downRoute = !obstructed(s1.bottom) && !obstructed(s2.left);
+                    rightRoute = !obstructed(s1.right) && !obstructed(s2.top);
                     return downRoute || rightRoute;
-                }
-
-                return !obstructed(s1.bottom);
+                case Orientation.RIGHT:
+                    return !obstructed(s1.right);
+                case Orientation.CENTER:
+                    return true;
             }
-
-            if (x1 > x2) {
-                // s2 is left
-                return !obstructed(s1.left);
-            }
-
-            if (x1 < x2) {
-                // s2 is right
-                return !obstructed(s1.right);
-            }
-
-            // Same space, accessible to itself
-            console.error(`Unreachable code: ${x1},${y1} -> ${x2},${y2}`)
-            return true;
         }
     }
 }
