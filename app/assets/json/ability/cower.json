@@ -1,0 +1,8 @@
+{
+    "title": "Cower",
+    "description": "TODO",
+    "scope": [
+        "defending",
+        "adjacent_friendly"
+    ]
+}

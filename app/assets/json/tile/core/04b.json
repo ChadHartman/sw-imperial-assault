@@ -1,0 +1,81 @@
+{
+    "terrain": "desert-indoors",
+    "spaces": [
+        {
+            "left": "wall",
+            "top": "wall",
+            "x": 0,
+            "y": 0
+        },
+        {
+            "x": 0,
+            "y": 1
+        },
+        {
+            "x": 0,
+            "y": 2
+        },
+        {
+            "left": "wall",
+            "bottom": "wall",
+            "x": 0,
+            "y": 3
+        },
+        {
+            "top": "wall",
+            "x": 1,
+            "y": 0
+        },
+        {
+            "x": 1,
+            "y": 1
+        },
+        {
+            "x": 1,
+            "y": 2
+        },
+        {
+            "bottom": "wall",
+            "x": 1,
+            "y": 3
+        },
+        {
+            "top": "wall",
+            "x": 2,
+            "y": 0
+        },
+        {
+            "x": 2,
+            "y": 1
+        },
+        {
+            "x": 2,
+            "y": 2
+        },
+        {
+            "bottom": "wall",
+            "x": 2,
+            "y": 3
+        },
+        {
+            "top": "wall",
+            "right": "wall",
+            "x": 3,
+            "y": 0
+        },
+        {
+            "x": 3,
+            "y": 1
+        },
+        {
+            "x": 3,
+            "y": 2
+        },
+        {
+            "bottom": "wall",
+            "right": "wall",
+            "x": 3,
+            "y": 3
+        }
+    ]
+}

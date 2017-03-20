@@ -1,0 +1,7 @@
+{
+    "title": "Self-Destruct",
+    "description": "At the end of a round, you may roll 1 red die. Each adjacent figure and object suffers {{damage}} equal to the {{damage}} results. Then, you are defeated.",
+    "scope": [
+        "end_of_round"
+    ]
+}

@@ -1,0 +1,27 @@
+{
+    "terrain": "forest",
+    "spaces": [
+        {
+            "x": 0,
+            "y": 0,
+            "left": "wall"
+        },
+        {
+            "x": 1,
+            "y": 0,
+            "right": "wall"
+        },
+        {
+            "x": 0,
+            "y": 1,
+            "left": "wall",
+            "bottom": "wall"
+        },
+        {
+            "x": 1,
+            "y": 1,
+            "bottom": "wall",
+            "right": "wall"
+        }
+    ]
+}

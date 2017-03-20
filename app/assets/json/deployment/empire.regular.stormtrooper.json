@@ -1,0 +1,30 @@
+{
+    "title": "Stormtrooper",
+    "affiliation": "empire",
+    "rank": "regular",
+    "width": 1,
+    "height": 1,
+    "group_size": 3,
+    "deployment_cost": 6,
+    "reinforcement_cost": 2,
+    "health": 3,
+    "speed": 4,
+    "attack": [
+        "blue",
+        "green"
+    ],
+    "defense": [
+        "black"
+    ],
+    "traits": [
+        "trooper"
+    ],
+    "abilities": [
+        "squad_training",
+        "attack",
+        "move",
+        "surge_damage_1",
+        "surge_accuracy_2"
+    ],
+    "image_url": "assets/png/stormtrooper.png"
+}

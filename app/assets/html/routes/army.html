@@ -1,0 +1,32 @@
+<a href="#/">
+    <p>Home</p>
+</a>
+<select ng-change="selectArmy()" ng-model="selectedArmyId">
+    <option ng-repeat="army in armies track by $index"  value="{{ army.id }}">{{ army.title }}</option>
+    <option value="__new__">New Army...</option>
+</select>
+<br/>
+<br/>
+<label for="army-title">Army Title:</label>
+<input id="army-title" type="text" ng-model="armyTitle" />
+<br/>
+<br/>
+<div id="army">
+    <div id="available" class="column">
+        <ul>
+            <li ng-repeat="id in availableIds">
+                <p ng-click="addDeployment(id)">{{ deployments[id] }}</p>
+            </li>
+        </ul>
+    </div>
+    <div id="selected" class="column">
+        <ul>
+            <li ng-repeat="id in selectedIds track by $index">
+                <p ng-click="removeDeployment($index)">{{ deployments[id] }}</p>
+            </li>
+        </ul>
+    </div>
+</div>
+<br/>
+<button ng-click="saveArmy()">Save</button>
+<button ng-click="removeArmy()">Remove</button>

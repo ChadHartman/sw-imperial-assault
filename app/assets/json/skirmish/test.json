@@ -1,0 +1,53 @@
+{
+    "deployment_zones": [
+        {
+            "color": "blue",
+            "spaces": [
+                {
+                    "x": 0,
+                    "y": 2
+                },
+                {
+                    "x": 0,
+                    "y": 3
+                }
+            ]
+        },{
+            "color": "red",
+            "spaces": [
+                {
+                    "x": 7,
+                    "y": 2
+                },
+                {
+                    "x": 7,
+                    "y": 3
+                }
+            ]
+        }
+    ],
+    "map": [
+        {
+            "tile_id": "core/01a",
+            "x": 1,
+            "y": 0
+        },
+        {
+            "tile_id": "core/18a",
+            "x": 0,
+            "y": 2,
+            "rotation": 90
+        },
+        {
+            "tile_id": "core/18a",
+            "x": 3,
+            "y": 6
+        },
+        {
+            "tile_id": "core/18a",
+            "x": 7,
+            "y": 2,
+            "rotation": 270
+        }
+    ]
+}

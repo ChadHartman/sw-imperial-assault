@@ -1,0 +1,17 @@
+<ul>
+    <li>
+        <a href="#/army">
+            <p>Manage Armies</p>
+        </a>
+    </li>
+    <li>
+        <p>Skirmish</p>
+        <ul>
+            <li ng-repeat="skirmish in skirmishes">
+                <a href="#/skirmish/{{ skirmish.id }}/setup">
+                    <p>{{ skirmish.title }}</p>
+                </a>
+            </li>
+        </ul>
+    </li>
+</ul>

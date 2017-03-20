@@ -1,0 +1,15 @@
+{
+    "title": "Move",
+    "scope": [
+        "action"
+    ],
+    "targets": [
+        "self"
+    ],
+    "effects":[
+        {
+            "type": "gain_movement_points",
+            "stat": "speed"
+        }
+    ] 
+}

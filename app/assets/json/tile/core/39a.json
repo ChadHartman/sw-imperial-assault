@@ -1,0 +1,15 @@
+{
+    "terrain": "indoors-to-forest",
+    "spaces": [
+        {
+            "x": 0,
+            "y": 0,
+            "top": "wall"
+        },
+        {
+            "x": 0,
+            "y": 1,
+            "bottom": "wall"
+        }
+    ]
+}

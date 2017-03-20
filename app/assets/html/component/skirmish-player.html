@@ -1,0 +1,37 @@
+ <div class="player">
+    <canvas 
+        class="skirmish-space"
+        ng-repeat="uiSpace in spaces"
+        style="left:{{ rCtx.left(uiSpace.space.x) }}px; top:{{ rCtx.top(uiSpace.space.y) }}px"
+        width="{{ rCtx.size }}"
+        height="{{ rCtx.size }}"
+        ng-click="selectSpace(uiSpace)"
+        data-rctx="rCtx"
+        data-space="uiSpace"
+        data-state="state"
+        space-render></canvas>
+    <div ng-repeat="unit in units">
+        <!-- Grouped together for CSS selecting -->
+        <canvas 
+            class="skirmish-unit"
+            ng-class="{ exausted:unit.exausted, active:unit.active, active_waiting:unit.activeWaiting }" 
+            style="left:{{ rCtx.left(unit.x) }}px; top:{{ rCtx.top(unit.y) }}px"
+            width="{{ rCtx.size }}"
+            height="{{ rCtx.size }}"
+            data-unit="unit"
+            ng-click="activate(unit)"
+            unit-render></canvas>
+        <div 
+            class="skirmish-unit-detail" 
+            style="left:{{ rCtx.left(unit.x) }}px; top:{{ rCtx.top(unit.y) }}px">
+            <p>{{ unit.deployment.title }}</p>
+            <p>Movement Points: {{ unit.movementPoints }}</p>
+            <ul>
+                <li ng-repeat="action in unit.actions">
+                    <button ng-click="performAction(unit, action)" >{{ action.title }}</button>
+                </li>
+            </ul>
+            <button ng-click="exaust(unit)">Done</button>
+        </div>
+    </div>
+</div>

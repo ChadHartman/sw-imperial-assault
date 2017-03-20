@@ -1,0 +1,73 @@
+<div id="tile-builder">
+    <label for="columns">Columns:</label>
+    <input id="columns" type="number" ng-model="colCount" />
+    <br />
+    <label for="rows">Rows:</label>
+    <input id="rows" type="number" ng-model="rowCount" />
+    <br />
+    <div style="float:left;">
+        <table>
+            <tr ng-repeat="y in [].constructor(rowCount) track by $index" ng-init="row = $index">
+                <td ng-repeat="x in [].constructor(colCount) track by $index" ng-init="col = $index">
+                    <div class="space" ng-class="{selected:isSelected(col, row)}" ng-click="toggleSpace(col, row)">
+                        <span>{{col}}, {{row}}</span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <p>{{ selectedKey }}</p>
+    <div style="float:left;">
+        <table>
+            <tr>
+                <td></td>
+                <td>
+                    <select ng-change="selectSide()" ng-model="top">
+                        <option value=""></option>
+                        <option value="wall">wall</option>
+                        <option value="blocking_terrain">blocking_terrain</option>
+                        <option value="difficult_terrain">difficult_terrain</option>
+                        <option value="impassable_terrain">impassable_terrain</option>
+                    </select>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <select ng-change="selectSide()" ng-model="left">
+                        <option value=""></option>
+                        <option value="wall">wall</option>
+                        <option value="blocking_terrain">blocking_terrain</option>
+                        <option value="difficult_terrain">difficult_terrain</option>
+                        <option value="impassable_terrain">impassable_terrain</option>
+                    </select>
+                </td>
+                <td></td>
+                <td>
+                    <select ng-change="selectSide()" ng-model="right">
+                        <option value=""></option>
+                        <option value="wall">wall</option>
+                        <option value="blocking_terrain">blocking_terrain</option>
+                        <option value="difficult_terrain">difficult_terrain</option>
+                        <option value="impassable_terrain">impassable_terrain</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <select ng-change="selectSide()" ng-model="bottom">
+                        <option value=""></option>
+                        <option value="wall">wall</option>
+                        <option value="blocking_terrain">blocking_terrain</option>
+                        <option value="difficult_terrain">difficult_terrain</option>
+                        <option value="impassable_terrain">impassable_terrain</option>
+                    </select>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+        <button ng-click="export()">Export...</button>
+    </div>
+    <textarea ng-model="tileJson"></textarea>
+</div>

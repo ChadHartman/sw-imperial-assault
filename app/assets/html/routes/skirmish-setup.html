@@ -1,0 +1,10 @@
+<select ng-model="firstArmy">
+    <option ng-repeat="army in armies track by $index" value="{{ army.id }}">{{ army.title }}</option>
+</select>
+<span>&nbsp;vs.&nbsp;</span>
+<select ng-model="secondArmy">
+    <option ng-repeat="army in armies track by $index" value="{{ army.id }}">{{ army.title }}</option>
+</select>
+<a href="#/skirmish/{{ skirmishId }}?red={{ firstArmy }}&blue={{ secondArmy }}&initiative=blue">
+    <p>Play</p>
+</a>

@@ -1,0 +1,87 @@
+/// <reference path="DeploymentLoader.ts"/>
+/// <reference path="ArmyCache.ts"/>
+
+namespace App.Ng {
+
+    export interface IArmyLoadListener {
+        onArmyLoad(army: App.Game.Army);
+    }
+
+    class ComponentLoader implements IDeploymentLoadListener {
+
+        private readonly $http;
+        private readonly id: number;
+        private readonly color: string;
+        private readonly army: App.Model.IArmy;
+        private readonly listener: IArmyLoadListener;
+        private readonly deploymentLoader: DeploymentLoader;
+        private readonly deployments: Array<App.Game.Deployment>;
+
+        constructor(
+            $http,
+            deploymentLoader: DeploymentLoader,
+            id: number,
+            color: string,
+            army: App.Model.IArmy,
+            listener: IArmyLoadListener) {
+
+            this.$http = $http;
+            this.deploymentLoader = deploymentLoader;
+            this.id = id;
+            this.color = color;
+            this.army = army;
+            this.listener = listener;
+            this.deployments = [];
+        }
+
+        load() {
+            for (let id of this.army.deploymentIds) {
+                this.deploymentLoader.load(id, this);
+            }
+        }
+
+        onDeploymentLoaded(deployment: App.Game.Deployment) {
+            this.deployments.push(deployment);
+            if (this.deployments.length === this.army.deploymentIds.length) {
+                let army = new App.Game.Army(this.color, this.deployments);
+                this.listener.onArmyLoad(army);
+            }
+        }
+    }
+
+    export class ArmyLoader {
+
+        public static readonly NAME = "armyLoaderV2";
+        private readonly $http;
+        private readonly armyCache: ArmyCache;
+        private readonly deploymentLoader: DeploymentLoader;
+
+        constructor($http, armyCache: ArmyCache, deploymentLoader: DeploymentLoader) {
+            this.$http = $http;
+            this.armyCache = armyCache;
+            this.deploymentLoader = deploymentLoader;
+        }
+
+        public load(id: number, color: string, listener: IArmyLoadListener) {
+            let army = this.armyCache.load(id);
+            let loader = new ComponentLoader(
+                this.$http,
+                this.deploymentLoader,
+                id,
+                color,
+                army,
+                listener);
+            loader.load();
+        }
+    }
+}
+App.Ng.module.factory(App.Ng.ArmyLoader.NAME, [
+    '$http',
+    App.Ng.ArmyCache.NAME,
+    App.Ng.DeploymentLoader.NAME,
+    function (
+        $http,
+        armyCache: App.Ng.ArmyCache,
+        deploymentLoader: App.Ng.DeploymentLoader) {
+        return new App.Ng.ArmyLoader($http, armyCache, deploymentLoader);
+    }]);

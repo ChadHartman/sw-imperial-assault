@@ -1,0 +1,31 @@
+{
+    "title": "Probe Droid",
+    "affiliation": "Empire",
+    "rank": "regular",
+    "width": 1,
+    "height": 1,
+    "group_size": 1,
+    "deployment_cost": 3,
+    "health": 5,
+    "speed": 3,
+    "attack": [
+        "blue",
+        "yellow",
+        "yellow"
+    ],
+    "defense": [
+        "black"
+    ],
+    "attributes": [
+        "Droid"
+    ],
+    "abilities": [
+        "self_destruct",
+        "attack",
+        "move",
+        "surge_damage_1",
+        "surge_recover_1",
+        "surge_pierce_1"
+    ],
+    "image_url": "assets/png/probe_droid.png"
+}

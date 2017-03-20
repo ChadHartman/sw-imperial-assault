@@ -1,0 +1,31 @@
+{
+    "title": "Imperial Officer",
+    "affiliation": "Empire",
+    "rank": "regular",
+    "width": 1,
+    "height": 1,
+    "group_size": 1,
+    "deployment_cost": 2,
+    "health": 3,
+    "speed": 4,
+    "attack": [
+        "blue",
+        "yellow"
+    ],
+    "defense": [
+        "white"
+    ],
+    "traits": [
+        "leader"
+    ],
+    "abilities": [
+        "attack",
+        "move",
+        "order",
+        "cower",
+        "surge_damage_1",
+        "surge_focus",
+        "surge_accuracy_2"
+    ],
+    "image_url": "assets/png/imperial_officer.png"
+}

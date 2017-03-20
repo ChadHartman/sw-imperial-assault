@@ -1,0 +1,69 @@
+{
+    "terrain": "indoors-scum",
+    "spaces": [
+        {
+            "x": 0,
+            "y": 2,
+            "bottom": "wall"
+        },
+        {
+            "x": 3,
+            "y": 2,
+            "bottom": "wall"
+        },
+        {
+            "x": 1,
+            "y": 3,
+            "left": "wall"
+        },
+        {
+            "x": 2,
+            "y": 3,
+            "right": "wall"
+        },
+        {
+            "x": 2,
+            "y": 2
+        },
+        {
+            "x": 0,
+            "y": 1,
+            "top": "wall",
+            "right": "blocking_terrain"
+        },
+        {
+            "x": 1,
+            "y": 1,
+            "top": "blocking_terrain",
+            "left": "blocking_terrain",
+            "bottom": "blocking_terrain",
+            "right": "blocking_terrain"
+        },
+        {
+            "x": 1,
+            "y": 0,
+            "left": "wall",
+            "bottom": "blocking_terrain"
+        },
+        {
+            "x": 2,
+            "y": 1,
+            "left": "blocking_terrain"
+        },
+        {
+            "x": 1,
+            "y": 2,
+            "top": "blocking_terrain"
+        },
+        {
+            "x": 2,
+            "y": 0,
+            "right": "wall"
+        },
+        {
+            "x": 3,
+            "y": 1,
+            "top": "wall"
+        }
+    ]
+}

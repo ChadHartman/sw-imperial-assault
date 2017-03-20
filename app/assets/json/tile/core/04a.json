@@ -1,0 +1,100 @@
+{
+    "terrain": "forest",
+    "spaces": [
+        {
+            "left": "wall",
+            "top": "wall",
+            "x": 0,
+            "y": 0
+        },
+        {
+            "right": "blocking_terrain",
+            "x": 0,
+            "y": 1
+        },
+        {
+            "right": "difficult_terrain",
+            "x": 0,
+            "y": 2
+        },
+        {
+            "left": "wall",
+            "bottom": "wall",
+            "x": 0,
+            "y": 3
+        },
+        {
+            "bottom": "blocking_terrain",
+            "top": "wall",
+            "x": 1,
+            "y": 0
+        },
+        {
+            "bottom": "blocking_terrain",
+            "left": "blocking_terrain",
+            "right": "blocking_terrain",
+            "top": "blocking_terrain",
+            "x": 1,
+            "y": 1
+        },
+        {
+            "bottom": "difficult_terrain",
+            "left": "difficult_terrain",
+            "top": "blocking_terrain",
+            "x": 1,
+            "y": 2
+        },
+        {
+            "bottom": "wall",
+            "x": 1,
+            "y": 3
+        },
+        {
+            "bottom": "difficult_terrain",
+            "top": "wall",
+            "x": 2,
+            "y": 0
+        },
+        {
+            "right": "difficult_terrain",
+            "top": "difficult_terrain",
+            "left": "blocking_terrain",
+            "x": 2,
+            "y": 1
+        },
+        {
+            "right": "difficult_terrain",
+            "bottom": "difficult_terrain",
+            "x": 2,
+            "y": 2
+        },
+        {
+            "bottom": "wall",
+            "top": "difficult_terrain",
+            "x": 2,
+            "y": 3
+        },
+        {
+            "top": "wall",
+            "right": "wall",
+            "x": 3,
+            "y": 0
+        },
+        {
+            "left": "difficult_terrain",
+            "x": 3,
+            "y": 1
+        },
+        {
+            "left": "difficult_terrain",
+            "x": 3,
+            "y": 2
+        },
+        {
+            "bottom": "wall",
+            "right": "wall",
+            "x": 3,
+            "y": 3
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "title": "Attack",
+    "scope": [
+        "action"
+    ],
+    "targets": [
+        "hostile-figure"
+    ],
+    "requirements": [
+        "los"
+    ]
+}
