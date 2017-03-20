@@ -126,10 +126,10 @@ namespace App.Ng {
         onSkirmishLoad(skirmish: App.Game.Skirmish) {
             this.state.skirmish = skirmish;
             for (let gameSpace of skirmish.spaces) {
-                this.$scope.spaces.push(new SkirmishPlayer.UiSpace(gameSpace, this.state));
+                this.$scope.spaces.push(new SkirmishPlayer.UiSpace(gameSpace));
             }
             for (let space of this.$scope.spaces) {
-                space.populateNeighbors(this.$scope.spaces);
+                space.populateNeighbors(skirmish.spaces, this.$scope.spaces);
             }
             this.attemptStartEngine();
         }

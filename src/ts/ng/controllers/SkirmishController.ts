@@ -1,5 +1,4 @@
 /// <reference path="../modules/App.ts"/>
-/// <reference path="../../ui/Constants.ts"/>
 /// <reference path="../services/ArmyLoader.ts"/>
 /// <reference path="../services/SkirmishLoader.ts"/>
 

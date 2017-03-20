@@ -8,23 +8,13 @@ namespace App.Game.Engine {
         public activeGroup: Group | null;
         public activeArmyIndex: number;
         public round: number;
-        private _skirmish: Skirmish;
-        private spaceAccessChecker: State.SpaceAccessibilityService;
+        public skirmish: Skirmish;
 
         constructor() {
             this.armies = new Array<Army>();
             this.round = 1;
             this.activeGroup = null;
             this.activeArmyIndex = 0;
-        }
-
-        public get skirmish(): Skirmish {
-            return this._skirmish;
-        }
-
-        public set skirmish(value: Skirmish) {
-            this._skirmish = value;
-            this.spaceAccessChecker = new State.SpaceAccessibilityService(value.spaces);
         }
 
         public group(armyColor: String, groupId: number): Group {
@@ -42,10 +32,10 @@ namespace App.Game.Engine {
         }
 
         public space(x: number, y: number): Space | null {
-            if (!this._skirmish) {
+            if (!this.skirmish) {
                 return null;
             }
-            return State.findSpace(x, y, this._skirmish.spaces);
+            return Util.findSpace(x, y, this.skirmish.spaces);
         }
 
         public unit(x: number, y: number): Unit | null {
@@ -61,11 +51,6 @@ namespace App.Game.Engine {
 
         public get activeArmy(): Army {
             return this.armies[this.activeArmyIndex];
-        }
-
-        public accessible(x1: number, y1: number, x2: number, y2: number): boolean {
-            return !this.spaceAccessChecker ? false :
-                this.spaceAccessChecker.accessible(x1, y1, x2, y2);
         }
     }
 }
