@@ -20,8 +20,7 @@ namespace App.Ng {
         rCtx: RenderingContext;
 
         // Mouse events
-        onPlayerMouseMove: Function;
-        activate: Function;
+        selectUnit: Function;
         exaust: Function;
         performAction: Function;
         selectSpace: Function;
@@ -64,22 +63,13 @@ namespace App.Ng {
             this.$scope.state = this.state;
             this.$scope.spaces = new Array<SkirmishPlayer.UiSpace>();
 
-            this.$scope.activate = this.activate.bind(this);
+            this.$scope.selectUnit = this.selectUnit.bind(this);
             this.$scope.exaust = this.exaust.bind(this);
             this.$scope.performAction = this.performAction.bind(this);
             this.$scope.selectSpace = this.selectSpace.bind(this);
 
             // TODO: remove
             (<any>window).playerScope = $scope;
-        }
-
-        activate(unit: Game.Unit) {
-            let result = this.engine.activate(unit);
-            if (!result.success) {
-                console.log(result);
-                return;
-            }
-            this.updateMovementPoints(unit);
         }
 
         exaust(unit: Game.Unit) {
@@ -141,6 +131,25 @@ namespace App.Ng {
             this.$scope.units = this.$scope.units.concat(army.units);
             this.state.armies.push(army);
             this.attemptStartEngine();
+        }
+
+        private selectUnit(unit:Game.Unit) {
+            
+            if(this.state.activeGroup === null) {
+                this.activate(unit);
+                return;
+            }
+
+            console.log(unit);
+        }
+
+        private activate(unit: Game.Unit) {
+            let result = this.engine.activate(unit);
+            if (!result.success) {
+                console.log(result);
+                return;
+            }
+            this.updateMovementPoints(unit);
         }
 
         private updateMovementPoints(unit: Game.Unit) {
