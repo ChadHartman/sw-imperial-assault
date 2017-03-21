@@ -1,29 +1,37 @@
-namespace App.Util {
+namespace App.Animation {
+
     export class Animator {
 
+        public doesReverse: boolean;
+        public infinite: boolean;
+
+        private readonly initial: number;
+        private readonly destination: number;
         private readonly min: number;
         private readonly max: number;
         private readonly range: number;
         private readonly duration: number;
-        private readonly doesReverse;
         private lastValue: number;
-        private lastTime: number;
+        private lastTime: number | null;
         private isPositive: boolean;
 
         /**
          * @param min - minimum inclusive value
          * @param max - max-mum inclusive value
-         * @param duraation - in milliseconds
-         * @param reverses - true if the animtaion should progress in the other direstion
+         * @param duration - in milliseconds
          * 
          */
-        constructor(min: number, max: number, duration: number, reverse: boolean) {
-            this.min = min;
-            this.max = max;
+        constructor(initial: number, destination: number, duration: number) {
+
+            this.initial = initial;
+            this.destination = destination;
+            this.min = initial < destination ? initial : destination;
+            this.max = initial < destination ? destination : initial;
             this.duration = duration;
-            this.range = max - min;
-            this.doesReverse = reverse;
-            this.isPositive = true;
+            this.range = Math.abs(destination - initial);
+            this.doesReverse = false;
+            this.infinite = false;
+            this.lastTime = null;
         }
 
         public next(): number {
@@ -52,21 +60,26 @@ namespace App.Util {
             this.lastValue = value;
             this.lastTime = now;
 
+            if (!this.infinite && value === this.destination) {
+                // only hits one of the endpoints 
+                this.stop();
+            }
+
             return value;
         }
 
         public start() {
-            this.lastValue = this.min;
-            this.isPositive = true;
+            this.lastValue = this.initial;
+            this.isPositive = (this.destination - this.initial) >= 0;
             this.lastTime = Date.now();
         }
 
-        public get isStarted(): boolean {
-            return this.lastTime ? true : false;
+        public get running(): boolean {
+            return this.lastTime === null ? false : true;
         }
 
-        public pause() {
-            delete this.lastTime;
+        public stop() {
+            this.lastTime = null;
         }
     }
 }

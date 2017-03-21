@@ -5,6 +5,15 @@ namespace App.Game.Engine {
         message?: string;
     }
 
+    const SUCCESS = { success: true };
+
+    function failure(reason?: string): IResult {
+        return {
+            success: false,
+            message: reason
+        }
+    }
+
     export class GameEngine {
 
         private readonly state: GameState;
@@ -22,33 +31,33 @@ namespace App.Game.Engine {
                 if (unit.activeWaiting && unit.groupId == this.state.activeGroup.id) {
                     // The unit can activate
                     if (this.state.activeGroup.activeUnit !== null) {
-                        return this.failure("There's already an active unit");
+                        return failure("There's already an active unit");
                     }
                     unit.state = ActivationState.ACTIVE;
                     return { success: true };
                 }
-                return this.failure(`There's already an active group`);
+                return failure(`There's already an active group`);
             }
 
             let group = this.state.group(unit.armyColor, unit.groupId);
 
             if (group.exausted) {
-                return this.failure("That group is exausted");
+                return failure("That group is exausted");
             }
 
             if (this.state.activeArmy.color !== group.armyColor) {
-                return this.failure(`It's not ${unit.armyColor}'s turn`);
+                return failure(`It's not ${unit.armyColor}'s turn`);
             }
 
             this.state.activeGroup = group;
             group.activate(unit.id);
 
-            return { success: true };
+            return SUCCESS;
         }
 
         public exaust(unit: Unit): IResult {
             if (unit.state !== ActivationState.ACTIVE) {
-                return this.failure("Unit is not active");
+                return failure("Unit is not active");
             }
 
             unit.state = ActivationState.EXAUSTED;
@@ -57,7 +66,7 @@ namespace App.Game.Engine {
             this.checkActiveGroup();
             this.checkRound();
 
-            return { success: true };
+            return SUCCESS;
         }
 
         public performAction(unit: Game.Unit, ability: Model.IAbility): IResult {
@@ -70,7 +79,30 @@ namespace App.Game.Engine {
             let targets = this.getTargets(unit, ability);
             this.performEffect(ability, targets);
 
-            return { success: true };
+            return SUCCESS;
+        }
+
+        public move(unit: Unit, spaces: Array<Space>): IResult {
+
+            let initialX = unit.x;
+            let initialY = unit.y;
+            let cost = 0;
+
+            for (let space of spaces) {
+                if (Util.accessible(unit.x, unit.y, space.x, space.y, this.state.skirmish.spaces)) {
+                    unit.x = space.x;
+                    unit.y = space.y;
+                    cost++;
+                } else {
+                    unit.x = initialX;
+                    unit.y = initialY;
+                    return failure(`${space.x},${space.y} is not accessible to the unit`);
+                }
+            }
+
+            unit.movementPoints -= cost;
+
+            return SUCCESS;
         }
 
         public getUnitWithId(id: number): Game.Unit {
@@ -137,13 +169,13 @@ namespace App.Game.Engine {
                 switch (condition) {
                     case Ability.Scope.ACTION:
                         if (!unit.active) {
-                            return this.failure(`Unit must be active to ${action.title}`);
+                            return failure(`Unit must be active to ${action.title}`);
                         }
                         break;
                 }
             }
 
-            return { success: true };
+            return SUCCESS;
         }
 
         private deploy() {
@@ -178,13 +210,6 @@ namespace App.Game.Engine {
 
         private isOccupied(x: number, y: number): boolean {
             return this.getUnitAtLocation(x, y) !== null;
-        }
-
-        private failure(reason?: string): IResult {
-            return {
-                success: false,
-                message: reason
-            }
         }
 
         private checkActiveGroup() {

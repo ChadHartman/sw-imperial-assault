@@ -115,10 +115,13 @@ namespace App.Ng {
                 return;
             }
 
-            // TODO: move to engine
-            unit.movementPoints = uiSpace.points;
-            unit.x = uiSpace.space.x;
-            unit.y = uiSpace.space.y;
+            let result = this.engine.move(unit, this.findPath(unit, uiSpace));
+
+            if (!result.success) {
+                console.error(result.message);
+                return;
+            }
+
             this.clearMovementPoints();
             this.updateMovementPoints(unit);
         }
@@ -164,6 +167,24 @@ namespace App.Ng {
 
             this.engine = new Game.Engine.GameEngine(this.state);
             this.$scope.$apply();
+        }
+
+        private findPath(unit: Game.Unit, uiSpace: SkirmishPlayer.UiSpace): Array<Game.Space> {
+
+            let path = new Array<Game.Space>();
+            path.push(uiSpace.space);
+
+            for (let points = uiSpace.points + 1; points < unit.movementPoints; points++) {
+                for (let neighbor of uiSpace.neighbors) {
+                    if (neighbor.points === points) {
+                        uiSpace = neighbor;
+                        path.push(uiSpace.space);
+                        break;
+                    }
+                }
+            }
+
+            return path.reverse();
         }
     }
 }

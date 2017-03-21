@@ -7,7 +7,7 @@ namespace App.Ng.SkirmishPlayer {
     export class UiSpace {
 
         public readonly space: Game.Space;
-        private readonly neighbors: Array<UiSpace>;
+        public readonly neighbors: Array<UiSpace>;
         private _points: number | null;
 
         constructor(space: Game.Space) {
