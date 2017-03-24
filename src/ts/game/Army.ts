@@ -25,6 +25,7 @@ namespace App.Game {
             this.units = [];
             this.groups = [];
 
+            // TODO: sort deployments
             for (let deployment of deployments) {
                 let group = new Group(groupId, color);
                 this.groups.push(group);

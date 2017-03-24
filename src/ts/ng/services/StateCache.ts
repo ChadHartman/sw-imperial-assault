@@ -72,7 +72,25 @@ namespace App.Ng {
         }
 
         public load(stateId: number, gameState: Game.Engine.GameState) {
+            let state = this.getState(stateId);
+            for(let unitState of state.units) {
+                let unit = gameState.unit(unitState.unique_id);
+                unit.movementPoints = unitState.movement_points;
+                unit.state = unitState.state;
+                unit.x = unitState.x;
+                unit.y = unitState.y;
+            }
+        }
 
+        private getState(id: number): ISkirmishState {
+            for (let state of this.states) {
+                console.log(`${typeof id} === ${typeof state.id}`)
+                console.log(`${id} === ${state.id}`);
+                if (state.id === id) {
+                    return state;
+                }
+            }
+            throw new Error(`No state with id: ${id}`);
         }
 
         private createUnitState(unit: Game.Unit): IUnitState {

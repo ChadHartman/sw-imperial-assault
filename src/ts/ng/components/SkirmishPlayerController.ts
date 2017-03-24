@@ -13,6 +13,7 @@ namespace App.Ng {
 
     interface IRouteParams {
         skirmish_id: string,
+        state?: string;
         red: string;
         blue: string;
         initiative: string;
@@ -50,6 +51,7 @@ namespace App.Ng {
         private readonly gameState: Game.Engine.GameState;
         private readonly stateCache: StateCache;
         private readonly $timeout: Function;
+        private readonly stateId: string | null;
         private uiState: UiState;
         private engine: App.Game.Engine.GameEngine;
 
@@ -86,6 +88,7 @@ namespace App.Ng {
             this.uiState = UiState.ACTIVATION;
 
             this.stateCache = stateCache;
+            this.stateId = $routeParams.state || null;
 
             // TODO: remove
             (<any>window).playerScope = $scope;
@@ -207,6 +210,10 @@ namespace App.Ng {
             }
 
             this.engine = new Game.Engine.GameEngine(this.gameState);
+            if (this.stateId !== null) {
+                this.stateCache.load(parseInt(this.stateId), this.gameState);
+            }
+
             this.$timeout(angular.noop);
         }
 

@@ -45,7 +45,7 @@ namespace App.Ng {
         onDeploymentLoaded(deployment: App.Game.Deployment) {
             this.deployments.push(deployment);
             if (this.deployments.length === this.army.deploymentIds.length) {
-                let army = new App.Game.Army(this.id, this.title, this.color, this.deployments);
+                let army = new Game.Army(this.id, this.title, this.color, this.deployments);
                 this.listener.onArmyLoad(army);
             }
         }
