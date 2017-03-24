@@ -5,9 +5,9 @@ namespace App.Game.Engine {
         message?: string;
     }
 
-    const SUCCESS = { success: true };
+    export const SUCCESS = { success: true };
 
-    function failure(reason?: string): IResult {
+    export function failure(reason?: string): IResult {
         return {
             success: false,
             message: reason
@@ -17,9 +17,13 @@ namespace App.Game.Engine {
     export class GameEngine {
 
         private readonly state: GameState;
+        private readonly scopeValidator: Validation.ScopeValidator;
+        private readonly targetValidator: Validation.TargetValidator;
 
         constructor(gameState: GameState) {
             this.state = gameState;
+            this.scopeValidator = new Validation.ScopeValidator();
+            this.targetValidator = new Validation.TargetValidator(gameState);
             this.deploy();
 
             (<any>window).engine = this;
@@ -69,14 +73,18 @@ namespace App.Game.Engine {
             return SUCCESS;
         }
 
-        public performAction(unit: Game.Unit, ability: Model.IAbility): IResult {
+        public performAction(unit: Game.Unit, ability: Model.IAbility, targets: Array<Target>): IResult {
 
-            let result = this.isScopeValid(unit, ability);
-            if (!result.success) {
-                return result;
+            let scopeValidation = this.scopeValidator.validate(unit, ability);
+            if (!scopeValidation.success) {
+                return scopeValidation;
             }
 
-            let targets = this.getTargets(unit, ability);
+            let targetValidation = this.targetValidator.validate(unit, ability, targets);
+            if (!targetValidation.success) {
+                return targetValidation;
+            }
+
             this.performEffect(ability, targets);
 
             return SUCCESS;
@@ -105,77 +113,19 @@ namespace App.Game.Engine {
             return SUCCESS;
         }
 
-        public getUnitWithId(id: number): Game.Unit {
-            for (let army of this.state.armies) {
-                for (let unit of army.units) {
-                    if (unit.id === id) {
-                        return unit;
-                    }
-                }
-            }
-            throw new Error(`No unit with id ${id}.`);
-        }
-
-        public getUnitAtLocation(x: number, y: number): App.Game.Unit | null {
-            for (let army of this.state.armies) {
-                for (let unit of army.units) {
-                    if (x === unit.x && y === unit.y) {
-                        return unit;
-                    }
-                }
-            }
-            return null;
-        }
-
-        public getSpace(x: number, y: number): App.Game.Space | null {
-            for (let space of this.state.skirmish.spaces) {
-                if (space.x === x && space.y === y) {
-                    return space;
-                }
-            }
-            return null;
-        }
-
-        private performEffect(ability: Model.IAbility, targets: Array<Unit>) {
+        private performEffect(ability: Model.IAbility, targets: Array<Target>) {
             for (let effect of ability.effects) {
                 switch (effect.type) {
                     case Ability.Effect.GAIN_MOVEMENT_POINTS:
                         for (let target of targets) {
                             if (effect.stat) {
-                                target.movementPoints += target.deployment.speed;
+                                let unit = this.state.unitAt(target.x, target.y) !;
+                                unit.movementPoints += unit.deployment.speed;
                             }
                         }
                         break;
                 }
             }
-        }
-
-        private getTargets(unit: Game.Unit, ability: Model.IAbility): Array<Unit> {
-
-            let targets = new Array<Unit>();
-
-            for (let target of ability.targets) {
-                switch (target) {
-                    case Ability.Target.SELF:
-                        targets.push(unit);
-                }
-            }
-
-            return targets;
-        }
-
-        private isScopeValid(unit: Game.Unit, action: Model.IAbility): IResult {
-            for (let condition of action.scope) {
-                switch (condition) {
-                    case Ability.Scope.ACTION:
-                        if (!unit.active) {
-                            return failure(`Unit must be active to ${action.title}`);
-                        }
-                        break;
-                }
-            }
-
-            return SUCCESS;
         }
 
         private deploy() {
@@ -188,7 +138,7 @@ namespace App.Game.Engine {
 
                     let zone = this.getDeploymentZone(unit.armyColor);
                     for (let space of zone.spaces) {
-                        if (!this.isOccupied(space.x, space.y)) {
+                        if (!this.state.occupied(space.x, space.y)) {
                             unit.x = space.x;
                             unit.y = space.y;
                             break;
@@ -206,10 +156,6 @@ namespace App.Game.Engine {
                 }
             }
             throw new Error(`Cannot find zone with color:${color}`);
-        }
-
-        private isOccupied(x: number, y: number): boolean {
-            return this.getUnitAtLocation(x, y) !== null;
         }
 
         private checkActiveGroup() {

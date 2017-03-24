@@ -14,4 +14,14 @@
             </li>
         </ul>
     </li>
+    <li>
+        <p>Saves</p>
+        <ul>
+            <li ng-repeat="save in saveUrls">
+                <a href="{{ save.url }}">
+                    <p>{{ save.text }}</p>
+                </a>
+            </li>
+        </ul>
+    </li>
 </ul>

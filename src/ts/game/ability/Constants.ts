@@ -6,9 +6,10 @@ namespace App.Game.Ability {
         export const ATTACKING = "attacking";
         export const ADJACENT_TO_FRIENDLY = "adjacent_friendly";
     }
-    
+
     export namespace Target {
         export const SELF = "self";
+        export const HOSTILE_FIGURE = "hostile-figure";
     }
 
     export namespace Effect {

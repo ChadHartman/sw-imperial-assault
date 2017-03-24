@@ -50,7 +50,7 @@ namespace App.Ng {
             if (this.config.tiles.length !== this.tiles.length) {
                 return;
             }
-            let skirmish = new App.Game.Skirmish(this.config, this.tiles);
+            let skirmish = new App.Game.Skirmish(this.id, this.config, this.tiles);
             this.listener.onSkirmishLoad(skirmish);
         }
 

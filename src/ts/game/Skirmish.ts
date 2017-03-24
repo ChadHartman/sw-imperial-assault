@@ -2,13 +2,16 @@ namespace App.Game {
 
     export class Skirmish {
 
+        public readonly id: string;
         public readonly spaces: Array<Space>;
         public readonly deploymentZones: Array<App.Model.IDeploymentZone>;
 
         constructor(
+            id: string,
             config: App.Model.ISkirmishConfig,
             tiles: Array<App.Model.ITile>) {
 
+            this.id = id;
             this.spaces = new Array<Space>();
             this.deploymentZones = config.deployment_zones;
 

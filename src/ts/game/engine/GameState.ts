@@ -17,6 +17,17 @@ namespace App.Game.Engine {
             this.activeArmyIndex = 0;
         }
 
+        public unit(id: string): Game.Unit {
+            for (let army of this.armies) {
+                for (let unit of army.units) {
+                    if (unit.uniqueId === id) {
+                        return unit;
+                    }
+                }
+            }
+            throw new Error(`No unit with id ${id}.`);
+        }
+
         public group(armyColor: String, groupId: number): Group {
             for (let army of this.armies) {
                 if (army.color !== armyColor) {
@@ -38,7 +49,7 @@ namespace App.Game.Engine {
             return Util.findSpace(x, y, this.skirmish.spaces);
         }
 
-        public unit(x: number, y: number): Unit | null {
+        public unitAt(x: number, y: number): Unit | null {
             for (let army of this.armies) {
                 for (let unit of army.units) {
                     if (unit.x === x && unit.y === y) {
@@ -47,6 +58,10 @@ namespace App.Game.Engine {
                 }
             }
             return null;
+        }
+
+        public occupied(x: number, y: number): boolean {
+            return this.unitAt(x, y) !== null;
         }
 
         public get activeArmy(): Army {

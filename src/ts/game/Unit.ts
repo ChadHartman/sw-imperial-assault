@@ -29,7 +29,7 @@ namespace App.Game {
 
             this.id = id;
             this.groupId = groupId;
-            this.uniqueId = `${armyColor}.${groupId}.${id}`;
+            this.uniqueId = `${armyColor}.${deployment.id}.${groupId}.${id}`;
             this.deployment = deployment;
             this.x = 0;
             this.y = 0;

@@ -8,12 +8,27 @@ namespace App.Game {
         IMPASSABLE
     }
 
+    export class BorderLines {
+        public readonly top: Line;
+        public readonly left: Line;
+        public readonly bottom: Line;
+        public readonly right: Line;
+
+        constructor(x: number, y: number) {
+            this.top = new Line(x, y, x + 1, y);
+            this.left = new Line(x, y, x, y + 1);
+            this.bottom = new Line(x, y + 1, x + 1, y + 1);
+            this.right = new Line(x + 1, y, x + 1, y + 1);
+        }
+    }
+
     export class Space {
         public readonly top: Border;
         public readonly left: Border;
         public readonly bottom: Border;
         public readonly right: Border;
         public readonly terrain: string;
+        public readonly lines: BorderLines;
         public readonly x: number;
         public readonly y: number;
         public readonly rotation: number;
@@ -32,6 +47,7 @@ namespace App.Game {
 
             this.x = x;
             this.y = y;
+            this.lines = new BorderLines(x, y);
             this.terrain = terrain;
             this.top = this.toBorder(topBorder);
             this.left = this.toBorder(leftBorder);

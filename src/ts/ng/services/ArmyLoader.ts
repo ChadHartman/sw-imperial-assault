@@ -11,8 +11,9 @@ namespace App.Ng {
 
         private readonly $http;
         private readonly id: number;
+        private readonly title: string;
         private readonly color: string;
-        private readonly army: App.Model.IArmy;
+        private readonly army: Model.IArmy;
         private readonly listener: IArmyLoadListener;
         private readonly deploymentLoader: DeploymentLoader;
         private readonly deployments: Array<App.Game.Deployment>;
@@ -28,6 +29,7 @@ namespace App.Ng {
             this.$http = $http;
             this.deploymentLoader = deploymentLoader;
             this.id = id;
+            this.title= army.title;
             this.color = color;
             this.army = army;
             this.listener = listener;
@@ -43,7 +45,7 @@ namespace App.Ng {
         onDeploymentLoaded(deployment: App.Game.Deployment) {
             this.deployments.push(deployment);
             if (this.deployments.length === this.army.deploymentIds.length) {
-                let army = new App.Game.Army(this.color, this.deployments);
+                let army = new App.Game.Army(this.id, this.title, this.color, this.deployments);
                 this.listener.onArmyLoad(army);
             }
         }

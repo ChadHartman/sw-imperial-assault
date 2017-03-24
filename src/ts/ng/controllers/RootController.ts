@@ -2,8 +2,14 @@
 
 namespace App.Ng {
 
+    interface ISaveUrl {
+        text: string;
+        url: string;
+    }
+
     interface IScope {
-        skirmishes: Array<App.Model.IItemInfo>
+        skirmishes: Array<Model.IItemInfo>;
+        saveUrls: Array<ISaveUrl>;
     }
 
     export class RootController {
@@ -12,16 +18,34 @@ namespace App.Ng {
         public static readonly PATH = "/";
         public static readonly HTML_NAME = "root";
 
-        private readonly $scope;
+        private readonly $scope: IScope;
+        private readonly stateCache: StateCache;
 
-        constructor($scope: any, $http: any) {
+        constructor($scope: IScope, $http: any, stateCache: StateCache) {
+
+            this.stateCache = stateCache;
             this.$scope = $scope;
+            this.$scope.saveUrls = new Array<ISaveUrl>();
 
-            let self = this;
             let req = this.createRequest();
-            $http(req).then(function (res) {
-                self.$scope.skirmishes = res.data.array;
-            });
+
+            $http(req).then(this.onSkirmishListLoad.bind(this));
+        }
+
+        private onSkirmishListLoad(res) {
+            this.$scope.skirmishes = res.data.array;
+
+            for (let state of this.stateCache.states) {
+                let text = this.createText(state, this.$scope.skirmishes);
+                let url = `#/skirmish/${state.skirmish_id}?state=${state.id}`;
+                if (state.red) {
+                    url += '&red=' + state.red;
+                }
+                if (state.blue) {
+                    url += '&blue=' + state.blue;
+                }
+                this.$scope.saveUrls.push({ text: text, url: url });
+            }
         }
 
         private createRequest() {
@@ -31,6 +55,20 @@ namespace App.Ng {
                 cache: true
             }
         }
+
+        private createText(save: ISkirmishState, skirmishes: Array<Model.IItemInfo>): string {
+
+            let name = "<not found>";
+            for (let info of skirmishes) {
+                if (info.id === save.skirmish_id) {
+                    name = info.title;
+                }
+            }
+
+            let date = new Date(save.timestamp);
+
+            return `${name} @ ${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+        }
     }
 }
 
@@ -38,6 +76,7 @@ App.Ng.module.controller(App.Ng.RootController.NAME,
     [
         '$scope',
         '$http',
+        App.Ng.StateCache.NAME,
         App.Ng.RootController
     ]
 );

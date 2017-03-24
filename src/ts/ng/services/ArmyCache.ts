@@ -13,7 +13,7 @@ namespace App.Ng {
 
         private readonly  armyCollection: App.Model.IArmyCollection;
 
-        get armies(): Array<App.Model.IArmy> {
+        get armies(): Array<Model.IArmy> {
             return this.armyCollection.armies;
         }
 
@@ -26,7 +26,7 @@ namespace App.Ng {
             this.armyCollection = App.Model.createArmyCollection();
         }
 
-        public load(id: number): App.Model.IArmy {
+        public load(id: number): Model.IArmy {
             for (var i = 0; i < this.armies.length; i++) {
                 if (this.armies[i].id === id) {
                     return this.armies[i];

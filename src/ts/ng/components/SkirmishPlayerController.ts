@@ -2,8 +2,14 @@
 /// <reference path="../services/ArmyLoader.ts"/>
 /// <reference path="../services/SkirmishLoader.ts"/>
 /// <reference path="../services/RenderingContext.ts"/>
+/// <reference path="../services/StateCache.ts"/>
 
 namespace App.Ng {
+
+    enum UiState {
+        ACTIVATION,
+        TARGETING
+    }
 
     interface IRouteParams {
         skirmish_id: string,
@@ -26,6 +32,7 @@ namespace App.Ng {
         selectSpace: Function;
 
         $apply: Function;
+        $on: Function;
     };
 
     /**
@@ -40,33 +47,45 @@ namespace App.Ng {
 
         private readonly $scope: IScope;
         private readonly renderCtx: Ng.RenderingContext;
-        private readonly state: Game.Engine.GameState;
+        private readonly gameState: Game.Engine.GameState;
+        private readonly stateCache: StateCache;
+        private readonly $timeout: Function;
+        private uiState: UiState;
         private engine: App.Game.Engine.GameEngine;
 
         constructor(
             $scope: IScope,
             $routeParams: IRouteParams,
-            skirmishLoader: App.Ng.SkirmishLoader,
-            armyLoader: App.Ng.ArmyLoader,
-            renderingContext: Ng.RenderingContext) {
+            $timeout: Function,
+            skirmishLoader: SkirmishLoader,
+            armyLoader: ArmyLoader,
+            renderingContext: RenderingContext,
+            stateCache: StateCache) {
 
-            this.state = new Game.Engine.GameState();
+            this.gameState = new Game.Engine.GameState();
 
             skirmishLoader.load($routeParams.skirmish_id, this);
             armyLoader.load(parseInt($routeParams.blue), "blue", this);
             armyLoader.load(parseInt($routeParams.red), "red", this);
 
+            this.$timeout = $timeout;
+
             this.renderCtx = renderingContext;
             this.$scope = $scope;
             this.$scope.rCtx = renderingContext;
             this.$scope.units = new Array<Game.Unit>();
-            this.$scope.state = this.state;
+            this.$scope.state = this.gameState;
             this.$scope.spaces = new Array<SkirmishPlayer.UiSpace>();
 
             this.$scope.selectUnit = this.selectUnit.bind(this);
             this.$scope.exaust = this.exaust.bind(this);
             this.$scope.performAction = this.performAction.bind(this);
             this.$scope.selectSpace = this.selectSpace.bind(this);
+            this.$scope.$on(SkirmishController.EVENT_SAVE_STATE, this.saveState.bind(this));
+
+            this.uiState = UiState.ACTIVATION;
+
+            this.stateCache = stateCache;
 
             // TODO: remove
             (<any>window).playerScope = $scope;
@@ -82,12 +101,21 @@ namespace App.Ng {
         }
 
         performAction(unit: Game.Unit, action: Model.IAbility) {
-            let result = this.engine.performAction(unit, action);
-            if (!result.success) {
-                console.log(result);
-                return;
+
+            if (action.targets.length === 1 &&
+                action.targets[0] === Game.Ability.Target.SELF) {
+
+                let targets = [new Game.Engine.UnitTarget(unit)];
+                let result = this.engine.performAction(unit, action, targets);
+                if (!result.success) {
+                    console.log(result);
+                    return;
+                }
+                this.updateMovementPoints(unit);
             }
-            this.updateMovementPoints(unit);
+
+            // TODO: change to target selection mode
+
         }
 
         selectSpace(uiSpace: SkirmishPlayer.UiSpace) {
@@ -96,11 +124,11 @@ namespace App.Ng {
                 return;
             }
 
-            if (this.state.activeGroup === null) {
+            if (this.gameState.activeGroup === null) {
                 return;
             }
 
-            let unit = this.state.activeGroup.activeUnit;
+            let unit = this.gameState.activeGroup.activeUnit;
             if (unit === null) {
                 return;
             }
@@ -117,7 +145,7 @@ namespace App.Ng {
         }
 
         onSkirmishLoad(skirmish: App.Game.Skirmish) {
-            this.state.skirmish = skirmish;
+            this.gameState.skirmish = skirmish;
             for (let gameSpace of skirmish.spaces) {
                 this.$scope.spaces.push(new SkirmishPlayer.UiSpace(gameSpace));
             }
@@ -129,13 +157,17 @@ namespace App.Ng {
 
         onArmyLoad(army: App.Game.Army) {
             this.$scope.units = this.$scope.units.concat(army.units);
-            this.state.armies.push(army);
+            this.gameState.armies.push(army);
             this.attemptStartEngine();
         }
 
-        private selectUnit(unit:Game.Unit) {
-            
-            if(this.state.activeGroup === null) {
+        private saveState() {
+            this.stateCache.save(this.gameState);
+        }
+
+        private selectUnit(unit: Game.Unit) {
+
+            if (this.gameState.activeGroup === null) {
                 this.activate(unit);
                 return;
             }
@@ -168,14 +200,14 @@ namespace App.Ng {
 
         private attemptStartEngine() {
 
-            if (!this.state.skirmish ||
-                this.state.skirmish.deploymentZones.length !== this.state.armies.length) {
+            if (!this.gameState.skirmish ||
+                this.gameState.skirmish.deploymentZones.length !== this.gameState.armies.length) {
                 // Either skirmish not loaded, or all armies are not loaded
                 return;
             }
 
-            this.engine = new Game.Engine.GameEngine(this.state);
-            this.$scope.$apply();
+            this.engine = new Game.Engine.GameEngine(this.gameState);
+            this.$timeout(angular.noop);
         }
 
         private findPath(unit: Game.Unit, uiSpace: SkirmishPlayer.UiSpace): Array<Game.Space> {
@@ -202,9 +234,11 @@ App.Ng.module.controller(App.Ng.SkirmishPlayerController.NAME,
     [
         '$scope',
         '$routeParams',
+        '$timeout',
         App.Ng.SkirmishLoader.NAME,
         App.Ng.ArmyLoader.NAME,
         App.Ng.RenderingContext.NAME,
+        App.Ng.StateCache.NAME,
         App.Ng.SkirmishPlayerController
     ]
 );
