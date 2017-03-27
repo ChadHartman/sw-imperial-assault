@@ -11,6 +11,7 @@ namespace App.Ng {
         spaces: Array<SkirmishPlayer.UiSpace>;
         state: Game.Engine.GameState;
         rCtx: RenderingContext;
+        target: SkirmishPlayer.AbilityTargetBuilder | null;
 
         // Mouse events
         selectUnit: Function;
@@ -76,36 +77,10 @@ namespace App.Ng {
             this.$scope.performAction = this.performAction.bind(this);
             this.$scope.selectSpace = this.selectSpace.bind(this);
             this.$scope.$on(SkirmishController.EVENT_SAVE_STATE, this.saveState.bind(this));
+            this.$scope.target = null;
 
             // TODO: remove
             (<any>window).playerScope = $scope;
-        }
-
-        exaust(unit: Game.Unit) {
-            let result = this.engine.exaust(unit);
-            if (result.success) {
-                this.updateMovementPoints();
-            } else {
-                console.log(result);
-            }
-        }
-
-        performAction(unit: Game.Unit, action: Game.Ability) {
-
-            if (action.target.length === 1 &&
-                action.target[0] === Game.Target.SELF) {
-
-                let targets = [new Game.Engine.UnitTarget(unit)];
-                let result = this.engine.performAction(unit, action, targets);
-                if (!result.success) {
-                    console.log(result);
-                    return;
-                }
-                this.updateMovementPoints();
-            }
-
-            // TODO: change to target selection mode
-
         }
 
         onGameEngineReady(engine: Game.Engine.GameEngine) {
@@ -131,6 +106,38 @@ namespace App.Ng {
             this.$timeout(angular.noop);
         }
 
+        private exaust(unit: Game.Unit) {
+            let result = this.engine.exaust(unit);
+            if (result.success) {
+                this.updateMovementPoints();
+            } else {
+                console.log(result);
+            }
+        }
+
+        private performAction(unit: Game.Unit, action: Game.Ability) {
+
+            if (this.$scope.target !== null) {
+                console.error("Already performing an action");
+                return;
+            }
+
+            if (action.target.length === 1 &&
+                action.target[0] === Game.Target.SELF) {
+
+                let targets = [new Game.Engine.UnitTarget(unit)];
+                let result = this.engine.performAction(unit, action, targets);
+                if (!result.success) {
+                    console.log(result);
+                    return;
+                }
+                this.updateMovementPoints();
+                return;
+            }
+
+            this.$scope.target = new SkirmishPlayer.AbilityTargetBuilder(unit, action);
+        }
+
         private saveState() {
             this.stateCache.save(this.engine.state);
         }
@@ -142,10 +149,32 @@ namespace App.Ng {
                 return;
             }
 
-            console.log(unit);
+            if (this.$scope.target !== null) {
+                let result = this.$scope.target.addUnit(unit);
+                if (!result.success) {
+                    console.error(result.message);
+                    return;
+                }
+
+                this.checkTarget();
+                return;
+            }
+
+            console.log(`Doing nothing with ${unit.uniqueId}`);
         }
 
         private selectSpace(uiSpace: SkirmishPlayer.UiSpace) {
+
+            if (this.$scope.target) {
+                let result = this.$scope.target.addSpace(uiSpace.space);
+                if (!result.success) {
+                    console.error(result.message);
+                    return;
+                }
+
+                this.checkTarget();
+                return;
+            }
 
             if (uiSpace.points === null) {
                 // Nothing to do 
@@ -165,6 +194,30 @@ namespace App.Ng {
             }
 
             this.updateMovementPoints();
+        }
+
+        private checkTarget() {
+
+            let target = this.$scope.target;
+            if (target === null) {
+                return;
+            }
+
+            if (!target.complete) {
+                return;
+            }
+
+            let result = this.engine.performAction(
+                target.actor,
+                target.ability,
+                target.targets);
+
+            if (result.success) {
+                this.$scope.target = null;
+                return;
+            }
+
+            console.error(result.message);
         }
 
         private activate(unit: Game.Unit) {

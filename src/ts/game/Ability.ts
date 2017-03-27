@@ -11,6 +11,7 @@ namespace App.Game {
 
     export enum Target {
         SELF,
+        SPACE,
         HOSTILE_FIGURE
     }
 
