@@ -1,23 +1,16 @@
 namespace App.Game {
 
-    export enum ActivationState {
-        READY,
-        ACTIVE_WAITING,
-        ACTIVE,
-        EXAUSTED
-    }
-
     export class Group {
         public readonly units: Array<Unit>;
         public readonly id: number;
-        public readonly armyColor: string;
+        public readonly zoneColor: ZoneColor;
         public readonly uniqueId: string;
 
-        constructor(id: number, armyColor: string) {
+        constructor(id: number, zoneColor: ZoneColor) {
             this.units = new Array<Unit>();
             this.id = id;
-            this.armyColor = armyColor;
-            this.uniqueId = `${armyColor}.${id}`;
+            this.zoneColor = zoneColor;
+            this.uniqueId = `${ZoneColor[zoneColor]}.${id}`;
         }
 
         public get state(): ActivationState {

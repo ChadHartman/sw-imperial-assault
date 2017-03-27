@@ -16,7 +16,7 @@ namespace App.Game.Engine {
 
     export class GameEngine {
 
-        private readonly state: GameState;
+        public readonly state: GameState;
         private readonly scopeValidator: Validation.ScopeValidator;
         private readonly targetValidator: Validation.TargetValidator;
 
@@ -43,17 +43,16 @@ namespace App.Game.Engine {
                 return failure(`There's already an active group`);
             }
 
-            let group = this.state.group(unit.armyColor, unit.groupId);
+            let group = this.state.group(unit.zoneColor, unit.groupId);
 
             if (group.exausted) {
                 return failure("That group is exausted");
             }
 
-            if (this.state.activeArmy.color !== group.armyColor) {
-                return failure(`It's not ${unit.armyColor}'s turn`);
+            if (this.state.activeZone !== group.zoneColor) {
+                return failure(`It's not ${unit.zoneColor}'s turn`);
             }
 
-            this.state.activeGroup = group;
             group.activate(unit.id);
 
             return SUCCESS;
@@ -65,9 +64,10 @@ namespace App.Game.Engine {
             }
 
             unit.state = ActivationState.EXAUSTED;
-            let group = this.state.group(unit.armyColor, unit.groupId);
+            let group = this.state.group(unit.zoneColor, unit.groupId);
 
-            this.checkActiveGroup();
+
+
             this.checkRound();
 
             return SUCCESS;
@@ -136,7 +136,7 @@ namespace App.Game.Engine {
                         continue;
                     }
 
-                    let zone = this.getDeploymentZone(unit.armyColor);
+                    let zone = this.getDeploymentZone(unit.zoneColor);
                     for (let space of zone.spaces) {
                         if (!this.state.occupied(space.x, space.y)) {
                             unit.x = space.x;
@@ -149,21 +149,13 @@ namespace App.Game.Engine {
 
         }
 
-        private getDeploymentZone(color: string): App.Model.IDeploymentZone {
+        private getDeploymentZone(zoneColor: ZoneColor): App.Model.IDeploymentZone {
             for (let zone of this.state.skirmish.deploymentZones) {
-                if (zone.color === color) {
+                if (toZoneColor(zone.color) === zoneColor) {
                     return zone;
                 }
             }
-            throw new Error(`Cannot find zone with color:${color}`);
-        }
-
-        private checkActiveGroup() {
-            if (this.state.activeGroup !== null && this.state.activeGroup.exausted) {
-                // Can move to next turn
-                this.state.activeArmyIndex = (this.state.activeArmyIndex + 1) % this.state.armies.length;
-                this.state.activeGroup = null;
-            }
+            throw new Error(`Cannot find zone with color:${ZoneColor[zoneColor]}`);
         }
 
         private checkRound() {

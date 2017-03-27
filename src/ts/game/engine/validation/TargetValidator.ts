@@ -63,7 +63,7 @@ namespace App.Game.Engine.Validation {
 
             let targetUnit = this.state.unitAt(target.x, target.y);
 
-            if (targetUnit === null || actor.armyColor === targetUnit.armyColor) {
+            if (targetUnit === null || actor.zoneColor === targetUnit.zoneColor) {
                 return false;
             }
 

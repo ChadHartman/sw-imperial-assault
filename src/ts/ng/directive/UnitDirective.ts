@@ -86,7 +86,7 @@ namespace App.Ng {
         private drawAffiliation(w: number, h: number) {
             let r = w / 2;
             let ar = 5;
-            this.ctx.fillStyle = this.unit.armyColor;
+            this.ctx.fillStyle =  Game.ZoneColor[this.unit.zoneColor].toLowerCase();
             this.ctx.beginPath();
             this.ctx.arc(r, h - ar, ar, 0, TWO_PI);
             this.ctx.fill();

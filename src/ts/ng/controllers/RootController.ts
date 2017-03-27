@@ -37,7 +37,8 @@ namespace App.Ng {
 
             for (let state of this.stateCache.states) {
                 let text = this.createText(state, this.$scope.skirmishes);
-                let url = `#/skirmish/${state.skirmish_id}?state=${state.id}`;
+                let url = `#/skirmish/${state.skirmish_id}?state=${state.id}&initiative=${state.initiative}`;
+
                 if (state.red) {
                     url += '&red=' + state.red;
                 }

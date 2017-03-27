@@ -9,7 +9,7 @@ namespace App.Game {
 
         public readonly id: number;
         public readonly groupId: number;
-        public readonly armyColor: string;
+        public readonly zoneColor: ZoneColor;
         public readonly deployment: Deployment
         public readonly abilities: Array<Model.IAbility>;
         public readonly uniqueId: string;
@@ -24,16 +24,16 @@ namespace App.Game {
         constructor(
             id: number,
             groupId: number,
-            armyColor: string,
+            zoneColor: ZoneColor,
             deployment: Deployment) {
 
             this.id = id;
             this.groupId = groupId;
-            this.uniqueId = `${armyColor}.${deployment.id}.${groupId}.${id}`;
+            this.uniqueId = `${ZoneColor[zoneColor]}.${deployment.id}.${groupId}.${id}`.toLowerCase();
             this.deployment = deployment;
             this.x = 0;
             this.y = 0;
-            this.armyColor = armyColor;
+            this.zoneColor = zoneColor;
             this.state = ActivationState.READY;
             this.abilities = deployment.abilities;
             this.movementPoints = 0;

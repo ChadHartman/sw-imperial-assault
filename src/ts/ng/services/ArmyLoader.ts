@@ -12,25 +12,25 @@ namespace App.Ng {
         private readonly $http;
         private readonly id: number;
         private readonly title: string;
-        private readonly color: string;
+        private readonly zoneColor: Game.ZoneColor;
         private readonly army: Model.IArmy;
         private readonly listener: IArmyLoadListener;
         private readonly deploymentLoader: DeploymentLoader;
-        private readonly deployments: Array<App.Game.Deployment>;
+        private readonly deployments: Array<Game.Deployment>;
 
         constructor(
             $http,
             deploymentLoader: DeploymentLoader,
             id: number,
-            color: string,
+            zoneColor: Game.ZoneColor,
             army: App.Model.IArmy,
             listener: IArmyLoadListener) {
 
             this.$http = $http;
             this.deploymentLoader = deploymentLoader;
             this.id = id;
-            this.title= army.title;
-            this.color = color;
+            this.title = army.title;
+            this.zoneColor = zoneColor;
             this.army = army;
             this.listener = listener;
             this.deployments = [];
@@ -45,7 +45,7 @@ namespace App.Ng {
         onDeploymentLoaded(deployment: App.Game.Deployment) {
             this.deployments.push(deployment);
             if (this.deployments.length === this.army.deploymentIds.length) {
-                let army = new Game.Army(this.id, this.title, this.color, this.deployments);
+                let army = new Game.Army(this.id, this.title, this.zoneColor, this.deployments);
                 this.listener.onArmyLoad(army);
             }
         }
@@ -64,13 +64,13 @@ namespace App.Ng {
             this.deploymentLoader = deploymentLoader;
         }
 
-        public load(id: number, color: string, listener: IArmyLoadListener) {
+        public load(id: number, zoneColor: Game.ZoneColor, listener: IArmyLoadListener) {
             let army = this.armyCache.load(id);
             let loader = new ComponentLoader(
                 this.$http,
                 this.deploymentLoader,
                 id,
-                color,
+                zoneColor,
                 army,
                 listener);
             loader.load();

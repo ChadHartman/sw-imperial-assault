@@ -10,16 +10,17 @@ namespace App.Ng {
         movement_points: number;
         x: number;
         y: number;
-        state: Game.ActivationState;
+        state: string;
     }
 
     export interface ISkirmishState {
         id: number;
         skirmish_id: string;
-        red?: number;
-        blue?: number;
+        initiative: string;
         units: Array<IUnitState>;
         round: number;
+        red?: number;
+        blue?: number;
         timestamp: number;
     }
 
@@ -56,11 +57,21 @@ namespace App.Ng {
                 skirmish_id: gameState.skirmish.id,
                 units: unitStates,
                 round: gameState.round,
+                initiative: Game.ZoneColor[gameState.initiative],
                 timestamp: Date.now()
             };
 
             for (let army of gameState.armies) {
-                state[army.color] = army.id;
+                switch (army.zoneColor) {
+                    case Game.ZoneColor.RED:
+                        state["red"] = army.id;
+                        break;
+                    case Game.ZoneColor.BLUE:
+                        state["blue"] = army.id;
+                        break;
+                    default:
+                        throw new Error(`Unknown zone color: ${army.zoneColor}`);
+                }
 
                 for (let unit of army.units) {
                     unitStates.push(this.createUnitState(unit));
@@ -73,10 +84,10 @@ namespace App.Ng {
 
         public load(stateId: number, gameState: Game.Engine.GameState) {
             let state = this.getState(stateId);
-            for(let unitState of state.units) {
+            for (let unitState of state.units) {
                 let unit = gameState.unit(unitState.unique_id);
                 unit.movementPoints = unitState.movement_points;
-                unit.state = unitState.state;
+                unit.state = Game.ActivationState[unitState.state];
                 unit.x = unitState.x;
                 unit.y = unitState.y;
             }
@@ -84,8 +95,6 @@ namespace App.Ng {
 
         private getState(id: number): ISkirmishState {
             for (let state of this.states) {
-                console.log(`${typeof id} === ${typeof state.id}`)
-                console.log(`${id} === ${state.id}`);
                 if (state.id === id) {
                     return state;
                 }
@@ -99,7 +108,7 @@ namespace App.Ng {
                 movement_points: unit.movementPoints,
                 x: unit.x,
                 y: unit.y,
-                state: unit.state
+                state: Game.ActivationState[unit.state]
             };
         }
 

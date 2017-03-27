@@ -1,20 +1,46 @@
 namespace App.Game.Engine {
 
+    function armySorter(a: Army, b: Army): number {
+        return a.zoneColor - b.zoneColor;
+    }
+
     /**
      * Should never mutate itself
      */
     export class GameState {
         public readonly armies: Array<Army>;
-        public activeGroup: Group | null;
-        public activeArmyIndex: number;
+        public readonly skirmish: Skirmish;
+        public readonly initiative: ZoneColor;
         public round: number;
-        public skirmish: Skirmish;
 
-        constructor() {
-            this.armies = new Array<Army>();
+        constructor(skirmish: Skirmish, armies: Array<Army>, initiative: ZoneColor) {
+            this.skirmish = skirmish;
+            this.armies = armies;
+            this.armies.sort(armySorter);
+            this.initiative = initiative;
             this.round = 1;
-            this.activeGroup = null;
-            this.activeArmyIndex = 0;
+        }
+
+        public get activeUnit(): Unit | null {
+            for (let army of this.armies) {
+                for (let unit of army.units) {
+                    if (unit.state === ActivationState.ACTIVE) {
+                        return unit;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public get activeGroup(): Group | null {
+            for (let army of this.armies) {
+                for (let group of army.groups) {
+                    if (group.state === ActivationState.ACTIVE) {
+                        return group;
+                    }
+                }
+            }
+            return null;
         }
 
         public unit(id: string): Game.Unit {
@@ -28,9 +54,9 @@ namespace App.Game.Engine {
             throw new Error(`No unit with id ${id}.`);
         }
 
-        public group(armyColor: String, groupId: number): Group {
+        public group(zoneColor: ZoneColor, groupId: number): Group {
             for (let army of this.armies) {
-                if (army.color !== armyColor) {
+                if (army.zoneColor !== zoneColor) {
                     continue;
                 }
                 for (let group of army.groups) {
@@ -64,8 +90,33 @@ namespace App.Game.Engine {
             return this.unitAt(x, y) !== null;
         }
 
-        public get activeArmy(): Army {
-            return this.armies[this.activeArmyIndex];
+        public army(zoneColor: ZoneColor): Army {
+            for (let army of this.armies) {
+                if (army.zoneColor === zoneColor) {
+                    return army;
+                }
+            }
+            throw new Error(`No army of Zone: ${ZoneColor[zoneColor]}`);
+        }
+
+        public exaustedGroups(zoneColor: ZoneColor): Array<Group> {
+            let groups = new Array<Group>();
+            let army = this.army(zoneColor);
+            for (let group of army.groups) {
+                if (group.exausted) {
+                    groups.push(group);
+                }
+            }
+            return groups;
+        }
+
+        public get activeZone(): ZoneColor {
+
+
+            let roundInitiative = this.round % this.armies.length;
+
+
+            return ZoneColor.RED;
         }
     }
 }
