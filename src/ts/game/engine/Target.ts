@@ -4,7 +4,7 @@ namespace App.Game.Engine {
         SPACE, FIGURE
     }
 
-    export abstract class Target {
+    export abstract class AbilityTarget {
         public readonly x: number;
         public readonly y: number;
         public readonly type: TargetType;
@@ -16,7 +16,7 @@ namespace App.Game.Engine {
         }
     }
 
-    export class UnitTarget extends Target {
+    export class UnitTarget extends AbilityTarget {
 
         public readonly unit: Unit;
 
@@ -26,7 +26,7 @@ namespace App.Game.Engine {
         }
     }
 
-    export class SpaceTarget extends Target {
+    export class SpaceTarget extends AbilityTarget {
 
         public readonly space: Space;
 

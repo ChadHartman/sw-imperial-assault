@@ -4,7 +4,7 @@ namespace App.Game {
         public readonly id: string;
         public readonly title: string;
         public readonly image: HTMLImageElement;
-        public readonly abilities: Array<App.Model.IAbility>;
+        public readonly abilities: Array<Game.Ability>;
         public readonly groupSize: number;
         public readonly speed: number;
         public readonly attackDice: Array<string>;
@@ -15,7 +15,7 @@ namespace App.Game {
             id: string,
             image: HTMLImageElement,
             data: App.Model.IDeployment,
-            abilities: Array<App.Model.IAbility>) {
+            abilities: Array<Game.Ability>) {
 
             this.id = id;
             this.title = data.title;

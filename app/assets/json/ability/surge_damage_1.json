@@ -1,6 +1,6 @@
 {
     "title": "Surge: +1 Damage",
     "scope": [
-        "attack"
+        "attacking"
     ]
 }

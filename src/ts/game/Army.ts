@@ -1,5 +1,9 @@
 namespace App.Game {
 
+    function deploymentSorter(a: Deployment, b: Deployment): number {
+        return a.id.localeCompare(b.id);
+    }
+
     export class Army {
 
         public readonly id: number;
@@ -22,7 +26,9 @@ namespace App.Game {
             this.units = [];
             this.groups = [];
 
-            // TODO: sort deployments
+            // Sorting ensures that group ids will be assigned consistently
+            deployments = deployments.sort(deploymentSorter);
+
             for (let deployment of deployments) {
                 let group = new Group(groupId, zoneColor);
                 this.groups.push(group);

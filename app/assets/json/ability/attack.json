@@ -4,7 +4,7 @@
         "action"
     ],
     "targets": [
-        "hostile-figure"
+        "hostile_figure"
     ],
     "requirements": [
         "los"

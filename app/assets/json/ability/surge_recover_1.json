@@ -1,6 +1,6 @@
 {
     "title": "Surge: Recover 1 Damage",
     "scope": [
-        "attack"
+        "attacking"
     ]
 }

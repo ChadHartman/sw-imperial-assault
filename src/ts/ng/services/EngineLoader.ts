@@ -58,7 +58,6 @@ namespace App.Ng {
         }
     }
 
-
     export class EngineLoader {
 
         public static readonly NAME = "engineLoader";

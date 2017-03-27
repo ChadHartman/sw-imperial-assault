@@ -68,7 +68,8 @@ namespace App.Ng {
 
             let date = new Date(save.timestamp);
 
-            return `${name} @ ${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+            // month is 0-based
+            return `${name} @ ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
         }
     }
 }

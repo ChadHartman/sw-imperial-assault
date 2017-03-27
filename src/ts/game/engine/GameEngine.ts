@@ -73,7 +73,7 @@ namespace App.Game.Engine {
             return SUCCESS;
         }
 
-        public performAction(unit: Game.Unit, ability: Model.IAbility, targets: Array<Target>): IResult {
+        public performAction(unit: Unit, ability: Ability, targets: Array<AbilityTarget>): IResult {
 
             let scopeValidation = this.scopeValidator.validate(unit, ability);
             if (!scopeValidation.success) {
@@ -113,12 +113,12 @@ namespace App.Game.Engine {
             return SUCCESS;
         }
 
-        private performEffect(ability: Model.IAbility, targets: Array<Target>) {
+        private performEffect(ability: Game.Ability, targets: Array<AbilityTarget>) {
             for (let effect of ability.effects) {
                 switch (effect.type) {
-                    case Ability.Effect.GAIN_MOVEMENT_POINTS:
+                    case Effect.Type.GAIN_MOVEMENT_POINTS:
                         for (let target of targets) {
-                            if (effect.stat) {
+                            if (effect.stat === Effect.Stat.SPEED) {
                                 let unit = this.state.unitAt(target.x, target.y) !;
                                 unit.movementPoints += unit.deployment.speed;
                             }

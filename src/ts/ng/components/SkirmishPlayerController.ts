@@ -5,11 +5,6 @@
 
 namespace App.Ng {
 
-    enum UiState {
-        ACTIVATION,
-        TARGETING
-    }
-
     interface IScope {
 
         units: Array<Game.Unit>;
@@ -49,7 +44,6 @@ namespace App.Ng {
         private readonly renderCtx: Ng.RenderingContext;
         private readonly $timeout: Function;
         private readonly stateCache: StateCache;
-        private uiState: UiState;
         private engine: App.Game.Engine.GameEngine;
 
         constructor(
@@ -83,8 +77,6 @@ namespace App.Ng {
             this.$scope.selectSpace = this.selectSpace.bind(this);
             this.$scope.$on(SkirmishController.EVENT_SAVE_STATE, this.saveState.bind(this));
 
-            this.uiState = UiState.ACTIVATION;
-
             // TODO: remove
             (<any>window).playerScope = $scope;
         }
@@ -98,10 +90,10 @@ namespace App.Ng {
             }
         }
 
-        performAction(unit: Game.Unit, action: Model.IAbility) {
+        performAction(unit: Game.Unit, action: Game.Ability) {
 
-            if (action.targets.length === 1 &&
-                action.targets[0] === Game.Ability.Target.SELF) {
+            if (action.target.length === 1 &&
+                action.target[0] === Game.Target.SELF) {
 
                 let targets = [new Game.Engine.UnitTarget(unit)];
                 let result = this.engine.performAction(unit, action, targets);
@@ -114,28 +106,6 @@ namespace App.Ng {
 
             // TODO: change to target selection mode
 
-        }
-
-        selectSpace(uiSpace: SkirmishPlayer.UiSpace) {
-
-            if (uiSpace.points === null) {
-                // Nothing to do 
-                return;
-            }
-
-            let unit = this.engine.state.activeUnit;
-            if (unit === null) {
-                return;
-            }
-
-            let result = this.engine.move(unit, this.findPath(unit, uiSpace));
-
-            if (!result.success) {
-                console.error(result.message);
-                return;
-            }
-
-            this.updateMovementPoints();
         }
 
         onGameEngineReady(engine: Game.Engine.GameEngine) {
@@ -173,6 +143,28 @@ namespace App.Ng {
             }
 
             console.log(unit);
+        }
+
+        private selectSpace(uiSpace: SkirmishPlayer.UiSpace) {
+
+            if (uiSpace.points === null) {
+                // Nothing to do 
+                return;
+            }
+
+            let unit = this.engine.state.activeUnit;
+            if (unit === null) {
+                return;
+            }
+
+            let result = this.engine.move(unit, this.findPath(unit, uiSpace));
+
+            if (!result.success) {
+                console.error(result.message);
+                return;
+            }
+
+            this.updateMovementPoints();
         }
 
         private activate(unit: Game.Unit) {

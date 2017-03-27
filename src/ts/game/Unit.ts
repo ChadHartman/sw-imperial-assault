@@ -1,7 +1,5 @@
 namespace App.Game {
 
-
-
     export class Unit {
 
         public static readonly CLASS_ELITE = "elite";
@@ -11,10 +9,10 @@ namespace App.Game {
         public readonly groupId: number;
         public readonly zoneColor: ZoneColor;
         public readonly deployment: Deployment
-        public readonly abilities: Array<Model.IAbility>;
+        public readonly abilities: Array<Ability>;
         public readonly uniqueId: string;
         public readonly health: number;
-        public readonly actions: Array<Model.IAbility>
+        public readonly actions: Array<Ability>
         public state: ActivationState;
         public movementPoints: number;
         public x: number;
@@ -35,14 +33,14 @@ namespace App.Game {
             this.y = 0;
             this.zoneColor = zoneColor;
             this.state = ActivationState.READY;
-            this.abilities = deployment.abilities;
             this.movementPoints = 0;
             this.health = deployment.health;
+            this.abilities = deployment.abilities;
+            this.actions = new Array<Ability>();
 
-            this.actions = [];
-            for (let ability of this.abilities) {
-                if (ability.scope.indexOf(Ability.Scope.ACTION) !== -1 ||
-                    ability.scope.indexOf(Ability.Scope.SPECIAL_ACTION) !== -1) {
+            for (let ability of deployment.abilities) {
+                if (ability.scope.indexOf(Scope.ACTION) !== -1 ||
+                    ability.scope.indexOf(Scope.SPECIAL_ACTION) !== -1) {
                     this.actions.push(ability);
                 }
             }
@@ -66,6 +64,6 @@ namespace App.Game {
         public get activeWaiting() {
             return this.state === ActivationState.ACTIVE_WAITING;
         }
-        
+
     }
 }
