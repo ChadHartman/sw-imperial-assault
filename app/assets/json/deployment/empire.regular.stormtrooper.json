@@ -21,7 +21,7 @@
     ],
     "abilities": [
         "squad_training",
-        "attack",
+        "ranged_attack",
         "move",
         "surge_damage_1",
         "surge_accuracy_2"

@@ -59,22 +59,7 @@ namespace App.Game.Engine {
             return SUCCESS;
         }
 
-        public performAction(unit: Unit, ability: Ability, targets: Array<AbilityTarget>): IResult {
-
-            let scopeValidation = this.scopeValidator.validate(unit, ability);
-            if (!scopeValidation.success) {
-                return scopeValidation;
-            }
-
-            let targetValidation = this.targetValidator.validate(unit, ability, targets);
-            if (!targetValidation.success) {
-                return targetValidation;
-            }
-
-            this.performEffect(ability, targets);
-
-            return SUCCESS;
-        }
+        
 
         public move(unit: Unit, spaces: Array<Space>): IResult {
 
@@ -99,19 +84,8 @@ namespace App.Game.Engine {
             return SUCCESS;
         }
 
-        private performEffect(ability: Game.Ability, targets: Array<AbilityTarget>) {
-            for (let effect of ability.effects) {
-                switch (effect.type) {
-                    case Effect.Type.GAIN_MOVEMENT_POINTS:
-                        for (let target of targets) {
-                            if (effect.stat === Effect.Stat.SPEED) {
-                                let unit = this.state.unitAt(target.x, target.y) !;
-                                unit.movementPoints += unit.deployment.speed;
-                            }
-                        }
-                        break;
-                }
-            }
+        public beginAction(unit:Unit, ability:Ability): ActionExecutable {
+            return new ActionExecutable(unit, ability);
         }
 
         private deploy() {

@@ -1,6 +1,7 @@
 {
     "title": "Squad Training",
     "scope": [
-        "attacking"
+        "attacking",
+        "adjacent_friendly"
     ]
 }

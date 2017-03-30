@@ -1,0 +1,15 @@
+{
+    "title": "Ranged Attack",
+    "description": "",
+    "scope": [
+        "action"
+    ],
+    "targets": [
+        {
+            "requirements": [
+                "hostile_figure",
+                "los"
+            ]
+        }
+    ]
+}

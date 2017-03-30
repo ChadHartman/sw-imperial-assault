@@ -11,7 +11,7 @@ namespace App.Ng {
         spaces: Array<SkirmishPlayer.UiSpace>;
         state: Game.Engine.GameState;
         rCtx: RenderingContext;
-        target: SkirmishPlayer.AbilityTargetBuilder | null;
+        pendingAction: Game.Engine.ActionExecutable | null;
 
         // Mouse events
         selectUnit: Function;
@@ -77,7 +77,7 @@ namespace App.Ng {
             this.$scope.performAction = this.performAction.bind(this);
             this.$scope.selectSpace = this.selectSpace.bind(this);
             this.$scope.$on(SkirmishController.EVENT_SAVE_STATE, this.saveState.bind(this));
-            this.$scope.target = null;
+            this.$scope.pendingAction = null;
 
             // TODO: remove
             (<any>window).playerScope = $scope;
@@ -117,25 +117,24 @@ namespace App.Ng {
 
         private performAction(unit: Game.Unit, action: Game.Ability) {
 
-            if (this.$scope.target !== null) {
+            if (this.$scope.pendingAction !== null) {
                 console.error("Already performing an action");
                 return;
             }
 
-            if (action.target.length === 1 &&
-                action.target[0] === Game.Target.SELF) {
-
-                let targets = [new Game.Engine.UnitTarget(unit)];
-                let result = this.engine.performAction(unit, action, targets);
-                if (!result.success) {
-                    console.log(result);
-                    return;
-                }
-                this.updateMovementPoints();
+            let pendingAction = this.engine.beginAction(unit, action);
+            if (!pendingAction.ready) {
+                this.$scope.pendingAction = pendingAction;
                 return;
             }
 
-            this.$scope.target = new SkirmishPlayer.AbilityTargetBuilder(unit, action);
+            let result = pendingAction.execute();
+            if (!result.success) {
+                console.log(result);
+                return;
+            }
+
+            this.updateMovementPoints();
         }
 
         private saveState() {
@@ -149,8 +148,8 @@ namespace App.Ng {
                 return;
             }
 
-            if (this.$scope.target !== null) {
-                let result = this.$scope.target.addUnit(unit);
+            if (this.$scope.pendingAction !== null) {
+                let result = this.$scope.pendingAction.targetUnit(unit);
                 if (!result.success) {
                     console.error(result.message);
                     return;
@@ -165,8 +164,8 @@ namespace App.Ng {
 
         private selectSpace(uiSpace: SkirmishPlayer.UiSpace) {
 
-            if (this.$scope.target) {
-                let result = this.$scope.target.addSpace(uiSpace.space);
+            if (this.$scope.pendingAction) {
+                let result = this.$scope.pendingAction.targetSpace(uiSpace.space);
                 if (!result.success) {
                     console.error(result.message);
                     return;
@@ -198,22 +197,21 @@ namespace App.Ng {
 
         private checkTarget() {
 
-            let target = this.$scope.target;
-            if (target === null) {
+            let pendingAction = this.$scope.pendingAction;
+            if (pendingAction === null) {
                 return;
             }
 
-            if (!target.complete) {
+            if (!pendingAction.ready) {
                 return;
             }
 
-            let result = this.engine.performAction(
-                target.actor,
-                target.ability,
-                target.targets);
+            pendingAction.execute();
+
+            let result = pendingAction.execute();
 
             if (result.success) {
-                this.$scope.target = null;
+                this.$scope.pendingAction = null;
                 return;
             }
 

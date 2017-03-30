@@ -1,10 +1,5 @@
 namespace App.Model {
 
-    export interface ISurgeAbility {
-        type: string;
-        quantity: string;
-    }
-
     export interface IDeployment {
         title: string;
         rank: string;
@@ -16,9 +11,7 @@ namespace App.Model {
         speed: number;
         attack: Array<string>;
         defense: Array<string>;
-        actions: Array<string>
-        abilities: Array<string>
-        surge_abilities: Array<ISurgeAbility>;
+        abilities: Array<string>;
         image_url: string;
     }
 }

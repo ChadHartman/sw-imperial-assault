@@ -19,7 +19,7 @@
         "leader"
     ],
     "abilities": [
-        "attack",
+        "ranged_attack",
         "move",
         "order",
         "cower",

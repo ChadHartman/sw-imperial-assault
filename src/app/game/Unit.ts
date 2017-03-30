@@ -13,7 +13,8 @@ namespace App.Game {
         public readonly uniqueId: string;
         public readonly health: number;
         public readonly actions: Array<Ability>
-        public state: ActivationState;
+        public actionCount: number;
+        public _state: ActivationState;
         public movementPoints: number;
         public x: number;
         public y: number;
@@ -32,15 +33,15 @@ namespace App.Game {
             this.x = 0;
             this.y = 0;
             this.zoneColor = zoneColor;
-            this.state = ActivationState.READY;
+            this._state = ActivationState.READY;
             this.movementPoints = 0;
             this.health = deployment.health;
             this.abilities = deployment.abilities;
             this.actions = new Array<Ability>();
+            this.actionCount = 0;
 
             for (let ability of deployment.abilities) {
-                if (ability.scope.indexOf(Scope.ACTION) !== -1 ||
-                    ability.scope.indexOf(Scope.SPECIAL_ACTION) !== -1) {
+                if (ability.isAction || ability.isSpecialAction) {
                     this.actions.push(ability);
                 }
             }
@@ -48,21 +49,35 @@ namespace App.Game {
             (<any>window).units = (<any>window).units || {};
             (<any>window).units[this.uniqueId] = this;
         }
+        public get state(): ActivationState {
+            return this._state;
+        }
+        public set state(value: ActivationState) {
+            this._state = value;
+            switch (value) {
+                case ActivationState.ACTIVE:
+                    this.actionCount = 2;
+                    break;
+                case ActivationState.EXAUSTED:
+                    this.actionCount = 0;
+                    break;
+            }
+        }
 
         public get ready() {
-            return this.state === ActivationState.READY;
+            return this._state === ActivationState.READY;
         }
 
         public get exausted() {
-            return this.state === ActivationState.EXAUSTED;
+            return this._state === ActivationState.EXAUSTED;
         }
 
         public get active() {
-            return this.state === ActivationState.ACTIVE;
+            return this._state === ActivationState.ACTIVE;
         }
 
         public get activeWaiting() {
-            return this.state === ActivationState.ACTIVE_WAITING;
+            return this._state === ActivationState.ACTIVE_WAITING;
         }
 
     }

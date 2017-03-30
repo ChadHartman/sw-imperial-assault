@@ -4,12 +4,16 @@
         "action"
     ],
     "targets": [
-        "self"
+        {
+            "requirements": [
+                "self"
+            ]
+        }
     ],
-    "effects":[
+    "effects": [
         {
             "type": "gain_movement_points",
             "stat": "speed"
         }
-    ] 
+    ]
 }

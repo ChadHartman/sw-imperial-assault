@@ -21,7 +21,7 @@
     ],
     "abilities": [
         "self_destruct",
-        "attack",
+        "ranged_attack",
         "move",
         "surge_damage_1",
         "surge_recover_1",
