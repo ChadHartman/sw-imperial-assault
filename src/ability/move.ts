@@ -1,9 +1,15 @@
 /// <reference path="../api/app.d.ts"/>
 
-namespace App.Game {
-    export class MoveAction extends Ability {
-        public get name(): string {
+namespace App.Game.Ability {
+
+    export class Move extends BaseAbility {
+        
+        public get id(): string {
             return "move";
+        }
+        
+        public get name(): string {
+            return "Move";
         }
 
         public get isAction(): boolean {
@@ -12,7 +18,7 @@ namespace App.Game {
     }
 
     export class MoveActionExecutable extends Engine.ActionExecutable {
-        constructor(actor: Unit, ability: Ability, state: Engine.GameState) {
+        constructor(actor: Unit, ability: BaseAbility, state: Engine.GameState) {
             super(actor, ability, state);
         }
 
@@ -28,4 +34,6 @@ namespace App.Game {
             return Engine.failure("Unit does not have enough actions");
         }
     }
+
+    loaded(new Move());
 }

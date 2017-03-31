@@ -20,8 +20,19 @@ namespace App.Ng {
         }
 
         requestScript(src: string) {
+            if (this.isScriptRegistered(src)) {
+                return;
+            }
             this.$scope.scripts.push({ src: src });
-            this.$scope.$apply();
+        }
+
+        private isScriptRegistered(src: string): boolean {
+            for (let script of this.$scope.scripts) {
+                if (script.src === src) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 

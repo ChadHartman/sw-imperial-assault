@@ -78,7 +78,7 @@ namespace App.Game.Engine {
             return SUCCESS;
         }
 
-        public createActionExecutable(actor:Unit, ability: Ability): ActionExecutable {
+        public createActionExecutable(actor:Unit, ability: Ability.BaseAbility): ActionExecutable {
             return ability.executable(actor, ability, this.state);
         }
 

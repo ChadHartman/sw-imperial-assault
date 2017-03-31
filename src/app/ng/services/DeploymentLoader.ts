@@ -1,25 +1,30 @@
+/// <reference path="AbilityLoader.ts"/>
+
 namespace App.Ng {
 
     export interface IDeploymentLoadListener {
         onDeploymentLoaded(deployment: App.Game.Deployment);
     }
 
-    class ComponentLoader {
+    class ComponentLoader implements Game.Ability.LoadListener {
         private readonly $http;
         private readonly id: string;
         private readonly  image: HTMLImageElement;
         private readonly abilities: Array<any>;
         private readonly listener: IDeploymentLoadListener;
+        private readonly abilityLoader: AbilityLoader;
         private deployment: Model.IDeployment;
         private isImageLoaded: boolean;
 
-        constructor($http, id: string, listener: IDeploymentLoadListener) {
+        constructor($http, abilityLoader: AbilityLoader, id: string, listener: IDeploymentLoadListener) {
             this.$http = $http;
             this.id = id;
             this.listener = listener;
             this.image = new Image();
             this.abilities = [];
             this.isImageLoaded = false;
+            this.abilityLoader = abilityLoader;
+            Game.Ability.addListener(this);
         }
 
         load() {
@@ -36,11 +41,7 @@ namespace App.Ng {
             }
 
             for (let id of this.deployment.abilities) {
-                let req = this.createAbilityRequest(id);
-                this.$http(req).then(function (res) {
-                    self.abilities.push({ id: id, data: res.data });
-                    self.checkState();
-                });
+                this.abilityLoader.load(id);
             }
 
             this.image.onload = function () {
@@ -48,6 +49,15 @@ namespace App.Ng {
                 self.checkState();
             }
             this.image.src = this.deployment.image_url;
+        }
+
+        onAbilityLoad(ability: Game.Ability.BaseAbility) {
+            if (this.deployment.abilities.indexOf(ability.id) === -1) {
+                return;
+            }
+
+            this.abilities.push(ability);
+            this.checkState();
         }
 
         private checkState() {
@@ -59,6 +69,7 @@ namespace App.Ng {
                 return;
             }
 
+            Game.Ability.removeListener(this);
             this.listener.onDeploymentLoaded(
                 new App.Game.Deployment(
                     this.id, this.image, this.deployment, this.abilities));
@@ -71,28 +82,21 @@ namespace App.Ng {
                 cache: true
             }
         }
-
-        private createAbilityRequest(id: string): any {
-            return {
-                url: `assets/json/ability/${id}.json`,
-                method: 'GET',
-                cache: true
-            }
-        }
     }
 
     export class DeploymentLoader {
 
         public static readonly NAME = "deplymentLoader";
-        private readonly $rootScope;
         private readonly $http;
+        private readonly abilityLoader: AbilityLoader
 
-        constructor($http) {
+        constructor($http, abilityLoader: AbilityLoader) {
             this.$http = $http;
+            this.abilityLoader = abilityLoader;
         }
 
         public load(id: string, listener: IDeploymentLoadListener) {
-            let loader = new ComponentLoader(this.$http, id, listener);
+            let loader = new ComponentLoader(this.$http, this.abilityLoader, id, listener);
             loader.load();
         }
     }
@@ -100,6 +104,7 @@ namespace App.Ng {
 
 App.Ng.module.factory(App.Ng.DeploymentLoader.NAME, [
     '$http',
-    function ($http) {
-        return new App.Ng.DeploymentLoader($http);
+    App.Ng.AbilityLoader.NAME,
+    function ($http, abilityLoader: App.Ng.AbilityLoader) {
+        return new App.Ng.DeploymentLoader($http, abilityLoader);
     }]);

@@ -1,7 +1,8 @@
+namespace App.Game.Ability {
 
+    export abstract class BaseAbility {
 
-namespace App.Game {
-    export abstract class Ability {
+        public abstract get id();
 
         public abstract get name();
 
@@ -13,7 +14,7 @@ namespace App.Game {
             return false;
         }
 
-        public executable(actor: Unit, ability: Ability, state: Engine.GameState): Engine.ActionExecutable {
+        public executable(actor: Unit, ability: BaseAbility, state: Engine.GameState): Engine.ActionExecutable {
             throw new Error('This ability has no executable');
         }
     }

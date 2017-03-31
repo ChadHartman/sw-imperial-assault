@@ -4,29 +4,17 @@ namespace App.Ng {
 
         public static readonly NAME = "abilityLoader";
 
-        private readonly abilities: Array<Game.Ability>;
         public loadRequestListener: AbilityLoader.IRequestListener | null;
 
         constructor() {
-            this.abilities = new Array<Game.Ability>();
             this.loadRequestListener = null;
-            (<any>window).abilityLoader = this;
         }
 
-        public ability(name: string): Game.Ability | null {
-            for (let ability of this.abilities) {
-                if (ability.name === name) {
-                    return ability;
-                }
-            }
-            return null;
-        }
-
-        public load(name: string) {
+        public load(id: string) {
             if (this.loadRequestListener === null) {
                 throw new Error('loadRequestListener not set')
             }
-            this.loadRequestListener.requestScript(`/assets/js/ability/${name}.js`);
+            this.loadRequestListener.requestScript(`/assets/js/ability/${id}.js`);
         }
     }
 
