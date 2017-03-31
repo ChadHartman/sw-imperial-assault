@@ -7,33 +7,22 @@
             "taskName": "build",
             "command": "tsc",
             "isShellCommand": true,
-            "showOutput": "silent",
-            "problemMatcher": "$tsc",
             "args": [
                 "-p",
-                ".",
-                "--outFile",
-                "../../app/assets/js/app.js",
-                "--watch",
-                "true"
-            ]
+                "."
+            ],
+            "showOutput": "silent",
+            "problemMatcher": "$tsc"
         },
         {
-            "taskName": "header",
-            "command": "tsc",
+            "taskName": "copy",
+            "command": "cp",
             "isShellCommand": true,
-            "showOutput": "silent",
-            "problemMatcher": "$tsc",
             "args": [
-                "-p",
-                ".",
-                "--outDir",
-                "../../target/",
-                "--declaration",
-                "true",
-                "--declarationDir",
-                "../api/"
-            ]
+                "../../app/assets/js/app.d.ts",
+                "../api/app.d.ts"
+            ],
+            "showOutput": "silent"
         }
     ]
 }

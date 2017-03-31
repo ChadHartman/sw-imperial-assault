@@ -5,8 +5,7 @@
         "alwaysStrict": true,
         "strictNullChecks": true,
         "sourceMap": true,
-        "outFile": "../../app/assets/js/app.js",
-        "declaration": true,
+        "outDir": "../../app/assets/js/ability",
         "watch": true
     },
     "include": [

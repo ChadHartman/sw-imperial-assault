@@ -55,8 +55,6 @@ namespace App.Game.Engine {
             return SUCCESS;
         }
 
-
-
         public move(unit: Unit, spaces: Array<Space>): IResult {
 
             let initialX = unit.x;
@@ -80,6 +78,10 @@ namespace App.Game.Engine {
             return SUCCESS;
         }
 
+        public createActionExecutable(actor:Unit, ability: Ability): ActionExecutable {
+            return ability.executable(actor, ability, this.state);
+        }
+
         private deploy() {
             for (let army of this.state.armies) {
                 for (let unit of army.units) {
@@ -101,7 +103,7 @@ namespace App.Game.Engine {
 
         }
 
-        private getDeploymentZone(zoneColor: ZoneColor): App.Model.IDeploymentZone {
+        private getDeploymentZone(zoneColor: ZoneColor): Model.IDeploymentZone {
             for (let zone of this.state.skirmish.deploymentZones) {
                 if (toZoneColor(zone.color) === zoneColor) {
                     return zone;
