@@ -1,0 +1,37 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "0.1.0",
+    "tasks": [
+        {
+            "taskName": "build",
+            "command": "tsc",
+            "isShellCommand": true,
+            "showOutput": "silent",
+            "problemMatcher": "$tsc",
+            "args": [
+                "-p",
+                ".",
+                "--outFile",
+                "../../app/assets/js/app.js"
+            ]
+        },
+        {
+            "taskName": "header",
+            "command": "tsc",
+            "isShellCommand": true,
+            "showOutput": "silent",
+            "problemMatcher": "$tsc",
+            "args": [
+                "-p",
+                ".",
+                "--outDir",
+                "../../target/",
+                "--declaration",
+                "true",
+                "--declarationDir",
+                "../api/"
+            ]
+        }
+    ]
+}

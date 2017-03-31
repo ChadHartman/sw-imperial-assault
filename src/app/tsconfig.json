@@ -5,7 +5,6 @@
         "alwaysStrict": true,
         "strictNullChecks": true,
         "sourceMap": true,
-        "outFile": "../../app/assets/js/app.js",
         "watch": true
     },
     "include": [
