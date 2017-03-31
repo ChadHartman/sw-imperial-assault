@@ -5,32 +5,6 @@
 
 namespace App.Ng {
 
-    interface IScope {
-
-        units: Array<Game.Unit>;
-        spaces: Array<SkirmishPlayer.UiSpace>;
-        state: Game.Engine.GameState;
-        rCtx: RenderingContext;
-        pendingAction: Game.Engine.ActionExecutable | null;
-
-        // Mouse events
-        selectUnit: Function;
-        exaust: Function;
-        performAction: Function;
-        selectSpace: Function;
-
-        $apply: Function;
-        $on: Function;
-    };
-
-    interface IRouteParams {
-        skirmish_id: string,
-        state?: string;
-        red: string;
-        blue: string;
-        initiative: string;
-    }
-
     /**
      * Receives UI Events and interprets them into Game Actions.
      * Renders game state.
@@ -41,14 +15,14 @@ namespace App.Ng {
 
         public static readonly NAME = "skirmishPlayerController";
 
-        private readonly $scope: IScope;
+        private readonly $scope: SkirmishPlayerController.IScope;
         private readonly renderCtx: Ng.RenderingContext;
         private readonly $timeout: Function;
         private readonly stateCache: StateCache;
         private engine: App.Game.Engine.GameEngine;
 
         constructor(
-            $scope: IScope,
+            $scope: SkirmishPlayerController.IScope,
             $routeParams,
             $timeout: Function,
             engineLoader: EngineLoader,
@@ -115,24 +89,24 @@ namespace App.Ng {
             }
         }
 
-        private performAction(unit: Game.Unit, action: Game.Ability) {
+        private performAction(unit: Game.Unit, action: any) {
 
             if (this.$scope.pendingAction !== null) {
                 console.error("Already performing an action");
                 return;
             }
 
-            let pendingAction = this.engine.beginAction(unit, action);
-            if (!pendingAction.ready) {
-                this.$scope.pendingAction = pendingAction;
-                return;
-            }
+            // let pendingAction = this.engine.beginAction(unit, action);
+            // if (!pendingAction.ready) {
+            //     this.$scope.pendingAction = pendingAction;
+            //     return;
+            // }
 
-            let result = pendingAction.execute();
-            if (!result.success) {
-                console.log(result);
-                return;
-            }
+            // let result = pendingAction.execute();
+            // if (!result.success) {
+            //     console.log(result);
+            //     return;
+            // }
 
             this.updateMovementPoints();
         }
@@ -149,13 +123,13 @@ namespace App.Ng {
             }
 
             if (this.$scope.pendingAction !== null) {
-                let result = this.$scope.pendingAction.targetUnit(unit);
-                if (!result.success) {
-                    console.error(result.message);
-                    return;
-                }
+                // let result = this.$scope.pendingAction.targetUnit(unit);
+                // if (!result.success) {
+                //     console.error(result.message);
+                //     return;
+                // }
 
-                this.checkTarget();
+                // this.checkTarget();
                 return;
             }
 
@@ -165,13 +139,13 @@ namespace App.Ng {
         private selectSpace(uiSpace: SkirmishPlayer.UiSpace) {
 
             if (this.$scope.pendingAction) {
-                let result = this.$scope.pendingAction.targetSpace(uiSpace.space);
-                if (!result.success) {
-                    console.error(result.message);
-                    return;
-                }
+                // let result = this.$scope.pendingAction.targetSpace(uiSpace.space);
+                // if (!result.success) {
+                //     console.error(result.message);
+                //     return;
+                // }
 
-                this.checkTarget();
+                // this.checkTarget();
                 return;
             }
 
@@ -202,20 +176,20 @@ namespace App.Ng {
                 return;
             }
 
-            if (!pendingAction.ready) {
-                return;
-            }
+            // if (!pendingAction.ready) {
+            //     return;
+            // }
 
-            pendingAction.execute();
+            // pendingAction.execute();
 
-            let result = pendingAction.execute();
+            // let result = pendingAction.execute();
 
-            if (result.success) {
-                this.$scope.pendingAction = null;
-                return;
-            }
+            // if (result.success) {
+            //     this.$scope.pendingAction = null;
+            //     return;
+            // }
 
-            console.error(result.message);
+            // console.error(result.message);
         }
 
         private activate(unit: Game.Unit) {
@@ -258,6 +232,34 @@ namespace App.Ng {
             }
 
             return path.reverse();
+        }
+    }
+
+    export module SkirmishPlayerController {
+        export interface IScope {
+
+            units: Array<Game.Unit>;
+            spaces: Array<SkirmishPlayer.UiSpace>;
+            state: Game.Engine.GameState;
+            rCtx: RenderingContext;
+            pendingAction: /*Game.Engine.ActionExecutable | */null;
+
+            // Mouse events
+            selectUnit: Function;
+            exaust: Function;
+            performAction: Function;
+            selectSpace: Function;
+
+            $apply: Function;
+            $on: Function;
+        };
+
+        export interface IRouteParams {
+            skirmish_id: string,
+            state?: string;
+            red: string;
+            blue: string;
+            initiative: string;
         }
     }
 }

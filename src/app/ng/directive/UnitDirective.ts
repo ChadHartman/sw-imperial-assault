@@ -1,10 +1,5 @@
 namespace App.Ng {
 
-    interface IScope {
-        unit: Game.Unit;
-        $watch: Function;
-    }
-
     const TWO_PI = Math.PI * 2;
     const HALF_PI = Math.PI / 2;
     const BORDER_SIZE = 5;
@@ -21,7 +16,7 @@ namespace App.Ng {
         private readonly ctx: CanvasRenderingContext2D;
         private readonly classColor: string;
 
-        constructor($scope: IScope, $element) {
+        constructor($scope: UnitDirective.IScope, $element) {
             let canvas = <HTMLCanvasElement>$element[0];
             this.ctx = canvas.getContext("2d") !;
             this.unit = $scope.unit;
@@ -86,12 +81,20 @@ namespace App.Ng {
         private drawAffiliation(w: number, h: number) {
             let r = w / 2;
             let ar = 5;
-            this.ctx.fillStyle =  Game.ZoneColor[this.unit.zoneColor].toLowerCase();
+            this.ctx.fillStyle = Game.ZoneColor[this.unit.zoneColor].toLowerCase();
             this.ctx.beginPath();
             this.ctx.arc(r, h - ar, ar, 0, TWO_PI);
             this.ctx.fill();
         }
     }
+
+    export module UnitDirective {
+        export interface IScope {
+            unit: Game.Unit;
+            $watch: Function;
+        }
+    }
+
 }
 
 App.Ng.module.directive(App.Ng.UnitDirective.NAME, function () {

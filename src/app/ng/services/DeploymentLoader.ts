@@ -8,7 +8,7 @@ namespace App.Ng {
         private readonly $http;
         private readonly id: string;
         private readonly  image: HTMLImageElement;
-        private readonly abilities: Array<Game.Ability>;
+        private readonly abilities: Array<any>;
         private readonly listener: IDeploymentLoadListener;
         private deployment: Model.IDeployment;
         private isImageLoaded: boolean;
@@ -38,7 +38,7 @@ namespace App.Ng {
             for (let id of this.deployment.abilities) {
                 let req = this.createAbilityRequest(id);
                 this.$http(req).then(function (res) {
-                    self.abilities.push(new Game.Ability(id, res.data));
+                    self.abilities.push({ id: id, data: res.data });
                     self.checkState();
                 });
             }

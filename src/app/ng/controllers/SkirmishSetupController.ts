@@ -2,17 +2,6 @@
 
 namespace App.Ng {
 
-    interface IRouteParams {
-        id: string;
-    }
-
-    interface IScope {
-        armies: Array<App.Model.IArmy>;
-        skirmishId: string;
-        firstArmy: number;
-        secondArmy: number;
-    }
-
     export class SkirmishSetupController {
 
         public static readonly NAME = "skirmishSetupController";
@@ -21,12 +10,28 @@ namespace App.Ng {
 
         private readonly $scope: any;
 
-        constructor($scope: IScope, $routeParams: IRouteParams, armyCache: App.Ng.ArmyCache) {
+        constructor($scope: SkirmishSetupController.IScope,
+            $routeParams: SkirmishSetupController.IRouteParams,
+            armyCache: App.Ng.ArmyCache) {
+                
             this.$scope = $scope;
             this.$scope.skirmishId = $routeParams.id;
             this.$scope.armies = armyCache.armies;
             this.$scope.firstArmy = armyCache.armies[0].id.toString();
             this.$scope.secondArmy = this.$scope.firstArmy;
+        }
+    }
+
+    export module SkirmishSetupController {
+        export interface IRouteParams {
+            id: string;
+        }
+
+        export interface IScope {
+            armies: Array<App.Model.IArmy>;
+            skirmishId: string;
+            firstArmy: number;
+            secondArmy: number;
         }
     }
 }

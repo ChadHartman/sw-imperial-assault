@@ -4,8 +4,7 @@
         "target": "es6",
         "alwaysStrict": true,
         "strictNullChecks": true,
-        "sourceMap": true,
-        "watch": true
+        "sourceMap": true
     },
     "include": [
         "**/*.ts"

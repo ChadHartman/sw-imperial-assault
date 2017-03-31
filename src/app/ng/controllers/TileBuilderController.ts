@@ -2,36 +2,6 @@
 
 namespace App.Ng {
 
-    interface IScope {
-        colCount: number;
-        rowCount: number;
-        selectedKey: string;
-        sideKeys: Array<string>;
-        sideValues: Array<string>;
-        tileJson: string;
-        top: string;
-        left: string;
-        bottom: string;
-        right: string;
-        isSelected(x: number, y);
-        toggleSpace(x: number, y: number);
-        selectSide();
-        export();
-    }
-
-    class Space {
-        x: number;
-        y: number;
-        top?: string;
-        left?: string;
-        bottom?: string;
-        right?: string;
-
-        constructor(x: number, y: number) {
-            this.x = x;
-            this.y = y;
-        }
-    }
 
     export class TileBuilderController {
 
@@ -39,12 +9,12 @@ namespace App.Ng {
         public static readonly PATH = "/tile-builder";
         public static readonly HTML_NAME = "tile-builder";
 
-        private readonly $scope: IScope;
-        private selectedLocations: [string, Space];
+        private readonly $scope: TileBuilderController.IScope;
+        private selectedLocations: [string, TileBuilderController.Space];
 
-        constructor($scope: IScope) {
+        constructor($scope: TileBuilderController.IScope) {
 
-            this.selectedLocations = <[string, Space]>{};
+            this.selectedLocations = <[string, TileBuilderController.Space]>{};
 
             this.$scope = $scope;
             this.$scope.sideValues = ["", "wall", "blocking_terrain", "difficult_terrain", "impassable_terrain"];
@@ -67,7 +37,7 @@ namespace App.Ng {
             if (key in this.selectedLocations) {
                 delete this.selectedLocations[key];
             } else {
-                this.selectedLocations[key] = new Space(x, y);
+                this.selectedLocations[key] = new TileBuilderController.Space(x, y);
                 this.$scope.selectedKey = key;
             }
             delete this.$scope.top;
@@ -77,7 +47,7 @@ namespace App.Ng {
         }
 
         private selectSide() {
-            let space = <Space>this.selectedLocations[this.$scope.selectedKey];
+            let space = <TileBuilderController.Space>this.selectedLocations[this.$scope.selectedKey];
             space.top = this.$scope.top;
             space.left = this.$scope.left;
             space.bottom = this.$scope.bottom;
@@ -85,9 +55,9 @@ namespace App.Ng {
         }
 
         private export() {
-            let map = new Array<Space>();
+            let map = new Array<TileBuilderController.Space>();
             for (let key in this.selectedLocations) {
-                let data = <Space>this.selectedLocations[key];
+                let data = <TileBuilderController.Space>this.selectedLocations[key];
                 let space = {
                     "x": data.x,
                     "y": data.y
@@ -107,6 +77,39 @@ namespace App.Ng {
                 map.push(space);
             }
             this.$scope.tileJson = JSON.stringify({ "spaces": map });
+        }
+    }
+
+    export module TileBuilderController {
+        export interface IScope {
+            colCount: number;
+            rowCount: number;
+            selectedKey: string;
+            sideKeys: Array<string>;
+            sideValues: Array<string>;
+            tileJson: string;
+            top: string;
+            left: string;
+            bottom: string;
+            right: string;
+            isSelected(x: number, y);
+            toggleSpace(x: number, y: number);
+            selectSide();
+            export();
+        }
+
+        export class Space {
+            x: number;
+            y: number;
+            top?: string;
+            left?: string;
+            bottom?: string;
+            right?: string;
+
+            constructor(x: number, y: number) {
+                this.x = x;
+                this.y = y;
+            }
         }
     }
 }

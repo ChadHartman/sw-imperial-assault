@@ -1,40 +1,11 @@
 namespace App.Ng {
 
-    interface IArmy {
-        id: number;
-        color: string;
-    }
-
-    interface IUnitState {
-        unique_id: string;
-        movement_points: number;
-        x: number;
-        y: number;
-        state: string;
-    }
-
-    export interface ISkirmishState {
-        id: number;
-        skirmish_id: string;
-        initiative: string;
-        units: Array<IUnitState>;
-        round: number;
-        red?: number;
-        blue?: number;
-        timestamp: number;
-    }
-
-    interface IStateCollection {
-        __last_id__: number;
-        readonly states: Array<ISkirmishState>;
-    }
-
     export class StateCache {
         public static readonly NAME = "stateCache";
         private static readonly LS_KEY = "game_state";
 
-        public readonly states: Array<ISkirmishState>;
-        private readonly stateCollection: IStateCollection;
+        public readonly states: Array<StateCache.ISkirmishState>;
+        private readonly stateCollection: StateCache.IStateCollection;
 
         constructor() {
             if (StateCache.LS_KEY in localStorage) {
@@ -51,7 +22,7 @@ namespace App.Ng {
 
         public save(gameState: Game.Engine.GameState) {
 
-            let unitStates = new Array<IUnitState>();
+            let unitStates = new Array<StateCache.IUnitState>();
             let state = {
                 id: this.stateCollection.__last_id__++,
                 skirmish_id: gameState.skirmish.id,
@@ -93,7 +64,7 @@ namespace App.Ng {
             }
         }
 
-        private getState(id: number): ISkirmishState {
+        private getState(id: number): StateCache.ISkirmishState {
             for (let state of this.states) {
                 if (state.id === id) {
                     return state;
@@ -102,7 +73,7 @@ namespace App.Ng {
             throw new Error(`No state with id: ${id}`);
         }
 
-        private createUnitState(unit: Game.Unit): IUnitState {
+        private createUnitState(unit: Game.Unit): StateCache.IUnitState {
             return {
                 unique_id: unit.uniqueId,
                 movement_points: unit.movementPoints,
@@ -114,6 +85,38 @@ namespace App.Ng {
 
         private persistCache() {
             localStorage[StateCache.LS_KEY] = JSON.stringify(this.stateCollection);
+        }
+    }
+
+    export module StateCache {
+
+        export interface IArmy {
+            id: number;
+            color: string;
+        }
+
+        export interface IUnitState {
+            unique_id: string;
+            movement_points: number;
+            x: number;
+            y: number;
+            state: string;
+        }
+
+        export interface ISkirmishState {
+            id: number;
+            skirmish_id: string;
+            initiative: string;
+            units: Array<IUnitState>;
+            round: number;
+            red?: number;
+            blue?: number;
+            timestamp: number;
+        }
+
+        export interface IStateCollection {
+            __last_id__: number;
+            readonly states: Array<ISkirmishState>;
         }
     }
 }

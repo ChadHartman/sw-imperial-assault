@@ -2,30 +2,20 @@
 
 namespace App.Ng {
 
-    interface ISaveUrl {
-        text: string;
-        url: string;
-    }
-
-    interface IScope {
-        skirmishes: Array<Model.IItemInfo>;
-        saveUrls: Array<ISaveUrl>;
-    }
-
     export class RootController {
 
         public static readonly NAME = "rootController";
         public static readonly PATH = "/";
         public static readonly HTML_NAME = "root";
 
-        private readonly $scope: IScope;
+        private readonly $scope: RootController.IScope;
         private readonly stateCache: StateCache;
 
-        constructor($scope: IScope, $http: any, stateCache: StateCache) {
+        constructor($scope: RootController.IScope, $http: any, stateCache: StateCache) {
 
             this.stateCache = stateCache;
             this.$scope = $scope;
-            this.$scope.saveUrls = new Array<ISaveUrl>();
+            this.$scope.saveUrls = new Array<RootController.ISaveUrl>();
 
             let req = this.createRequest();
 
@@ -57,7 +47,7 @@ namespace App.Ng {
             }
         }
 
-        private createText(save: ISkirmishState, skirmishes: Array<Model.IItemInfo>): string {
+        private createText(save: StateCache.ISkirmishState, skirmishes: Array<Model.IItemInfo>): string {
 
             let name = "<not found>";
             for (let info of skirmishes) {
@@ -70,6 +60,18 @@ namespace App.Ng {
 
             // month is 0-based
             return `${name} @ ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+        }
+    }
+
+    export module RootController {
+        export interface ISaveUrl {
+            text: string;
+            url: string;
+        }
+
+        export interface IScope {
+            skirmishes: Array<Model.IItemInfo>;
+            saveUrls: Array<ISaveUrl>;
         }
     }
 }

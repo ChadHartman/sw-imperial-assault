@@ -3,13 +3,9 @@ namespace App.Game.Engine {
     export class GameEngine {
 
         public readonly state: GameState;
-        private readonly scopeValidator: Validation.ScopeValidator;
-        private readonly targetValidator: Validation.TargetValidator;
 
         constructor(gameState: GameState) {
             this.state = gameState;
-            this.scopeValidator = new Validation.ScopeValidator();
-            this.targetValidator = new Validation.TargetValidator(gameState);
             this.deploy();
 
             (<any>window).engine = this;
@@ -59,7 +55,7 @@ namespace App.Game.Engine {
             return SUCCESS;
         }
 
-        
+
 
         public move(unit: Unit, spaces: Array<Space>): IResult {
 
@@ -82,10 +78,6 @@ namespace App.Game.Engine {
             unit.movementPoints -= cost;
 
             return SUCCESS;
-        }
-
-        public beginAction(unit:Unit, ability:Ability): ActionExecutable {
-            return new ActionExecutable(unit, ability);
         }
 
         private deploy() {

@@ -9,10 +9,10 @@ namespace App.Game {
         public readonly groupId: number;
         public readonly zoneColor: ZoneColor;
         public readonly deployment: Deployment
-        public readonly abilities: Array<Ability>;
+        public readonly abilities: Array<any>;
         public readonly uniqueId: string;
         public readonly health: number;
-        public readonly actions: Array<Ability>
+        public readonly actions: Array<any>
         public actionCount: number;
         public _state: ActivationState;
         public movementPoints: number;
@@ -37,7 +37,7 @@ namespace App.Game {
             this.movementPoints = 0;
             this.health = deployment.health;
             this.abilities = deployment.abilities;
-            this.actions = new Array<Ability>();
+            this.actions = new Array<any>();
             this.actionCount = 0;
 
             for (let ability of deployment.abilities) {

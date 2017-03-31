@@ -2,12 +2,6 @@
 
 namespace App.Ng {
 
-    interface IScope {
-        $watch: Function;
-        space: SkirmishPlayer.UiSpace;
-        rctx: RenderingContext;
-    }
-
     export class SpaceDirective {
 
         public static readonly NAME = "spaceRender";
@@ -22,7 +16,7 @@ namespace App.Ng {
         private readonly uiSpace: SkirmishPlayer.UiSpace;
         private readonly state: Game.Engine.GameState;
 
-        constructor($scope: IScope, $element, $attr) {
+        constructor($scope: SpaceDirective.IScope, $element, $attr) {
             let canvas = <HTMLCanvasElement>$element[0];
             this.ctx = canvas.getContext("2d") !;
             this.uiSpace = $scope.space;
@@ -52,6 +46,14 @@ namespace App.Ng {
 
             let r = size / 2;
             this.ctx.strokeText(`${this.uiSpace.points}`, r, r);
+        }
+    }
+
+    export module SpaceDirective {
+        export interface IScope {
+            $watch: Function;
+            space: SkirmishPlayer.UiSpace;
+            rctx: RenderingContext;
         }
     }
 }

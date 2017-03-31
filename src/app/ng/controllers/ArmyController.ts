@@ -4,20 +4,6 @@
 
 namespace App.Ng {
 
-    interface IScope {
-        availableIds: Array<string>;
-        deployments: [string, string];
-        selectedIds: Array<string>
-        armies: Array<App.Model.IArmy>;
-        armyTitle: string|null;
-        selectedArmyId: string;
-        addDeployment(id: string);
-        removeDeployment(index: number);
-        saveArmy();
-        selectArmy();
-        removeArmy();
-    }
-
     export class ArmyController extends BaseController {
 
         public static readonly NAME = "armyController";
@@ -26,12 +12,12 @@ namespace App.Ng {
         private static readonly DEPLOYMENTS_LIST_PATH = "assets/json/deployment/deployments.json";
         private static readonly ID_NEW = "__new__";
 
-        private readonly $scope: IScope;
+        private readonly $scope: ArmyController.IScope;
         private readonly armyCache: App.Ng.ArmyCache;
 
         constructor(
             $rootScope,
-            $scope: IScope,
+            $scope: ArmyController.IScope,
             $http: any,
             armyCache: App.Ng.ArmyCache) {
 
@@ -131,6 +117,22 @@ namespace App.Ng {
             this.$scope.selectedArmyId = ArmyController.ID_NEW;
             this.$scope.selectedIds = [];
             this.$scope.armyTitle = null;
+        }
+    }
+
+    export module ArmyController {
+        export interface IScope {
+            availableIds: Array<string>;
+            deployments: [string, string];
+            selectedIds: Array<string>
+            armies: Array<App.Model.IArmy>;
+            armyTitle: string | null;
+            selectedArmyId: string;
+            addDeployment(id: string);
+            removeDeployment(index: number);
+            saveArmy();
+            selectArmy();
+            removeArmy();
         }
     }
 }
