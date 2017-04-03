@@ -24,7 +24,6 @@ namespace App.Ng {
             this.abilities = [];
             this.isImageLoaded = false;
             this.abilityLoader = abilityLoader;
-            Game.Ability.addListener(this);
         }
 
         load() {
@@ -41,6 +40,7 @@ namespace App.Ng {
             }
 
             for (let id of this.deployment.abilities) {
+                Game.Ability.ability(id, this);
                 this.abilityLoader.load(id);
             }
 
@@ -48,19 +48,17 @@ namespace App.Ng {
                 self.isImageLoaded = true;
                 self.checkState();
             }
+
             this.image.src = this.deployment.image_url;
         }
 
         onAbilityLoad(ability: Game.Ability.BaseAbility) {
-            if (this.deployment.abilities.indexOf(ability.id) === -1) {
-                return;
-            }
-
             this.abilities.push(ability);
             this.checkState();
         }
 
         private checkState() {
+
             if (!this.isImageLoaded) {
                 return;
             }
@@ -69,7 +67,6 @@ namespace App.Ng {
                 return;
             }
 
-            Game.Ability.removeListener(this);
             this.listener.onDeploymentLoaded(
                 new App.Game.Deployment(
                     this.id, this.image, this.deployment, this.abilities));

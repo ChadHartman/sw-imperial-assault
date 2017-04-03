@@ -10,17 +10,17 @@ namespace App.Ng {
             this.loadRequestListener = null;
         }
 
-        public load(id: string) {
+        public load(id: string): boolean {
             if (this.loadRequestListener === null) {
                 throw new Error('loadRequestListener not set')
             }
-            this.loadRequestListener.requestScript(`/assets/js/ability/${id}.js`);
+            return this.loadRequestListener.requestScript(`/assets/js/ability/${id}.js`);
         }
     }
 
     export module AbilityLoader {
         export interface IRequestListener {
-            requestScript(src: string);
+            requestScript(src: string): boolean;
         }
     }
 }

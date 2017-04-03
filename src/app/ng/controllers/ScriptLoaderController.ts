@@ -8,22 +8,30 @@ namespace App.Ng {
         public static readonly NAME = "scriptLoaderController";
 
         private readonly $scope: ScriptLoaderController.IScope;
+        private readonly $timeout: Function;
 
         constructor(
             $scope: ScriptLoaderController.IScope,
+            $timeout: Function,
             abilityLoader: AbilityLoader) {
 
             abilityLoader.loadRequestListener = this;
 
             this.$scope = $scope;
             this.$scope.scripts = new Array<ScriptLoaderController.IJavaScript>();
+
+            this.$timeout = $timeout;
         }
 
-        requestScript(src: string) {
+        requestScript(src: string): boolean {
+
             if (this.isScriptRegistered(src)) {
-                return;
+                return false;
             }
+
             this.$scope.scripts.push({ src: src });
+            this.$timeout(angular.noop);
+            return true;
         }
 
         private isScriptRegistered(src: string): boolean {
@@ -52,6 +60,7 @@ namespace App.Ng {
 App.Ng.module.controller(App.Ng.ScriptLoaderController.NAME,
     [
         '$scope',
+        '$timeout',
         App.Ng.AbilityLoader.NAME,
         App.Ng.ScriptLoaderController
     ]

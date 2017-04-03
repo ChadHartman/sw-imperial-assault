@@ -53,7 +53,7 @@ namespace App.Ng {
 
     export class ArmyLoader {
 
-        public static readonly NAME = "armyLoaderV2";
+        public static readonly NAME = "armyLoader";
         private readonly $http;
         private readonly armyCache: ArmyCache;
         private readonly deploymentLoader: DeploymentLoader;

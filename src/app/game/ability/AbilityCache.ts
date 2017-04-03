@@ -4,34 +4,49 @@ namespace App.Game.Ability {
         onAbilityLoad(ability: BaseAbility);
     }
 
-    export const cache = new Array<BaseAbility>();
-    export const listeners = new Array<LoadListener>();
-
-    export function addListener(listener: LoadListener) {
-        listeners.push(listener);
+    export interface Task {
+        listener: LoadListener;
+        id: string;
     }
 
-    export function removeListener(listener: LoadListener) {
-        let index = listeners.indexOf(listener);
-        if (index === -1) {
-            throw new Error("That listener is not registered");
+    export const cache = new Array<BaseAbility>();
+    export let tasks = new Array<Task>();
+
+    function dequeue() {
+
+        let queue = tasks;
+        tasks = new Array<Task>();
+
+        while (queue.length > 0) {
+
+            let task = queue.pop() !;
+            let found = false;
+
+            for (let ability of cache) {
+                if (ability.id === task.id) {
+                    task.listener.onAbilityLoad(ability);
+                    found = true;
+                    break;
+                }
+            }
+
+            if(!found) {
+                tasks.push(task);
+            }
         }
-        listeners.splice(index, 1);
     }
 
     export function loaded(ability: BaseAbility) {
         cache.push(ability);
-        for (let listener of listeners) {
-            listener.onAbilityLoad(ability);
-        }
+        dequeue();
     }
 
-    export function ability(id: string): BaseAbility | null {
-        for (let ability of cache) {
-            if (ability.id === id) {
-                return ability;
-            }
-        }
-        return null;
+    export function ability(id: string, listener: LoadListener) {
+        tasks.push({
+            id: id,
+            listener: listener
+        });
+        // Seperate loop
+        setTimeout(dequeue, 0);
     }
 }
