@@ -128,13 +128,21 @@ namespace App.Ng {
             }
 
             if (this.$scope.pendingAction !== null) {
-                // let result = this.$scope.pendingAction.targetUnit(unit);
-                // if (!result.success) {
-                //     console.error(result.message);
-                //     return;
-                // }
 
-                // this.checkTarget();
+                if (!this.$scope.pendingAction.targetUnit(unit)) {
+                    console.error(`Cannot target ${unit.uniqueId}`);
+                    return;
+                }
+
+                if (this.$scope.pendingAction.ready) {
+                    let result = this.$scope.pendingAction.execute();
+                    if (!result.success) {
+                        console.error(result.message);
+                        return;
+                    }
+                    this.$scope.pendingAction = null;
+                }
+
                 return;
             }
 

@@ -59,11 +59,21 @@ namespace App.Game.Ability {
         }
 
         public execute(): Engine.IResult {
+            if (!this.ready) {
+                return Engine.failure("Action is not ready");
+            }
 
-            // TODO Do attack stuff
+            let result = Dice.roll(
+                this.actor.deployment.attackDice,
+                (this.target!).deployment.defenseDice);
 
+            if (result.dodged) {
+                console.log("dodged!");
+                return Engine.SUCCESS;
+            }
 
-            return Engine.failure("Not implemented");
+            (this.target!).health -= result.damage;
+            return Engine.SUCCESS;
         }
     }
 

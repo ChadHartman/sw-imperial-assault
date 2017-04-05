@@ -8,6 +8,7 @@ namespace App.Game {
         public readonly groupSize: number;
         public readonly speed: number;
         public readonly attackDice: Array<string>;
+        public readonly defenseDice: Array<string>;
         public readonly health: number;
         public readonly rank: string;
 
@@ -26,6 +27,7 @@ namespace App.Game {
             this.groupSize = data.group_size;
             this.speed = data.speed;
             this.attackDice = data.attack || [];
+            this.defenseDice = data.defense || [];
         }
     }
 }

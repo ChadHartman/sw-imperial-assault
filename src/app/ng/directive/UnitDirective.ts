@@ -106,12 +106,10 @@ namespace App.Ng {
         }
 
         private drawTarget(w: number, h: number) {
-            console.log('drawing target');
             this.ctx.fillStyle = "red";
             this.ctx.font = `${w}px FontAwesome`;
             this.ctx.textAlign = "center";
             let symbol = String.fromCharCode(0xf140);
-            console.log(symbol);
             this.ctx.fillText(symbol, w / 2, h * .8);
         }
     }

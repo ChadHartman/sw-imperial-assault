@@ -11,8 +11,8 @@ namespace App.Game {
         public readonly deployment: Deployment
         public readonly abilities: Array<any>;
         public readonly uniqueId: string;
-        public readonly health: number;
         public readonly actions: Array<any>
+        public health: number;
         public actionCount: number;
         public _state: ActivationState;
         public movementPoints: number;

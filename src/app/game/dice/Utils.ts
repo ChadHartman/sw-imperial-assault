@@ -19,7 +19,7 @@ namespace App.Game.Dice {
         dodged: boolean;
     }
 
-    export function roll(...dice: Array<string>): IRollResult {
+    export function roll(attackDice: Array<string>, defenseDice: Array<string>): IRollResult {
 
         let result = {
             attack: new Array<IAttackResult>(),
@@ -30,40 +30,33 @@ namespace App.Game.Dice {
             dodged: false
         };
 
-        for (let name of dice) {
+        for (let name of attackDice) {
 
             let attackDie = getAttackDie(name);
-            if (attackDie !== null) {
-                let side = attackDie.roll();
-                result.attack.push({ name: attackDie.name, side: side });
-                result.damage += side.damage;
-                result.surge += side.surge;
-                result.range += side.range;
-                continue;
-            }
+            let side = attackDie.roll();
+            result.attack.push({ name: attackDie.name, side: side });
+            result.damage += side.damage;
+            result.surge += side.surge;
+            result.range += side.range;
+        }
+
+        for (let name of defenseDice) {
 
             let defenseDie = getDefenseDie(name);
-            if (defenseDie !== null) {
-
-                let side = defenseDie.roll();
-                result.defense.push({ name: defenseDie.name, side: side });
-                if (side.dodge > 0) {
-                    result.dodged = true;
-                }
-
-                result.damage -= side.block;
-                result.surge -= side.evade;
-
-                continue;
+            let side = defenseDie.roll();
+            result.defense.push({ name: defenseDie.name, side: side });
+            if (side.dodge > 0) {
+                result.dodged = true;
             }
 
-            throw new Error(`Unknown die: ${name}`);
+            result.damage -= side.block;
+            result.surge -= side.evade;
         }
 
         return result;
     }
 
-    function getAttackDie(name: string): AttackDie | null {
+    function getAttackDie(name: string): AttackDie {
         switch (name) {
             case "red":
                 return RED;
@@ -74,16 +67,16 @@ namespace App.Game.Dice {
             case "yellow":
                 return YELLOW;
         }
-        return null;
+        throw new Error(`Unknown attack die: ${name}`);
     }
 
-    function getDefenseDie(name: string): DefenseDie | null {
+    function getDefenseDie(name: string): DefenseDie {
         switch (name) {
             case "black":
                 return BLACK;
             case "white":
                 return WHITE;
         }
-        return null;
+        throw new Error(`Unknown defense die: ${name}`);
     }
 }
