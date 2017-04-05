@@ -9,17 +9,21 @@ namespace App.Ng {
         public static readonly NAME = "unitRender";
         public static readonly RESTRICT = "A";
         public static readonly ISOLATE_SCOPE = {
-            unit: '='
+            unit: '=',
+            targetable: '='
         };
 
         private readonly unit: Game.Unit;
         private readonly ctx: CanvasRenderingContext2D;
         private readonly classColor: string;
+        private targeted: boolean;
 
         constructor($scope: UnitDirective.IScope, $element) {
             let canvas = <HTMLCanvasElement>$element[0];
             this.ctx = canvas.getContext("2d") !;
             this.unit = $scope.unit;
+            this.targeted = false;
+
             switch ($scope.unit.deployment.rank) {
                 case Game.Unit.CLASS_ELITE:
                     this.classColor = "red";
@@ -32,9 +36,20 @@ namespace App.Ng {
             }
 
             $scope.$watch("unit.health", this.render.bind(this));
+            $scope.$watch("targetable", this.checkTargetable.bind(this));
         }
 
-        private render(newValue, oldValue) {
+        private checkTargetable(newValue: Array<Game.Unit> | undefined, oldValue: Array<Game.Unit> | undefined) {
+            if (newValue) {
+                this.targeted = newValue.indexOf(this.unit) !== -1;
+            } else {
+                this.targeted = false;
+            }
+            this.render();
+        }
+
+        private render(/*newValue, oldValue*/) {
+
             let w = this.ctx.canvas.width;
             let h = this.ctx.canvas.height;
 
@@ -43,6 +58,9 @@ namespace App.Ng {
             this.drawImage(w, h);
             this.drawHealth(w, h);
             this.drawAffiliation(w, h);
+            if (this.targeted) {
+                this.drawTarget(w, h);
+            }
         }
 
         private drawBase(w: number, h: number) {
@@ -86,11 +104,22 @@ namespace App.Ng {
             this.ctx.arc(r, h - ar, ar, 0, TWO_PI);
             this.ctx.fill();
         }
+
+        private drawTarget(w: number, h: number) {
+            console.log('drawing target');
+            this.ctx.fillStyle = "red";
+            this.ctx.font = `${w}px FontAwesome`;
+            this.ctx.textAlign = "center";
+            let symbol = String.fromCharCode(0xf140);
+            console.log(symbol);
+            this.ctx.fillText(symbol, w / 2, h * .8);
+        }
     }
 
     export module UnitDirective {
         export interface IScope {
             unit: Game.Unit;
+            targetable: Array<Game.Unit>;
             $watch: Function;
         }
     }

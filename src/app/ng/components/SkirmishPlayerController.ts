@@ -49,6 +49,7 @@ namespace App.Ng {
             this.$scope.selectUnit = this.selectUnit.bind(this);
             this.$scope.exaust = this.exaust.bind(this);
             this.$scope.performAction = this.performAction.bind(this);
+            this.$scope.cancelAction = this.cancelAction.bind(this);
             this.$scope.selectSpace = this.selectSpace.bind(this);
             this.$scope.$on(SkirmishController.EVENT_SAVE_STATE, this.saveState.bind(this));
             this.$scope.pendingAction = null;
@@ -89,6 +90,10 @@ namespace App.Ng {
             }
         }
 
+        private cancelAction() {
+            this.$scope.pendingAction = null;
+        }
+
         private performAction(unit: Game.Unit, action: any) {
 
             if (this.$scope.pendingAction !== null) {
@@ -96,17 +101,17 @@ namespace App.Ng {
                 return;
             }
 
-            // let pendingAction = this.engine.beginAction(unit, action);
-            // if (!pendingAction.ready) {
-            //     this.$scope.pendingAction = pendingAction;
-            //     return;
-            // }
+            let pendingAction = this.engine.createActionExecutable(unit, action);
+            if (!pendingAction.ready) {
+                this.$scope.pendingAction = pendingAction;
+                return;
+            }
 
-            // let result = pendingAction.execute();
-            // if (!result.success) {
-            //     console.log(result);
-            //     return;
-            // }
+            let result = pendingAction.execute();
+            if (!result.success) {
+                console.log(result);
+                return;
+            }
 
             this.updateMovementPoints();
         }
@@ -242,12 +247,13 @@ namespace App.Ng {
             spaces: Array<SkirmishPlayer.UiSpace>;
             state: Game.Engine.GameState;
             rCtx: RenderingContext;
-            pendingAction: /*Game.Engine.ActionExecutable | */null;
+            pendingAction: Game.Engine.ActionExecutable | null;
 
             // Mouse events
             selectUnit: Function;
             exaust: Function;
             performAction: Function;
+            cancelAction: Function;
             selectSpace: Function;
 
             $apply: Function;

@@ -4,13 +4,13 @@ namespace App.Game.Ability {
         onAbilityLoad(ability: BaseAbility);
     }
 
-    export interface Task {
+    interface Task {
         listener: LoadListener;
         id: string;
     }
 
-    export const cache = new Array<BaseAbility>();
-    export let tasks = new Array<Task>();
+    const cache = new Array<BaseAbility>();
+    let tasks = new Array<Task>();
 
     function dequeue() {
 
@@ -30,7 +30,7 @@ namespace App.Game.Ability {
                 }
             }
 
-            if(!found) {
+            if (!found) {
                 tasks.push(task);
             }
         }

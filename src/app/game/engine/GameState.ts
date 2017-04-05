@@ -11,6 +11,7 @@ namespace App.Game.Engine {
         public readonly armies: Array<Army>;
         public readonly skirmish: Skirmish;
         public readonly initiative: ZoneColor;
+        public readonly losService: Util.LosService;
         public round: number;
 
         constructor(skirmish: Skirmish, armies: Array<Army>, initiative: ZoneColor) {
@@ -19,6 +20,7 @@ namespace App.Game.Engine {
             this.armies.sort(armySorter);
             this.initiative = initiative;
             this.round = 1;
+            this.losService = new Util.LosService(this);
         }
 
         public get activeUnit(): Unit | null {
@@ -117,6 +119,10 @@ namespace App.Game.Engine {
 
 
             return ZoneColor.RED;
+        }
+
+        public los(from: Unit, to: Unit): ILosResult {
+            return this.losService.los(from, to);
         }
     }
 }
