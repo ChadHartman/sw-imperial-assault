@@ -49,6 +49,7 @@ namespace App.Ng {
             this.$scope.selectUnit = this.selectUnit.bind(this);
             this.$scope.exaust = this.exaust.bind(this);
             this.$scope.attack = this.attack.bind(this);
+            this.$scope.cancelAttack = this.cancelAttack.bind(this);
             this.$scope.move = this.move.bind(this);
             this.$scope.selectSpace = this.selectSpace.bind(this);
             this.$scope.$on(SkirmishController.EVENT_SAVE_STATE, this.saveState.bind(this));

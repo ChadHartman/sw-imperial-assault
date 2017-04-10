@@ -43,8 +43,19 @@
                 <button ng-click="exaust(unit)">Done</button>
             </div>
             <div ng-show="attackCtx !== null">
-                <p>Attack!</p>
-                <button ng-click="cancelAttack()">Cancel</button>
+                <div ng-show="attackCtx.target === null">
+                    <p>Select Target</p>
+                    <button ng-click="cancelAttack()">Cancel</button>
+                </div>
+                <div ng-show="attackCtx.target !== null">
+                    <p>Attacking {{ attackCtx.target.uniqueId }}</p>
+                    <p>
+                        {{ attackCtx.attackRoll }}
+                    </p>
+                    <p>
+                        {{ attackCtx.defenseRoll }}
+                    </p>
+                </div>
             </div>
         </div>
     </div>
