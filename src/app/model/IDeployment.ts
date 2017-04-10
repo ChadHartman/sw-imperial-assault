@@ -1,5 +1,10 @@
 namespace App.Model {
 
+    export interface IAttack {
+        type: string;
+        dice: Array<string>;
+    }
+
     export interface IDeployment {
         title: string;
         rank: string;
@@ -9,7 +14,7 @@ namespace App.Model {
         deployment_cost: number;
         health: number;
         speed: number;
-        attack: Array<string>;
+        attack: IAttack;
         defense: Array<string>;
         abilities: Array<string>;
         image_url: string;

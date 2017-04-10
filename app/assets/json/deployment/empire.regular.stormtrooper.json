@@ -9,10 +9,13 @@
     "reinforcement_cost": 2,
     "health": 3,
     "speed": 4,
-    "attack": [
-        "blue",
-        "green"
-    ],
+    "attack": {
+        "type": "ranged",
+        "dice": [
+            "blue",
+            "green"
+        ]
+    },
     "defense": [
         "black"
     ],

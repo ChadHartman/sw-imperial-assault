@@ -124,5 +124,10 @@ namespace App.Game.Engine {
         public los(from: Unit, to: Unit): ILosResult {
             return this.losService.los(from, to);
         }
+
+        public distance(from:Unit, to:Unit) :number {
+            // TODO: implement:
+            return 20;
+        }
     }
 }

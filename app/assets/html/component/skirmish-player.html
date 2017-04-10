@@ -29,19 +29,22 @@
             class="skirmish-unit-detail" 
             style="left:{{ rCtx.left(unit.x) }}px; top:{{ rCtx.top(unit.y) }}px">
             <p>{{ unit.deployment.title }}</p>
-            <div ng-hide="pendingAction !== null">
+            <div ng-hide="attackCtx !== null">
                 <p>Actions: {{ unit.actionCount }}</p>
                 <p>Movement Points: {{ unit.movementPoints }}</p>
                 <ul>
-                    <li ng-repeat="action in unit.actions">
-                        <button ng-click="performAction(unit, action)" >{{ action.name }}</button>
+                    <li ng-hide="unit.deployment.attack === null">
+                        <button ng-click="attack(unit)">Attack</button>
+                    </li>
+                    <li ng-hide="unit.deployment.speed === 0">
+                        <button ng-click="move(unit)">Move</button>
                     </li>
                 </ul>
                 <button ng-click="exaust(unit)">Done</button>
             </div>
-            <div ng-show="pendingAction !== null">
-                <p>{{ pendingAction.ability.name }}</p>
-                <button ng-click="cancelAction()">Cancel</button>
+            <div ng-show="attackCtx !== null">
+                <p>Attack!</p>
+                <button ng-click="cancelAttack()">Cancel</button>
             </div>
         </div>
     </div>

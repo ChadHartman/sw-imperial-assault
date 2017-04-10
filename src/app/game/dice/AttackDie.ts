@@ -19,7 +19,7 @@ namespace App.Game.Dice {
         public roll(): IAttackSide {
             let index = Math.floor(Math.random() * this.sides.length);
             return this.sides[index];
-        }
+        }   
     }
 
     export const RED = new AttackDie(

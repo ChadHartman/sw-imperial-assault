@@ -78,8 +78,15 @@ namespace App.Game.Engine {
             return SUCCESS;
         }
 
-        public createActionExecutable(actor:Unit, ability: Ability.BaseAbility): ActionExecutable {
-            return ability.executable(actor, ability, this.state);
+        public beginAttack(actor: Unit): Attack.BaseAttack {
+            switch (actor.deployment.attackType) {
+                case AttackType.MELEE:
+                    return new Attack.MeleeAttack(actor, this.state);
+                case AttackType.RANGED:
+                    return new Attack.RangedAttack(actor, this.state);
+            }
+
+            throw new Error(`${actor.uniqueId} has no attack `);
         }
 
         private deploy() {

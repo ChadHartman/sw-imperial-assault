@@ -8,10 +8,13 @@
     "deployment_cost": 2,
     "health": 3,
     "speed": 4,
-    "attack": [
-        "blue",
-        "yellow"
-    ],
+    "attack": {
+        "type": "ranged",
+        "dice": [
+            "blue",
+            "yellow"
+        ]
+    },
     "defense": [
         "white"
     ],

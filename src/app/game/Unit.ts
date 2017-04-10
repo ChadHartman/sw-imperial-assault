@@ -79,6 +79,5 @@ namespace App.Game {
         public get activeWaiting() {
             return this._state === ActivationState.ACTIVE_WAITING;
         }
-
     }
 }
