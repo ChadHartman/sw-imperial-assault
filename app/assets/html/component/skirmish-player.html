@@ -49,12 +49,18 @@
                 </div>
                 <div ng-show="attackCtx.target !== null">
                     <p>Attacking {{ attackCtx.target.uniqueId }}</p>
-                    <p>
-                        {{ attackCtx.attackRoll }}
-                    </p>
-                    <p>
-                        {{ attackCtx.defenseRoll }}
-                    </p>
+                    <div>
+                        <img
+                            class="die" 
+                            ng-repeat="roll in attackCtx.attackRoll" 
+                            data-lazy-src="assets/png/dice/{{ roll.die.name }}.{{ roll.side.index }}.png"/>
+                    </div>
+                    <div>
+                        <img 
+                            class="die"
+                            ng-repeat="roll in attackCtx.defenseRoll" 
+                            data-lazy-src="assets/png/dice/{{ roll.die.name }}.{{ roll.side.index }}.png"/>
+                    </div>
                 </div>
             </div>
         </div>

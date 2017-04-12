@@ -140,7 +140,11 @@ ul.submenu:hover > li > ul {
     -webkit-animation-iteration-count: infinite; 
     animation-iteration-count: infinite;
 }
-
+#skirmish .die {
+    width: 60px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
 #skirmish-los {
     border: 1px solid black;
     position: absolute;

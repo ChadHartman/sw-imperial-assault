@@ -4,6 +4,7 @@ namespace App.Game.Dice {
         block: number;
         evade: number;
         dodge: number;
+        index: number;
     }
 
     export class DefenseDie {
@@ -23,24 +24,24 @@ namespace App.Game.Dice {
     }
 
     export const BLACK = new DefenseDie(
-        "block",
+        "black",
         [
-            { block: 1, evade: 0, dodge: 0 },
-            { block: 1, evade: 0, dodge: 0 },
-            { block: 2, evade: 0, dodge: 0 },
-            { block: 2, evade: 0, dodge: 0 },
-            { block: 3, evade: 0, dodge: 0 },
-            { block: 0, evade: 1, dodge: 0 }
+            { block: 1, evade: 0, dodge: 0, index: 0 },
+            { block: 1, evade: 0, dodge: 0, index: 1 },
+            { block: 2, evade: 0, dodge: 0, index: 2 },
+            { block: 2, evade: 0, dodge: 0, index: 3 },
+            { block: 3, evade: 0, dodge: 0, index: 4 },
+            { block: 0, evade: 1, dodge: 0, index: 5 }
         ]);
 
     export const WHITE = new DefenseDie(
         "white",
         [
-            { block: 0, evade: 0, dodge: 0 },
-            { block: 1, evade: 0, dodge: 0 },
-            { block: 0, evade: 1, dodge: 0 },
-            { block: 1, evade: 1, dodge: 0 },
-            { block: 1, evade: 1, dodge: 0 },
-            { block: 0, evade: 0, dodge: 1 }
+            { block: 0, evade: 0, dodge: 0, index: 0 },
+            { block: 1, evade: 0, dodge: 0, index: 1 },
+            { block: 0, evade: 1, dodge: 0, index: 2 },
+            { block: 1, evade: 1, dodge: 0, index: 3 },
+            { block: 1, evade: 1, dodge: 0, index: 4 },
+            { block: 0, evade: 0, dodge: 1, index: 5 }
         ]);
 }
