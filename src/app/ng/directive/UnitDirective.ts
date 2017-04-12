@@ -10,18 +10,21 @@ namespace App.Ng {
         public static readonly RESTRICT = "A";
         public static readonly ISOLATE_SCOPE = {
             unit: '=',
-            targetable: '='
+            targetable: '=',
+            targeted: '='
         };
 
         private readonly unit: Game.Unit;
         private readonly ctx: CanvasRenderingContext2D;
         private readonly classColor: string;
+        private targetable: boolean;
         private targeted: boolean;
 
         constructor($scope: UnitDirective.IScope, $element) {
             let canvas = <HTMLCanvasElement>$element[0];
             this.ctx = canvas.getContext("2d") !;
             this.unit = $scope.unit;
+            this.targetable = false;
             this.targeted = false;
 
             switch ($scope.unit.deployment.rank) {
@@ -37,14 +40,16 @@ namespace App.Ng {
 
             $scope.$watch("unit.health", this.render.bind(this));
             $scope.$watch("targetable", this.checkTargetable.bind(this));
+            $scope.$watch("targeted", this.checkTargeted.bind(this));
         }
 
-        private checkTargetable(newValue: Array<Game.Unit> | undefined, oldValue: Array<Game.Unit> | undefined) {
-            if (newValue) {
-                this.targeted = newValue.indexOf(this.unit) !== -1;
-            } else {
-                this.targeted = false;
-            }
+        private checkTargetable(newValue: boolean | undefined, oldValue: boolean | undefined) {
+            this.targetable = newValue === undefined ? false : newValue;
+            this.render();
+        }
+
+        private checkTargeted(newValue: boolean | undefined, oldValue: boolean | undefined) {
+            this.targeted = newValue === undefined ? false : newValue;
             this.render();
         }
 
@@ -58,8 +63,11 @@ namespace App.Ng {
             this.drawImage(w, h);
             this.drawHealth(w, h);
             this.drawAffiliation(w, h);
+            if (this.targetable) {
+                this.drawTarget(w, h, "yellow");
+            }
             if (this.targeted) {
-                this.drawTarget(w, h);
+                this.drawTarget(w, h, "red");
             }
         }
 
@@ -105,8 +113,8 @@ namespace App.Ng {
             this.ctx.fill();
         }
 
-        private drawTarget(w: number, h: number) {
-            this.ctx.fillStyle = "red";
+        private drawTarget(w: number, h: number, color: string) {
+            this.ctx.fillStyle = color;
             this.ctx.font = `${w}px FontAwesome`;
             this.ctx.textAlign = "center";
             let symbol = String.fromCharCode(0xf140);

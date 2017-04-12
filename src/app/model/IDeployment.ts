@@ -1,5 +1,11 @@
 namespace App.Model {
 
+    export interface ISurge {
+        cost: number,
+        type: string,
+        value?: number;
+    }
+
     export interface IAttack {
         type: string;
         dice: Array<string>;
@@ -17,6 +23,7 @@ namespace App.Model {
         attack: IAttack;
         defense: Array<string>;
         abilities: Array<string>;
+        surges: Array<ISurge>;
         image_url: string;
     }
 }

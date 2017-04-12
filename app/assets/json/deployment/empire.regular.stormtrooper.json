@@ -23,11 +23,19 @@
         "trooper"
     ],
     "abilities": [
-        "squad_training",
-        "ranged_attack",
-        "move",
-        "surge_damage_1",
-        "surge_accuracy_2"
+        "squad_training"
+    ],
+    "surges": [
+        {
+            "cost": 1,
+            "type": "damage",
+            "value": 1
+        },
+        {
+            "cost": 1,
+            "type": "accuracy",
+            "value": 2
+        }
     ],
     "image_url": "assets/png/stormtrooper.png"
 }

@@ -17,18 +17,23 @@
         <!-- Grouped together for CSS selecting -->
         <canvas 
             class="skirmish-unit"
-            ng-class="{ exausted:unit.exausted, active:unit.active, active_waiting:unit.activeWaiting }" 
+            ng-class="{ 
+                exausted:unit.exausted, 
+                active:unit.active, 
+                active_waiting:unit.activeWaiting
+            }" 
             style="left:{{ rCtx.left(unit.x) }}px; top:{{ rCtx.top(unit.y) }}px"
             width="{{ rCtx.size }}"
             height="{{ rCtx.size }}"
             data-unit="unit"
-            data-targetable="pendingAction.targetableUnits"
+            data-targetable="isTargetable(unit)"
+            data-targeted="unit === attackCtx.target"
             ng-click="selectUnit(unit)"
             unit-render></canvas>
         <div 
-            class="skirmish-unit-detail" 
+            class="skirmish-unit-menu" 
             style="left:{{ rCtx.left(unit.x) }}px; top:{{ rCtx.top(unit.y) }}px">
-            <p>{{ unit.deployment.title }}</p>
+            <h1>{{ unit.deployment.title }}</h1>
             <div ng-hide="attackCtx !== null">
                 <p>Actions: {{ unit.actionCount }}</p>
                 <p>Movement Points: {{ unit.movementPoints }}</p>

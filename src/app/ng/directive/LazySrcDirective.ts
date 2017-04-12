@@ -10,7 +10,6 @@ namespace App.Ng {
 
         constructor($scope, $element, $attr) {
             $element.attr('src', $attr[LazySrcDirective.NAME]);
-            console.log($attr[LazySrcDirective.NAME]);
         }
     }
 }

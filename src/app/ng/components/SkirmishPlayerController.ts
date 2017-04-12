@@ -44,6 +44,7 @@ namespace App.Ng {
             this.$scope = $scope;
             this.$scope.rCtx = renderingContext;
             this.$scope.units = new Array<Game.Unit>();
+            this.$scope.targetableUnits = new Array<Game.Unit>();
             this.$scope.spaces = new Array<SkirmishPlayer.UiSpace>();
 
             this.$scope.selectUnit = this.selectUnit.bind(this);
@@ -54,6 +55,7 @@ namespace App.Ng {
             this.$scope.selectSpace = this.selectSpace.bind(this);
             this.$scope.$on(SkirmishController.EVENT_SAVE_STATE, this.saveState.bind(this));
             this.$scope.attackCtx = null;
+            this.$scope.isTargetable = this.isTargetable.bind(this);
 
             // TODO: remove
             (<any>window).playerScope = $scope;
@@ -93,6 +95,7 @@ namespace App.Ng {
 
         private cancelAttack() {
             this.$scope.attackCtx = null;
+            this.$scope.targetableUnits = new Array<Game.Unit>();
         }
 
         private attack(unit: Game.Unit) {
@@ -102,7 +105,22 @@ namespace App.Ng {
                 return;
             }
 
-            this.$scope.attackCtx = this.engine.beginAttack(unit);
+            let ctx = this.engine.beginAttack(unit);
+            this.$scope.attackCtx = ctx;
+            for (let unit of this.$scope.units) {
+                if (ctx.targetable(unit)) {
+                    this.$scope.targetableUnits.push(unit);
+                }
+            }
+        }
+
+        private isTargetable(unit: Game.Unit): boolean {
+            for (let targetable of this.$scope.targetableUnits) {
+                if (unit.uniqueId === targetable.uniqueId) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private move(unit: Game.Unit) {
@@ -136,6 +154,7 @@ namespace App.Ng {
                 }
 
                 ctx.target = unit;
+                this.$scope.targetableUnits = new Array<Game.Unit>();
 
                 return;
             }
@@ -213,13 +232,16 @@ namespace App.Ng {
     }
 
     export module SkirmishPlayerController {
+
         export interface IScope {
 
             units: Array<Game.Unit>;
+            targetableUnits: Array<Game.Unit>;
             spaces: Array<SkirmishPlayer.UiSpace>;
             state: Game.Engine.GameState;
             rCtx: RenderingContext;
             attackCtx: Game.Attack.BaseAttack | null;
+            isTargetable: (unit: Game.Unit) => boolean
 
             // Mouse events
             attack: (unit: Game.Unit) => void;
@@ -232,7 +254,7 @@ namespace App.Ng {
 
             $apply: Function;
             $on: Function;
-        };
+        }
 
         export interface IRouteParams {
             skirmish_id: string,

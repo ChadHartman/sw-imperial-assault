@@ -21,14 +21,25 @@
     "traits": [
         "leader"
     ],
+    "surges": [
+        {
+            "cost": 1,
+            "type": "damage",
+            "value": 1
+        },
+        {
+            "cost": 1,
+            "type": "focus"
+        },
+        {
+            "cost": 1,
+            "type": "accuracy",
+            "value": 2
+        }
+    ],
     "abilities": [
-        "ranged_attack",
-        "move",
         "order",
-        "cower",
-        "surge_damage_1",
-        "surge_focus",
-        "surge_accuracy_2"
+        "cower"
     ],
     "image_url": "assets/png/imperial_officer.png"
 }

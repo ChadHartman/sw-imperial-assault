@@ -86,24 +86,32 @@ ul.submenu:hover > li > ul {
     position:absolute;
     z-index: 2;
 }
-.skirmish-unit-detail {
+.skirmish-unit-menu {
     position: absolute;
     margin-top: 30px;
     background: white;
     visibility: hidden;
     padding: 10px;
     z-index: 3;
+    border: 1px solid black;
+    width: 200px;
+    border-radius: 20px;
 }
-.skirmish-unit.active:hover + .skirmish-unit-detail {
+.skirmish-unit-menu h1 {
+    font-size: 16pt;
+    font-weight: bold;
+    margin: 0;
+    text-align: center;
+}
+.skirmish-unit.active:hover + .skirmish-unit-menu {
     visibility: visible;
 }
-.skirmish-unit-detail:hover {
+.skirmish-unit-menu:hover {
     visibility: visible;
 }
 .skirmish-unit.exausted {
     transform: rotate(90deg);
 }
-
 @-webkit-keyframes oscillate {
     50%
     {

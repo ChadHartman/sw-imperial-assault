@@ -23,12 +23,24 @@
         "Droid"
     ],
     "abilities": [
-        "self_destruct",
-        "ranged_attack",
-        "move",
-        "surge_damage_1",
-        "surge_recover_1",
-        "surge_pierce_1"
+        "self_destruct"
+    ],
+     "surges": [
+        {
+            "cost": 1,
+            "type": "damage",
+            "value": 1
+        },
+        {
+            "cost": 1,
+            "type": "recover",
+            "value": 1
+        },
+        {
+            "cost": 1,
+            "type": "pierce",
+            "value": 2
+        }
     ],
     "image_url": "assets/png/probe_droid.png"
 }
