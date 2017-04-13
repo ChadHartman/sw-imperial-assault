@@ -28,7 +28,7 @@ namespace App.Game {
         public readonly defenseDice: Array<string>;
         public readonly health: number;
         public readonly rank: string;
-        public readonly surges: Array<Model.ISurge>;
+        public readonly surges: Array<ISurge>;
 
         constructor(
             public readonly id: string,
@@ -46,7 +46,13 @@ namespace App.Game {
             this.speed = data.speed;
             this.attackDice = new Array<Dice.AttackDie>();
             this.defenseDice = data.defense || [];
-            this.surges = data.surges || [];
+            this.surges = new Array<ISurge>();
+            
+            if (data.surges) {
+                for (let surge of data.surges) {
+                    this.surges.push(ISurge.parse(surge));
+                }
+            }
 
             if (data.attack) {
                 this.attackType = AttackType.parse(data.attack.type);

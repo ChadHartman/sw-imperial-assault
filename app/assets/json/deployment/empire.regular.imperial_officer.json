@@ -24,17 +24,30 @@
     "surges": [
         {
             "cost": 1,
-            "type": "damage",
-            "value": 1
+            "modifiers": [
+                {
+                    "type": "damage",
+                    "value": 1
+                }
+            ]
         },
         {
             "cost": 1,
-            "type": "focus"
+            "modifiers": [
+                {
+                    "type": "status",
+                    "status": "focused"
+                }
+            ]
         },
         {
             "cost": 1,
-            "type": "accuracy",
-            "value": 2
+            "modifiers": [
+                {
+                    "type": "accuracy",
+                    "value": 2
+                }
+            ]
         }
     ],
     "abilities": [

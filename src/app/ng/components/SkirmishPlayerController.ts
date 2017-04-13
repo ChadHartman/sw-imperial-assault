@@ -229,6 +229,14 @@ namespace App.Ng {
 
             return path.reverse();
         }
+
+        private spendSurge(surge: Game.ISurge) {
+            if (this.$scope.attackCtx === null) {
+                throw new Error('No current attack');
+            }
+
+            this.$scope.attackCtx.spendSurge(surge);
+        }
     }
 
     export module SkirmishPlayerController {
@@ -247,6 +255,7 @@ namespace App.Ng {
             attack: (unit: Game.Unit) => void;
             move: (unit: Game.Unit) => void;
             cancelAttack: () => void;
+            spendSurge: (surge: Model.ISurge) => void;
             selectUnit: Function;
             exaust: Function;
             performAction: Function;

@@ -27,27 +27,6 @@ namespace App.Game.Attack {
         CALCULATE_DAMAGE
     }
 
-    export enum Attribute {
-        SURGE,
-        DAMAGE,
-        BLOCK,
-        EVADE,
-        ACCURACY,
-        DODGE,
-        STATUS
-    }
-
-    export interface IModifier {
-        type: Attribute;
-        value?: number;
-        status?: StatusEffect;
-    }
-
-    export interface ISurge {
-        cost: number;
-        modifier: IModifier;
-    }
-
     function rollAttack(id: number, die: Dice.AttackDie): IAttackDieRoll {
         let side = die.roll();
         return { id: id, die: die, side: side, rerolled: false };
@@ -215,8 +194,10 @@ namespace App.Game.Attack {
             }
 
             for (let surge of this.surges) {
-                if (surge.modifier.type === Attribute.DODGE) {
-                    total += surge.modifier.value;
+                for (let modifier of surge.modifiers) {
+                    if (modifier.type === Attribute.DODGE) {
+                        total += modifier.value;
+                    }
                 }
             }
 
@@ -238,8 +219,10 @@ namespace App.Game.Attack {
             }
 
             for (let surge of this.surges) {
-                if (surge.modifier.type === Attribute.ACCURACY) {
-                    total += surge.modifier.value;
+                for (let modifier of surge.modifiers) {
+                    if (modifier.type === Attribute.ACCURACY) {
+                        total += modifier.value;
+                    }
                 }
             }
 
@@ -280,11 +263,13 @@ namespace App.Game.Attack {
             }
 
             for (let surge of this.surges) {
-                if (surge.modifier.type === Attribute.STATUS) {
-                    if (statusEffects === null) {
-                        statusEffects = new Set<StatusEffect>();
+                for (let modifier of surge.modifiers) {
+                    if (modifier.type === Attribute.STATUS) {
+                        if (statusEffects === null) {
+                            statusEffects = new Set<StatusEffect>();
+                        }
+                        statusEffects.add(modifier.status!);
                     }
-                    statusEffects.add(surge.modifier.status!);
                 }
             }
 

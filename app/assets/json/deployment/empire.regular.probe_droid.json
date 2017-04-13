@@ -25,21 +25,33 @@
     "abilities": [
         "self_destruct"
     ],
-     "surges": [
+    "surges": [
         {
             "cost": 1,
-            "type": "damage",
-            "value": 1
+            "modifiers": [
+                {
+                    "type": "damage",
+                    "value": 1
+                }
+            ]
         },
         {
             "cost": 1,
-            "type": "recover",
-            "value": 1
+            "modifiers": [
+                {
+                    "type": "recover",
+                    "value": 1
+                }
+            ]
         },
         {
             "cost": 1,
-            "type": "pierce",
-            "value": 2
+            "modifiers": [
+                {
+                    "type": "pierce",
+                    "value": 2
+                }
+            ]
         }
     ],
     "image_url": "assets/png/probe_droid.png"

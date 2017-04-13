@@ -28,13 +28,21 @@
     "surges": [
         {
             "cost": 1,
-            "type": "damage",
-            "value": 1
+            "modifiers": [
+                {
+                    "type": "damage",
+                    "value": 1
+                }
+            ]
         },
         {
             "cost": 1,
-            "type": "accuracy",
-            "value": 2
+            "modifiers": [
+                {
+                    "type": "accuracy",
+                    "value": 2
+                }
+            ]
         }
     ],
     "image_url": "assets/png/stormtrooper.png"

@@ -71,7 +71,8 @@
                     <ul>
                         <li ng-repeat="surge in unit.deployment.surges">
                             <button
-                                ng-disabled="surge.cost > attackCtx.surge">
+                                ng-disabled="surge.cost > attackCtx.surge"
+                                ng-click="spendSurge(surge)">
                                 {{ surge.cost }}:{{ surge.type }}&nbsp;{{ surge.value }}
                             </button>
                         </li>

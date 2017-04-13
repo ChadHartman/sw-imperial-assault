@@ -1,9 +1,14 @@
 namespace App.Model {
 
-    export interface ISurge {
-        cost: number,
-        type: string,
+    export interface IModifier {
+        type: string;
         value?: number;
+        status?: string;
+    }
+
+    export interface ISurge {
+        cost: number;
+        modifiers: Array<IModifier>;
     }
 
     export interface IAttack {
