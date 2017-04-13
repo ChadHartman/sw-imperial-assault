@@ -45,7 +45,7 @@
                         <button ng-click="move(unit)">Move</button>
                     </li>
                 </ul>
-                <button ng-click="exaust(unit)">Done</button>
+                <button ng-click="exaust(unit)">Exaust</button>
             </div>
             <div ng-show="attackCtx !== null">
                 <div ng-show="attackCtx.target === null">
@@ -53,7 +53,8 @@
                     <button ng-click="cancelAttack()">Cancel</button>
                 </div>
                 <div ng-show="attackCtx.target !== null">
-                    <p>Attacking {{ attackCtx.target.uniqueId }}</p>
+                    <!-- Surg spend screen -->
+                    <p>Target: {{ attackCtx.target.deployment.title }}</p>
                     <div>
                         <img
                             class="die" 
@@ -66,6 +67,15 @@
                             ng-repeat="roll in attackCtx.defenseRoll" 
                             data-lazy-src="assets/png/dice/{{ roll.die.name }}.{{ roll.side.index }}.png"/>
                     </div>
+                    <p>Surges: {{ attackCtx.surge }}</p>
+                    <ul>
+                        <li ng-repeat="surge in unit.deployment.surges">
+                            <button
+                                ng-disabled="surge.cost > attackCtx.surge">
+                                {{ surge.cost }}:{{ surge.type }}&nbsp;{{ surge.value }}
+                            </button>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
