@@ -73,7 +73,7 @@
                             <button
                                 ng-disabled="surge.cost > attackCtx.surge"
                                 ng-click="spendSurge(surge)">
-                                {{ surge.cost }}:{{ surge.type }}&nbsp;{{ surge.value }}
+                                {{ surge.toString() }}
                             </button>
                         </li>
                     </ul>

@@ -47,7 +47,7 @@ namespace App.Game.Attack {
         protected readonly state: Engine.GameState;
 
         private readonly modifiers: Array<IModifier>;
-        private readonly surges: Array<ISurge>;
+        private readonly surges: Array<Surge>;
         private _target: Unit | null;
         private _phase: Phase;
 
@@ -59,7 +59,7 @@ namespace App.Game.Attack {
             this.attackRoll = new Array<IAttackDieRoll>();
             this.defenseRoll = new Array<IDefenseDieRoll>();
             this.modifiers = new Array<IModifier>();
-            this.surges = new Array<ISurge>();
+            this.surges = new Array<Surge>();
             this._phase = Phase.DECLARE_TARGET;
         }
 
@@ -133,7 +133,7 @@ namespace App.Game.Attack {
             this.modifiers.push(modifier);
         }
 
-        public spendSurge(surge: ISurge) {
+        public spendSurge(surge: Surge) {
             if (this._phase < Phase.SPEND_SURGES) {
                 this._phase = Phase.SPEND_SURGES;
             } else if (this._phase > Phase.SPEND_SURGES) {
@@ -172,7 +172,7 @@ namespace App.Game.Attack {
                 total -= surge.cost;
             }
 
-            return total;
+            return total < 0 ? 0 : total;
         }
 
         public get phase(): Phase {

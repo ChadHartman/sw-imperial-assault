@@ -230,7 +230,7 @@ namespace App.Ng {
             return path.reverse();
         }
 
-        private spendSurge(surge: Game.ISurge) {
+        private spendSurge(surge: Game.Surge) {
             if (this.$scope.attackCtx === null) {
                 throw new Error('No current attack');
             }
