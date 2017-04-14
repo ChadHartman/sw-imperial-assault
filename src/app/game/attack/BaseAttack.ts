@@ -46,7 +46,7 @@ namespace App.Game.Attack {
 
         protected readonly state: Engine.GameState;
 
-        private readonly modifiers: Array<IModifier>;
+        private readonly modifiers: Array<Modifier>;
         private readonly surges: Array<Surge>;
         private _target: Unit | null;
         private _phase: Phase;
@@ -58,7 +58,7 @@ namespace App.Game.Attack {
             this.state = state;
             this.attackRoll = new Array<IAttackDieRoll>();
             this.defenseRoll = new Array<IDefenseDieRoll>();
-            this.modifiers = new Array<IModifier>();
+            this.modifiers = new Array<Modifier>();
             this.surges = new Array<Surge>();
             this._phase = Phase.DECLARE_TARGET;
         }
@@ -123,7 +123,7 @@ namespace App.Game.Attack {
             throw new Error(`Invalid die id: ${id}`);
         }
 
-        public applyModifier(modifier: IModifier) {
+        public applyModifier(modifier: Modifier) {
             if (this._phase < Phase.APPLY_MODIFIERS) {
                 this._phase = Phase.APPLY_MODIFIERS;
             } else if (this._phase > Phase.APPLY_MODIFIERS) {
@@ -149,6 +149,34 @@ namespace App.Game.Attack {
 
         public get target(): Unit | null {
             return this._target;
+        }
+
+        public get damage(): number {
+            let total = 0;
+
+            for (let roll of this.attackRoll) {
+                total += roll.side.damage;
+            }
+
+            for (let roll of this.defenseRoll) {
+                total -= roll.side.block;
+            }
+
+            for (let modifier of this.modifiers) {
+                if (modifier.type === Attribute.DAMAGE) {
+                    total += modifier.value;
+                }
+            }
+
+            for (let surge of this.surges) {
+                for (let modifier of surge.modifiers) {
+                    if (modifier.type === Attribute.DAMAGE) {
+                        total += modifier.value;
+                    }
+                }
+            }
+
+            return total < 0 ? 0 : total;
         }
 
         public get surge(): number {

@@ -153,12 +153,21 @@ ul.submenu:hover > li > ul {
     margin-right: 5px;
     margin-bottom: 5px;
 }
-#skirmish-los {
-    border: 1px solid black;
+#attack-menu {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
+    left: 100px;
+    right: 100px;
+    border: 1px solid black;
+    z-index: 4;
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+}
+img.symbol {
+    height: 16pt;
+}
+button.surge {
+    width: 128px;
+    height: 32px;
+    text-align: left;
 }

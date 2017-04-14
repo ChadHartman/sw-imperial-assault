@@ -1,6 +1,3 @@
- <div ng-hide="target === null">
-    <p>{{ pendingAction.ability.title }}</p>
-</div>
  <div class="player">
     <canvas 
         class="skirmish-space"
@@ -47,38 +44,39 @@
                 </ul>
                 <button ng-click="exaust(unit)">Exaust</button>
             </div>
-            <div ng-show="attackCtx !== null">
-                <div ng-show="attackCtx.target === null">
-                    <p>Select Target</p>
-                    <button ng-click="cancelAttack()">Cancel</button>
-                </div>
-                <div ng-show="attackCtx.target !== null">
-                    <!-- Surg spend screen -->
-                    <p>Target: {{ attackCtx.target.deployment.title }}</p>
-                    <div>
-                        <img
-                            class="die" 
-                            ng-repeat="roll in attackCtx.attackRoll" 
-                            data-lazy-src="assets/png/dice/{{ roll.die.name }}.{{ roll.side.index }}.png"/>
-                    </div>
-                    <div>
-                        <img 
-                            class="die"
-                            ng-repeat="roll in attackCtx.defenseRoll" 
-                            data-lazy-src="assets/png/dice/{{ roll.die.name }}.{{ roll.side.index }}.png"/>
-                    </div>
-                    <p>Surges: {{ attackCtx.surge }}</p>
-                    <ul>
-                        <li ng-repeat="surge in unit.deployment.surges">
-                            <button
-                                ng-disabled="surge.cost > attackCtx.surge"
-                                ng-click="spendSurge(surge)">
-                                {{ surge.toString() }}
-                            </button>
-                        </li>
-                    </ul>
-                </div>
+            <div ng-show="attackCtx.target === null">
+                <p>Select Target</p>
+                <button ng-click="cancelAttack()">Cancel</button>
             </div>
         </div>
+    </div>
+    <div
+        id="attack-menu"
+        ng-show="attackMenuVisible()">
+        <!-- Surg spend screen -->
+        <p>Target: {{ attackCtx.target.deployment.title }}</p>
+        <div>
+            <img
+                class="die" 
+                ng-repeat="roll in attackCtx.attackRoll" 
+                data-lazy-src="assets/png/dice/{{ roll.die.name }}.{{ roll.side.index }}.png"/>
+        </div>
+        <div>
+            <img 
+                class="die"
+                ng-repeat="roll in attackCtx.defenseRoll" 
+                data-lazy-src="assets/png/dice/{{ roll.die.name }}.{{ roll.side.index }}.png"/>
+        </div>
+        <p>Damage: {{ attackCtx.damage }}, Surges: {{ attackCtx.surge }}</p>
+        <ul>
+            <li ng-repeat="surge in attackCtx.attacker.deployment.surges">
+                <button
+                    class="surge"
+                    ng-disabled="surge.cost > attackCtx.surge"
+                    ng-click="spendSurge(surge)"
+                    symbolize="surge.toString()">
+                </button>
+            </li>
+        </ul>
     </div>
 </div>

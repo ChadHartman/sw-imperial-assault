@@ -47,6 +47,7 @@ namespace App.Ng {
             this.$scope.targetableUnits = new Array<Game.Unit>();
             this.$scope.spaces = new Array<SkirmishPlayer.UiSpace>();
 
+            this.$scope.attackMenuVisible = this.attackMenuVisible.bind(this);
             this.$scope.selectUnit = this.selectUnit.bind(this);
             this.$scope.exaust = this.exaust.bind(this);
             this.$scope.attack = this.attack.bind(this);
@@ -230,6 +231,11 @@ namespace App.Ng {
             return path.reverse();
         }
 
+        private attackMenuVisible(): boolean {
+            return this.$scope.attackCtx !== null && 
+                this.$scope.attackCtx.target !== null;
+        }
+
         private spendSurge(surge: Game.Surge) {
             if (this.$scope.attackCtx === null) {
                 throw new Error('No current attack');
@@ -249,7 +255,8 @@ namespace App.Ng {
             state: Game.Engine.GameState;
             rCtx: RenderingContext;
             attackCtx: Game.Attack.BaseAttack | null;
-            isTargetable: (unit: Game.Unit) => boolean
+            isTargetable: (unit: Game.Unit) => boolean;
+            attackMenuVisible:() => boolean;
 
             // Mouse events
             attack: (unit: Game.Unit) => void;

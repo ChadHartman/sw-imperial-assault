@@ -1,37 +1,32 @@
 namespace App.Game {
+
     export class Surge {
 
         public readonly cost: number;
-        public readonly modifiers: Array<IModifier>;
+        public readonly modifiers: Array<Modifier>;
         private readonly description: string;
 
         constructor(data: Model.ISurge) {
 
             this.cost = data.cost;
-            this.modifiers = new Array<IModifier>();
+            this.modifiers = new Array<Modifier>();
+            for (let modifier of data.modifiers) {
+                this.modifiers.push(new Modifier(modifier));
+            }
+            this.description = this.createDescription();
+        }
+
+        private createDescription(): string {
 
             let description = "";
 
-            for (let iMod of data.modifiers) {
-                let modifier = IModifier.parse(iMod)
-                this.modifiers.push(modifier);
-
-                if (this.modifiers.length > 0) {
-                    description += ", ";
-                }
-
-                description += `${Attribute[modifier.type]} `;
-
-                if (modifier.status !== undefined) {
-                    description += `${StatusEffect[modifier.status]}`;
-                }
-
-                if (modifier.value !== undefined) {
-                    description += `${modifier.value}`;
-                }
+            for (let i = 0; i < this.cost; i++) {
+                description += ":surge:";
             }
 
-            this.description = this.cost + ": " + description;
+            description += ": " + this.modifiers.join(", ");
+
+            return description;
         }
 
         public toString(): string {
