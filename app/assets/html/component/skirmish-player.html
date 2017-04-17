@@ -58,12 +58,14 @@
         <div>
             <img
                 class="die" 
-                ng-repeat="roll in attackCtx.attackRoll" 
+                ng-repeat="roll in attackCtx.attackRoll"
+                ng-click="rerollAttackDie(roll)" 
                 data-lazy-src="assets/png/dice/{{ roll.die.name }}.{{ roll.side.index }}.png"/>
         </div>
         <div>
             <img 
                 class="die"
+                ng-click="rerollDefenseDie(roll)" 
                 ng-repeat="roll in attackCtx.defenseRoll" 
                 data-lazy-src="assets/png/dice/{{ roll.die.name }}.{{ roll.side.index }}.png"/>
         </div>
@@ -74,6 +76,7 @@
                     class="surge"
                     ng-disabled="surge.cost > attackCtx.surge"
                     ng-click="spendSurge(surge)"
+                    ng-disabled="attackCtx.isSurgeSpent(surge)"
                     symbolize="surge.toString()">
                 </button>
             </li>

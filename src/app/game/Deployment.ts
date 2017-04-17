@@ -49,8 +49,11 @@ namespace App.Game {
             this.surges = new Array<Surge>();
 
             if (data.surges) {
+                
+                let surgeId = 1;
+
                 for (let surge of data.surges) {
-                    this.surges.push(new Surge(surge));
+                    this.surges.push(new Surge(surgeId++, surge));
                 }
             }
 

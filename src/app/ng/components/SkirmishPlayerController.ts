@@ -57,6 +57,8 @@ namespace App.Ng {
             this.$scope.$on(SkirmishController.EVENT_SAVE_STATE, this.saveState.bind(this));
             this.$scope.attackCtx = null;
             this.$scope.isTargetable = this.isTargetable.bind(this);
+            this.$scope.rerollAttackDie = this.rerollAttackDie.bind(this);
+            this.$scope.rerollDefenseDie = this.rerollDefenseDie.bind(this);
 
             // TODO: remove
             (<any>window).playerScope = $scope;
@@ -231,8 +233,18 @@ namespace App.Ng {
             return path.reverse();
         }
 
+        private rerollAttackDie(roll: Game.Attack.IAttackDieRoll) {
+            //(this.$scope.attackCtx!).reroll(roll.id);
+            (this.$scope.attackCtx!).attackRoll[0].side =
+                (this.$scope.attackCtx!).attackRoll[0].die.roll();
+        }
+
+        private rerollDefenseDie(roll: Game.Attack.IDefenseDieRoll) {
+            //(this.$scope.attackCtx!).reroll(roll.id);
+        }
+
         private attackMenuVisible(): boolean {
-            return this.$scope.attackCtx !== null && 
+            return this.$scope.attackCtx !== null &&
                 this.$scope.attackCtx.target !== null;
         }
 
@@ -256,13 +268,15 @@ namespace App.Ng {
             rCtx: RenderingContext;
             attackCtx: Game.Attack.BaseAttack | null;
             isTargetable: (unit: Game.Unit) => boolean;
-            attackMenuVisible:() => boolean;
+            attackMenuVisible: () => boolean;
 
             // Mouse events
             attack: (unit: Game.Unit) => void;
             move: (unit: Game.Unit) => void;
             cancelAttack: () => void;
             spendSurge: (surge: Model.ISurge) => void;
+            rerollAttackDie: (roll: Game.Attack.IAttackDieRoll) => void;
+            rerollDefenseDie: (roll: Game.Attack.IDefenseDieRoll) => void;
             selectUnit: Function;
             exaust: Function;
             performAction: Function;

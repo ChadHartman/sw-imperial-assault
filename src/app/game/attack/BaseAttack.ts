@@ -61,6 +61,8 @@ namespace App.Game.Attack {
             this.modifiers = new Array<Modifier>();
             this.surges = new Array<Surge>();
             this._phase = Phase.DECLARE_TARGET;
+
+            App.debug["attack"] = this;
         }
 
         public set target(target: Unit | null) {
@@ -131,6 +133,15 @@ namespace App.Game.Attack {
             }
 
             this.modifiers.push(modifier);
+        }
+
+        public isSurgeSpent(surge: Surge): boolean {
+            for (let spent of this.surges) {
+                if (spent.id === surge.id) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public spendSurge(surge: Surge) {

@@ -1,12 +1,15 @@
 namespace App.Game {
 
+    // TODO: ids
     export class Surge {
 
         public readonly cost: number;
         public readonly modifiers: Array<Modifier>;
         private readonly description: string;
 
-        constructor(data: Model.ISurge) {
+        constructor(
+            public readonly id: number,
+            data: Model.ISurge) {
 
             this.cost = data.cost;
             this.modifiers = new Array<Modifier>();
