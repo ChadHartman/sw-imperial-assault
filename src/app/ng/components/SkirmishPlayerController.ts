@@ -235,8 +235,7 @@ namespace App.Ng {
 
         private rerollAttackDie(roll: Game.Attack.IAttackDieRoll) {
             //(this.$scope.attackCtx!).reroll(roll.id);
-            (this.$scope.attackCtx!).attackRoll[0].side =
-                (this.$scope.attackCtx!).attackRoll[0].die.roll();
+            roll.side = roll.die.roll();
         }
 
         private rerollDefenseDie(roll: Game.Attack.IDefenseDieRoll) {

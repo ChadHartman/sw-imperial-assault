@@ -10,6 +10,12 @@ namespace App.Ng {
 
         constructor($scope, $element, $attr) {
             $element.attr('src', $attr[LazySrcDirective.NAME]);
+
+            $scope.$watch(function () {
+                return $element.attr('data-lazy-src');
+            }, function (value) {
+                $element.attr('src', $attr[LazySrcDirective.NAME]);
+            });
         }
     }
 }
@@ -18,6 +24,7 @@ App.Ng.module.directive(App.Ng.LazySrcDirective.NAME, function () {
     return {
         restrict: App.Ng.LazySrcDirective.RESTRICT,
         link: function ($scope, $element, $attr) {
+            console.log($attr[App.Ng.LazySrcDirective.NAME]);
             new App.Ng.LazySrcDirective($scope, $element, $attr);
         }
     };
