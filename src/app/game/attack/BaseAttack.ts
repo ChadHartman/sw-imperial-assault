@@ -135,30 +135,34 @@ namespace App.Game.Attack {
             this.modifiers.push(modifier);
         }
 
-        public isSurgeSpent(surge: Surge): boolean {
+        public isSurgeSpendable(surge: Surge): boolean {
+
+            if (this._phase > Phase.SPEND_SURGES) {
+                return false;
+            }
+
             for (let spent of this.surges) {
                 if (spent.id === surge.id) {
-                    console.log(`${spent.id} === ${surge.id}`)
-                    return true;
+                    return false;
                 }
             }
-            return false;
+
+            return this.surge >= surge.cost;
         }
 
         public spendSurge(surge: Surge) {
+
             if (this._phase < Phase.SPEND_SURGES) {
                 this._phase = Phase.SPEND_SURGES;
             } else if (this._phase > Phase.SPEND_SURGES) {
                 throw new Error(`Invalid attack phase ${Phase[this._phase]}`);
             }
 
-            if (surge.cost <= this.surge) {
-                this.surges.push(surge);
-            } else {
-                throw new Error("Insufficient surge");
+            if (!this.isSurgeSpendable(surge)) {
+                throw new Error(`Cannot spend`);
             }
 
-            console.log(`Surges: ${this.surges}`);
+            this.surges.push(surge);
         }
 
         public get target(): Unit | null {

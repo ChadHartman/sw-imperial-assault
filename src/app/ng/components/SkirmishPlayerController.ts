@@ -59,6 +59,8 @@ namespace App.Ng {
             this.$scope.isTargetable = this.isTargetable.bind(this);
             this.$scope.rerollAttackDie = this.rerollAttackDie.bind(this);
             this.$scope.rerollDefenseDie = this.rerollDefenseDie.bind(this);
+            this.$scope.spendSurge = this.spendSurge.bind(this);
+            
 
             // TODO: remove
             (<any>window).playerScope = $scope;
@@ -249,7 +251,6 @@ namespace App.Ng {
         }
 
         private spendSurge(surge: Game.Surge) {
-            console.log(`Spend: ${surge}`);
             if (this.$scope.attackCtx === null) {
                 throw new Error('No current attack');
             }

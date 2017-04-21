@@ -74,11 +74,11 @@
             <li ng-repeat="surge in attackCtx.attacker.deployment.surges">
                 <button
                     class="surge"
-                    ng-disabled="surge.cost > attackCtx.surge"
                     ng-click="spendSurge(surge)"
-                    ng-disabled="attackCtx.isSurgeSpent(surge)"
+                    ng-disabled="!attackCtx.isSurgeSpendable(surge)"
                     symbolize="surge.toString()">
                 </button>
+                <p></p>
             </li>
         </ul>
     </div>
