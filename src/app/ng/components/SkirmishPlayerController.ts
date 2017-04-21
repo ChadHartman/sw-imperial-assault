@@ -239,6 +239,7 @@ namespace App.Ng {
         }
 
         private rerollDefenseDie(roll: Game.Attack.IDefenseDieRoll) {
+            roll.side = roll.die.roll();
             //(this.$scope.attackCtx!).reroll(roll.id);
         }
 
@@ -248,6 +249,7 @@ namespace App.Ng {
         }
 
         private spendSurge(surge: Game.Surge) {
+            console.log(`Spend: ${surge}`);
             if (this.$scope.attackCtx === null) {
                 throw new Error('No current attack');
             }

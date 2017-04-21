@@ -7,10 +7,10 @@ namespace App.Ng {
     export class LazySrcDirective {
         public static readonly NAME = "lazySrc";
         public static readonly RESTRICT = "A";
+        private static counter = 1;
 
         constructor($scope, $element, $attr) {
-            $element.attr('src', $attr[LazySrcDirective.NAME]);
-
+            // Will get called initially as well as updates
             $scope.$watch(function () {
                 return $element.attr('data-lazy-src');
             }, function (value) {
@@ -24,7 +24,6 @@ App.Ng.module.directive(App.Ng.LazySrcDirective.NAME, function () {
     return {
         restrict: App.Ng.LazySrcDirective.RESTRICT,
         link: function ($scope, $element, $attr) {
-            console.log($attr[App.Ng.LazySrcDirective.NAME]);
             new App.Ng.LazySrcDirective($scope, $element, $attr);
         }
     };

@@ -138,6 +138,7 @@ namespace App.Game.Attack {
         public isSurgeSpent(surge: Surge): boolean {
             for (let spent of this.surges) {
                 if (spent.id === surge.id) {
+                    console.log(`${spent.id} === ${surge.id}`)
                     return true;
                 }
             }
@@ -156,6 +157,8 @@ namespace App.Game.Attack {
             } else {
                 throw new Error("Insufficient surge");
             }
+
+            console.log(`Surges: ${this.surges}`);
         }
 
         public get target(): Unit | null {
