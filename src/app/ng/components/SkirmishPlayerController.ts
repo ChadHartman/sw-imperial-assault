@@ -15,19 +15,15 @@ namespace App.Ng {
 
         public static readonly NAME = "skirmishPlayerController";
 
-        private readonly $scope: SkirmishPlayerController.IScope;
-        private readonly renderCtx: Ng.RenderingContext;
-        private readonly $timeout: Function;
-        private readonly stateCache: StateCache;
         private engine: App.Game.Engine.GameEngine;
 
         constructor(
-            $scope: SkirmishPlayerController.IScope,
+            private readonly $scope: SkirmishPlayerController.IScope,
             $routeParams,
-            $timeout: Function,
+            private readonly $timeout: Function,
             engineLoader: EngineLoader,
-            renderingContext: RenderingContext,
-            stateCache: StateCache) {
+            private readonly renderCtx: RenderingContext,
+            private readonly stateCache: StateCache) {
 
             engineLoader.load(
                 $routeParams.skirmish_id,
@@ -40,9 +36,8 @@ namespace App.Ng {
             this.stateCache = stateCache;
             this.$timeout = $timeout;
 
-            this.renderCtx = renderingContext;
             this.$scope = $scope;
-            this.$scope.rCtx = renderingContext;
+            this.$scope.rCtx = this.renderCtx;
             this.$scope.units = new Array<Game.Unit>();
             this.$scope.targetableUnits = new Array<Game.Unit>();
             this.$scope.spaces = new Array<SkirmishPlayer.UiSpace>();
@@ -55,15 +50,11 @@ namespace App.Ng {
             this.$scope.move = this.move.bind(this);
             this.$scope.selectSpace = this.selectSpace.bind(this);
             this.$scope.$on(SkirmishController.EVENT_SAVE_STATE, this.saveState.bind(this));
+            this.$scope.$on(AttackController.EVENT_ATTACK_COMPLETE, this.onAttackComplete.bind(this));
             this.$scope.attackCtx = null;
             this.$scope.isTargetable = this.isTargetable.bind(this);
-            this.$scope.rerollAttackDie = this.rerollAttackDie.bind(this);
-            this.$scope.rerollDefenseDie = this.rerollDefenseDie.bind(this);
-            this.$scope.spendSurge = this.spendSurge.bind(this);
-            
 
-            // TODO: remove
-            (<any>window).playerScope = $scope;
+            App.debug["skirmishPlayerScope"] = $scope;
         }
 
         onGameEngineReady(engine: Game.Engine.GameEngine) {
@@ -89,6 +80,10 @@ namespace App.Ng {
             this.$timeout(angular.noop);
         }
 
+        private onAttackComplete(name: string, ...args: any[]) {
+            this.$scope.attackCtx = null;
+        }
+
         private exaust(unit: Game.Unit) {
             let result = this.engine.exaust(unit);
             if (result.success) {
@@ -112,11 +107,14 @@ namespace App.Ng {
 
             let ctx = this.engine.beginAttack(unit);
             this.$scope.attackCtx = ctx;
+
             for (let unit of this.$scope.units) {
                 if (ctx.targetable(unit)) {
                     this.$scope.targetableUnits.push(unit);
                 }
             }
+
+            this.$scope.$broadcast(AttackController.EVENT_ATTACK_BEGIN, ctx);
         }
 
         private isTargetable(unit: Game.Unit): boolean {
@@ -235,27 +233,9 @@ namespace App.Ng {
             return path.reverse();
         }
 
-        private rerollAttackDie(roll: Game.Attack.IAttackDieRoll) {
-            //(this.$scope.attackCtx!).reroll(roll.id);
-            roll.side = roll.die.roll();
-        }
-
-        private rerollDefenseDie(roll: Game.Attack.IDefenseDieRoll) {
-            roll.side = roll.die.roll();
-            //(this.$scope.attackCtx!).reroll(roll.id);
-        }
-
         private attackMenuVisible(): boolean {
             return this.$scope.attackCtx !== null &&
                 this.$scope.attackCtx.target !== null;
-        }
-
-        private spendSurge(surge: Game.Surge) {
-            if (this.$scope.attackCtx === null) {
-                throw new Error('No current attack');
-            }
-
-            this.$scope.attackCtx.spendSurge(surge);
         }
     }
 
@@ -271,21 +251,19 @@ namespace App.Ng {
             attackCtx: Game.Attack.BaseAttack | null;
             isTargetable: (unit: Game.Unit) => boolean;
             attackMenuVisible: () => boolean;
+            $broadcast: (name: string, ...args: any[]) => void;
 
             // Mouse events
             attack: (unit: Game.Unit) => void;
             move: (unit: Game.Unit) => void;
             cancelAttack: () => void;
-            spendSurge: (surge: Model.ISurge) => void;
-            rerollAttackDie: (roll: Game.Attack.IAttackDieRoll) => void;
-            rerollDefenseDie: (roll: Game.Attack.IDefenseDieRoll) => void;
             selectUnit: Function;
             exaust: Function;
             performAction: Function;
             selectSpace: Function;
 
             $apply: Function;
-            $on: Function;
+            $on: (name: string, callback: (name: string, ...args: any[]) => void) => void;
         }
 
         export interface IRouteParams {

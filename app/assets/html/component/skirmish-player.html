@@ -50,36 +50,5 @@
             </div>
         </div>
     </div>
-    <div
-        id="attack-menu"
-        ng-show="attackMenuVisible()">
-        <!-- Surg spend screen -->
-        <p>Target: {{ attackCtx.target.deployment.title }}</p>
-        <div>
-            <img
-                class="die" 
-                ng-repeat="roll in attackCtx.attackRoll"
-                ng-click="rerollAttackDie(roll)" 
-                data-lazy-src="assets/png/dice/{{ roll.die.name }}.{{ roll.side.index }}.png"/>
-        </div>
-        <div>
-            <img 
-                class="die"
-                ng-click="rerollDefenseDie(roll)" 
-                ng-repeat="roll in attackCtx.defenseRoll" 
-                data-lazy-src="assets/png/dice/{{ roll.die.name }}.{{ roll.side.index }}.png"/>
-        </div>
-        <p>Damage: {{ attackCtx.damage }}, Surges: {{ attackCtx.surge }}</p>
-        <ul>
-            <li ng-repeat="surge in attackCtx.attacker.deployment.surges">
-                <button
-                    class="surge"
-                    ng-click="spendSurge(surge)"
-                    ng-disabled="!attackCtx.isSurgeSpendable(surge)"
-                    symbolize="surge.toString()">
-                </button>
-                <p></p>
-            </li>
-        </ul>
-    </div>
+    <attack ng-show="attackMenuVisible()"></attack>
 </div>
