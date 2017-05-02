@@ -50,6 +50,7 @@ namespace App.Ng {
         }
 
         private complete() {
+            
             this.$scope.$emit(AttackController.EVENT_ATTACK_COMPLETE);
         }
     }
