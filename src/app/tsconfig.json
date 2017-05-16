@@ -1,0 +1,15 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "target": "es6",
+        "alwaysStrict": true,
+        "strictNullChecks": true,
+        "sourceMap": true,
+        "outFile": "../../app/assets/js/app.js",
+        "declaration": true,
+        "watch": true
+    },
+    "include": [
+        "**/*.ts"
+    ]
+}

@@ -1,0 +1,64 @@
+{
+    "cards": [
+        {
+            "id": "adrenaline",
+            "title": "Adrenaline",
+            "cost": 2,
+            "limit": 1,
+            "url": "http://cards.boardwars.eu/cache/Ally-and-Villain-Packs/Wave-1/Chewbacca/Command%20Cards/Adrenaline_595_ffflogog_whatermark_cc.jpg"
+        },
+        {
+            "id": "burst_fire",
+            "affiliation": "rebel",
+            "restrictions": [
+                "fenn_signis"
+            ],
+            "title": "Burst Fire",
+            "cost": 2,
+            "limit": 1,
+            "url": "http://cards.boardwars.eu/cache/Core-Box/Command%20Cards/Burst%20Fire_595_ffflogog_whatermark_cc.jpg"
+        },
+        {
+            "id": "celebration",
+            "title": "Celebration",
+            "cost": 0,
+            "limit": 1,
+            "url": "http://cards.boardwars.eu/cache/Core-Box/Command%20Cards/Celebration_595_ffflogog_whatermark_cc.jpg"
+        },
+        {
+            "id": "close_the_gap",
+            "title": "Close the Gap",
+            "cost": 2,
+            "limit": 1,
+            "url": "http://cards.boardwars.eu/cache/Core-Box/Command%20Cards/Close%20the%20Gap_595_ffflogog_whatermark_cc.jpg"
+        },
+        {
+            "id": "coordinated_attack",
+            "title": "Coordinated Attack",
+            "affiliation": "rebel",
+            "restrictions": [
+                "loku_kanoloa"
+            ],
+            "cost": 2,
+            "limit": 1,
+            "url": "http://cards.boardwars.eu/cache/Expansion-Boxes/Return-to-Hoth/Command%20Cards/Coordinated%20Attack_595_ffflogog_whatermark_cc.jpg"
+        },
+        {
+            "id": "covering_fire",
+            "title": "Covering Fire",
+            "cost": 3,
+            "limit": 1,
+            "url": "http://cards.boardwars.eu/cache/Core-Box/Command%20Cards/Covering%20Fire_595_ffflogog_whatermark_cc.jpg"
+        },
+        {
+            "id": "cruel_strike",
+            "title": "Cruel Strike",
+            "restrictions": [
+                "any_figure"
+            ],
+            "cost": 0,
+            "limit": 1,
+            "url": "http://cards.boardwars.eu/cache/Expansion-Boxes/Twin-Shadows/Command%20Cards/Cruel%20Strike_595_ffflogog_whatermark_cc.jpg"
+        }
+    ]
+}
