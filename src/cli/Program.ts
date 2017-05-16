@@ -16,7 +16,7 @@ namespace swia.cli {
             process.stdin.resume();
             process.stdin.setEncoding('utf8');
             process.stdin.on('data', this.input.bind(this));
-            console.log(this.prompt.prompt);
+            this.showPrompt();
         }
 
         private input(text) {
@@ -33,12 +33,17 @@ namespace swia.cli {
                     console.error(response.body);
                     break;
             }
-            
-            console.log(this.prompt.prompt);
+
+            this.showPrompt();
 
             if (text === 'quit\n') {
                 process.exit();
             }
+        }
+
+        private showPrompt() {
+            console.log(this.prompt.title);
+            console.log(this.prompt.prompt);
         }
     }
 
@@ -48,4 +53,5 @@ namespace swia.cli {
     }
 }
 
+// Let everything load before running app
 setTimeout(swia.cli.main, 0);

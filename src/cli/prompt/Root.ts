@@ -4,6 +4,8 @@ namespace swia.cli.prompt {
 
         public static readonly NAME = "root";
 
+        public readonly title = "SWIA CLI"
+
         protected getOptions(): string[] {
             return [
                 "Manage Armies"
@@ -13,18 +15,10 @@ namespace swia.cli.prompt {
         protected selectOption(index: number): Response {
             switch (index) {
                 case 0:
-                    return {
-                        status: Status.REDIRECT,
-                        body: ManageArmy.NAME
-                    };
+                    return Response.createRedirect(ManageArmy.NAME);
             }
-
-            return {
-                status: Status.BAD_REQUEST,
-                body: `Invalid option: "${index}`
-            };
+            return this.createInvalidOptionResponse(index);
         }
-
     }
 
     register(RootPrompt.NAME, RootPrompt);

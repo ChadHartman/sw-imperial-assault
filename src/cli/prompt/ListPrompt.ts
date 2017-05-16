@@ -1,6 +1,10 @@
+/// <reference path="Prompt.ts"/>
+
 namespace swia.cli.prompt {
 
     export abstract class ListPrompt implements Prompt {
+
+        public abstract title;
 
         public get prompt(): string {
 
@@ -17,6 +21,10 @@ namespace swia.cli.prompt {
         protected abstract getOptions(): string[];
 
         protected abstract selectOption(index: number): Response;
+
+        protected createInvalidOptionResponse(index: number): Response {
+            return Response.createBadRequest(`Invalid option: "${index}"`);
+        }
 
         public input(text: string): Response {
             if (util.isNumber(text) && util.isInteger(text)) {

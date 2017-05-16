@@ -11,7 +11,21 @@ namespace swia.cli.prompt {
         body?: string;
     }
 
+    export module Response {
+
+        export const RESPONSE_OK: Response = { status: Status.OK };
+
+        export function createBadRequest(body: string): Response {
+            return { status: Status.BAD_REQUEST, body: body };
+        }
+
+        export function createRedirect(name: string): Response {
+            return { status: Status.REDIRECT, body: name };
+        }
+    }
+
     export interface Prompt {
+        title: string;
         prompt: string;
         input: (text: string) => Response;
     }

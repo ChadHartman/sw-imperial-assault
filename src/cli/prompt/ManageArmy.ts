@@ -1,15 +1,29 @@
-/// <reference path="Prompt.ts"/>
+/// <reference path="ListPrompt.ts"/>
 
 namespace swia.cli.prompt {
 
-    export class ManageArmy implements Prompt {
+    export class ManageArmy extends ListPrompt {
 
         public static readonly NAME = "manage_army";
 
-        public readonly prompt = "TODO";
+        public readonly title = "Manage Army";
 
-        public input(text: string): Response {
-            return { status: Status.OK };
+        protected getOptions(): string[] {
+            return [
+                "Create new army...",
+                "Return..."
+            ];
+        }
+
+        protected selectOption(index: number): Response {
+            switch (index) {
+                case 0:
+                    return Response.RESPONSE_OK;
+                case 1:
+                    return Response.createRedirect(RootPrompt.NAME);
+            }
+
+            return this.createInvalidOptionResponse(index);
         }
     }
 

@@ -5,7 +5,7 @@
         "alwaysStrict": true,
         "strictNullChecks": true,
         "sourceMap": true,
-        "outFile": "../../app/cli/app.js",
+        "outFile": "../../app/cli.js",
         "watch": true
     },
     "include": [
