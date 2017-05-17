@@ -5,7 +5,7 @@
         </div>
         <div>
             <label for="build-name">Deck Name:</label>
-            <input id="build-name" type="text" ng-model="deckName"/>
+            <input id="build-name" type="text" ng-model="deckName" />
         </div>
         <div>
             <p>Cards: {{ selectedCards.length }} / 15; Points: {{ selectedPoints() }} / 15</p>
@@ -47,10 +47,16 @@
             </ul>
         </div>
         <div id="pool" class="column">
-            <img ng-repeat="card in cards track by $index" ng-hide="isFilteredOut(card)" ng-src="{{ card.url }}" ng-click="selectCard(card)" />
+            <div class="card" ng-repeat="card in cards track by $index" ng-hide="isFilteredOut(card)" ng-click="selectCard(card)">
+                <p>{{ card.id }}</p>
+            </div>
+            <!--<img ng-repeat="card in cards track by $index" ng-hide="isFilteredOut(card)" ng-src="{{ card.url }}" ng-click="selectCard(card)" />-->
         </div>
         <div id="selections" class="column">
-            <img ng-repeat="card in selectedCards track by $index" ng-src="{{ card.url }}" ng-click="deselectCard(card)" />
+            <div class="card" ng-repeat="card in selectedCards track by $index" ng-hide="isFilteredOut(card)" ng-click="deselectCard(card)">
+                <p>{{ card.id }}</p>
+            </div>
+            <!--<img ng-repeat="card in selectedCards track by $index" ng-src="{{ card.url }}" ng-click="deselectCard(card)" />-->
         </div>
     </div>
 </div>

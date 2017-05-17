@@ -37,3 +37,15 @@ body {
 #build .column img {
     width: 200px;
 }
+
+#build #deck-editor .card {
+    width: 200px;
+    height: 305px;
+    border: 1px solid black;
+    background: white;
+    margin-bottom: -200px;
+}
+
+#build #deck-editor .card:hover {
+    margin-bottom: 0px;
+}
