@@ -19,6 +19,7 @@ namespace swia.ng.build {
             //console.log(`affiliation: ${this.affiliation}; restriction: ${this.restriction}`);
             return this.filterAffiliation(card) ||
                 this.filterRestriction(card) ||
+                this.filterCost(card) ||
                 this.filterLimit(card, deck);
         }
 
@@ -51,7 +52,14 @@ namespace swia.ng.build {
                 //console.log(`Filtered due to restriction; ${JSON.stringify(card.restrictions)}: ${card.id}`);
             }
             return filtered;
+        }
 
+        private filterCost(card: model.CommandCard) {
+            if (this.cost === NO_FILTER) {
+                return false;
+            }
+
+            return this.cost != card.cost;
         }
 
         private filterLimit(card: model.CommandCard, deck: model.Deck): boolean {

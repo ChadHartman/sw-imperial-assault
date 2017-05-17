@@ -8,7 +8,7 @@
             <input id="build-name" type="text" ng-model="deckName" />
         </div>
         <div>
-            <p>Cards: {{ selectedCards.length }} / 15; Points: {{ selectedPoints() }} / 15</p>
+            <p>Cards: {{ deck.cards.length }} / 15; Points: {{ deck.points }} / 15</p>
         </div>
         <div>
             <button ng-click="saveDeck()">Save</button>
@@ -28,7 +28,7 @@
                     <label for="affiliation_{{affiliation}}">{{ affiliation }}</label>
                 </li>
             </ul>
-            <h2>Restrictions</h2>
+            <h2>Restriction</h2>
             <ul>
                 <li>
                     <input id="restriction_no_filter" type="radio" name="restriction" ng-model="filter.restriction" value="no_filter" />
@@ -43,6 +43,18 @@
                     <input id="restriction_{{restriction}}" type="radio" name="restriction" ng-model="$parent.filter.restriction" ng-value="restriction"
                     />
                     <label for="restriction_{{restriction}}">{{ restriction }}</label>
+                </li>
+            </ul>
+            <h2>Cost</h2>
+            <ul>
+                <li>
+                    <input id="cost_no_filter" type="radio" name="cost" ng-model="filter.cost" value="no_filter" />
+                    <label for="cost_no_filter">No Filter</label>
+                </li>
+                <li ng-repeat="cost in costs">
+                    <input id="cost_{{cost}}" type="radio" name="cost" ng-model="$parent.filter.cost" ng-value="cost"
+                    />
+                    <label for="cost_{{cost}}">{{ cost }}</label>
                 </li>
             </ul>
         </div>
