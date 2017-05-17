@@ -10,10 +10,22 @@ body {
     width: 100%;
     max-width: 1000px;
     margin: 0 auto;
+    padding: 10px;
 }
 
 #build {
     overflow: auto;
+}
+
+#build #toolbar {
+    background: white;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+#build #toolbar #error {
+    color: #a00;
+    font-weight: bold;
 }
 
 #build .column {

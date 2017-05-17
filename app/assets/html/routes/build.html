@@ -1,39 +1,56 @@
 <div id="build">
-    <div id="filters" class="column">
-        <h2>Affiliation</h2>
-        <ul>
-            <li>
-                <input id="affiliation_no_filter" ng-model="affiliationFilter" type="radio" name="affiliation" value="no_filter" />
-                <label for="affiliation_no_filter">No Filter</label>
-            </li>
-            <li ng-repeat="affiliation in affiliations">
-                <input id="affiliation_{{affiliation}}" ng-model="$parent.affiliationFilter" type="radio" name="affiliation" ng-value="affiliation"
-                />
-                <label for="affiliation_{{affiliation}}">{{ affiliation }}</label>
-            </li>
-        </ul>
-        <h2>Restrictions</h2>
-        <ul>
-            <li>
-                <input id="restriction_no_filter" type="radio" name="restriction" ng-model="restrictionFilter" value="no_filter" />
-                <label for="restriction_no_filter">No Filter</label>
-            </li>
-            <li>
-                <input id="restriction_no_restrictions" type="radio" name="restriction" ng-model="restrictionFilter" value="no_restrictions"
-                />
-                <label for="restriction_no_restrictions">No Restrictions</label>
-            </li>
-            <li ng-repeat="restriction in restrictions">
-                <input id="restriction_{{restriction}}" type="radio" name="restriction" ng-model="$parent.restrictionFilter" ng-value="restriction"
-                />
-                <label for="restriction_{{restriction}}">{{ restriction }}</label>
-            </li>
-        </ul>
+    <div id="toolbar">
+        <div id="error" ng-show="error">
+            <p>{{ error }}</p>
+        </div>
+        <div>
+            <label for="build-name">Deck Name:</label>
+            <input id="build-name" type="text" ng-model="deckName"/>
+        </div>
+        <div>
+            <p>Cards: {{ selectedCards.length }} / 15; Points: {{ selectedPoints() }} / 15</p>
+        </div>
+        <div>
+            <button ng-click="saveDeck()">Save</button>
+        </div>
     </div>
-    <div id="pool" class="column">
-        <img ng-repeat="card in cards" ng-hide="isFilteredOut(card)" ng-src="{{ card.url }}" />
-    </div>
-    <div id="selections" class="column">
-
+    <div id="deck-editor">
+        <div id="filters" class="column">
+            <h2>Affiliation</h2>
+            <ul>
+                <li>
+                    <input id="affiliation_no_filter" ng-model="affiliationFilter" type="radio" name="affiliation" value="no_filter" />
+                    <label for="affiliation_no_filter">No Filter</label>
+                </li>
+                <li ng-repeat="affiliation in affiliations">
+                    <input id="affiliation_{{affiliation}}" ng-model="$parent.affiliationFilter" type="radio" name="affiliation" ng-value="affiliation"
+                    />
+                    <label for="affiliation_{{affiliation}}">{{ affiliation }}</label>
+                </li>
+            </ul>
+            <h2>Restrictions</h2>
+            <ul>
+                <li>
+                    <input id="restriction_no_filter" type="radio" name="restriction" ng-model="restrictionFilter" value="no_filter" />
+                    <label for="restriction_no_filter">No Filter</label>
+                </li>
+                <li>
+                    <input id="restriction_no_restrictions" type="radio" name="restriction" ng-model="restrictionFilter" value="no_restrictions"
+                    />
+                    <label for="restriction_no_restrictions">No Restrictions</label>
+                </li>
+                <li ng-repeat="restriction in restrictions">
+                    <input id="restriction_{{restriction}}" type="radio" name="restriction" ng-model="$parent.restrictionFilter" ng-value="restriction"
+                    />
+                    <label for="restriction_{{restriction}}">{{ restriction }}</label>
+                </li>
+            </ul>
+        </div>
+        <div id="pool" class="column">
+            <img ng-repeat="card in cards" ng-hide="isFilteredOut(card)" ng-src="{{ card.url }}" ng-click="selectCard(card)" />
+        </div>
+        <div id="selections" class="column">
+            <img ng-repeat="card in selectedCards track by $index" ng-src="{{ card.url }}" ng-click="deselectCard(card)" />
+        </div>
     </div>
 </div>
