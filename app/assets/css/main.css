@@ -12,162 +12,16 @@ body {
     margin: 0 auto;
 }
 
-p {
-    cursor:pointer;
-}
-ul.menu > li > ul {
-    display:none;
-}
-ul.menu:hover > li > ul {
-    display: block;
-}
-ul.submenu > li > ul {
-    display:none;
-}
-ul.submenu:hover > li > ul {
-    display:block;
-}
-
-/* tile-builder */
-#tile-builder label {
-    width: 100px;
-    display:block;
-}
-#tile-builder .space {
-    border: 1px solid black;
-    width: 30px;
-    height: 30px;
-    background:white;
-}
-#tile-builder .space.selected {
-    background:grey;
-}
-#tile-builder .space:hover {
-    border: 1px solid grey;
-    background:black;
-}
-/* #army*/
-#army .column {
-    float:left;
-    width:40%;
-    border: 0.1em solid black;
-    min-height: 10em;
-    margin-right: 1em;
-}
-/* skirmish */
-#skirmish {
+#build {
     overflow: auto;
 }
-#skirmish .player {
-    position: relative;
-    width: 1000px;
-    height: 1000px;
-}
-#skirmish canvas {
-    position: absolute;
-    left:0;
-    top:0;
-}
-#skirmish #deployment-view {
-    position: absolute;
+
+#build .column {
+    float: left;
+    width: 30%;
     border: 1px solid black;
-    background: white;
-    padding: 5px;
 }
-#skirmish #deployment-view img {
-    width: 100px;
-    height: 100px;
-}
-.skirmish-space {
-    position:absolute;
-    z-index: 0;
-}
-.skirmish-unit {
-    position:absolute;
-    z-index: 2;
-}
-.skirmish-unit-menu {
-    position: absolute;
-    margin-top: 30px;
-    background: white;
-    visibility: hidden;
-    padding: 10px;
-    z-index: 3;
-    border: 1px solid black;
+
+#build .column img {
     width: 200px;
-    border-radius: 20px;
-}
-.skirmish-unit-menu h1 {
-    font-size: 16pt;
-    font-weight: bold;
-    margin: 0;
-    text-align: center;
-}
-.skirmish-unit.active:hover + .skirmish-unit-menu {
-    visibility: visible;
-}
-.skirmish-unit-menu:hover {
-    visibility: visible;
-}
-.skirmish-unit.exausted {
-    transform: rotate(90deg);
-}
-@-webkit-keyframes oscillate {
-    50%
-    {
-        -webkit-transform: scale(1.3);
-        -ms-transform: scale(1.3);
-        transform: scale(1.3);
-    }
-    100%
-    {
-        -webkit-transform: scale(1);
-        -ms-transform: scale(1);
-        transform: scale(1);
-    }
-}
-
-@keyframes oscillate {
-    50%
-    {
-        -webkit-transform: scale(1.3);
-        -ms-transform: scale(1.3);
-        transform: scale(1.3);
-    }
-    100%
-    {
-        -webkit-transform: scale(1);
-        -ms-transform: scale(1);
-        transform: scale(1);
-    }
-}
-
-.skirmish-unit.active, .skirmish-unit.active_waiting {
-    -webkit-animation: oscillate 1s ease;
-    animation: oscillate 1s ease;
-    -webkit-animation-iteration-count: infinite; 
-    animation-iteration-count: infinite;
-}
-#skirmish .die {
-    width: 60px;
-    margin-right: 5px;
-    margin-bottom: 5px;
-}
-#attack-menu {
-    position: absolute;
-    left: 100px;
-    right: 100px;
-    border: 1px solid black;
-    z-index: 4;
-    background: white;
-    border-radius: 20px;
-    padding: 20px;
-}
-img.symbol {
-    height: 16pt;
-}
-button.surge {
-    width: 128px;
-    height: 32px;
-    text-align: left;
 }
