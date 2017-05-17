@@ -2,20 +2,10 @@
 
 namespace swia.ng {
 
-    export interface CommandCard {
-        id: string;
-        title: string;
-        affiliation?: string;
-        restrictions?: string[];
-        cost: number;
-        limit: number;
-        url: string
-    }
-
     export class CommandCardLoader {
 
         public static readonly NAME = "command_card_loader";
-        private cache: CommandCard[];
+        private cache: model.CommandCard[];
 
         constructor(
             private readonly $http,
@@ -23,7 +13,7 @@ namespace swia.ng {
         ) {
         }
 
-        public cards(callback: (cards: CommandCard[]) => void) {
+        public cards(callback: (cards: model.CommandCard[]) => void) {
 
             if (this.cache) {
                 let cache = this.cache;

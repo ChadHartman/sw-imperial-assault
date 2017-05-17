@@ -52,6 +52,124 @@
             ],
             "cost": 0,
             "limit": 1
+        },
+        {
+            "id": "deadeye",
+            "title": "Deadeye",
+            "restrictions": [
+                "any_figure"
+            ],
+            "cost": 0,
+            "limit": 1
+        },
+        {
+            "id": "debts_repaid",
+            "title": "Debts Repaid",
+            "affiliation": "rebel",
+            "restrictions": [
+                "chewbacca"
+            ],
+            "cost": 3,
+            "limit": 1
+        },
+        {
+            "id": "deflection",
+            "title": "Deflection",
+            "restrictions": [
+                "force_user"
+            ],
+            "cost": 1,
+            "limit": 2
+        },
+        {
+            "id": "disable",
+            "title": "Disable",
+            "restrictions": [
+                "smiggler"
+            ],
+            "cost": 2,
+            "limit": 1
+        },
+        {
+            "id": "element_of_surprise",
+            "title": "Element of Surprise",
+            "restrictions": [
+                "any_figure"
+            ],
+            "cost": 0,
+            "limit": 1
+        },
+        {
+            "id": "endless_reserves",
+            "title": "Endless Reserves",
+            "affiliation": "empire",
+            "restrictions": [
+                "general_weiss"
+            ],
+            "cost": 2,
+            "limit": 1
+        },
+        {
+            "id": "explosive_weaponry",
+            "title": "Explosive Weaponry",
+            "restrictions": [
+                "heavy_weapon"
+            ],
+            "cost": 1,
+            "limit": 2
+        },
+        {
+            "id": "expose_weakness",
+            "title": "Expose Weakness",
+            "restrictions": [
+                "any_figure"
+            ],
+            "cost": 0,
+            "limit": 1
+        },
+        {
+            "id": "ferocity",
+            "title": "Ferocity",
+            "cost": 1,
+            "limit": 1
+        },
+        {
+            "id": "fleet_footed",
+            "title": "Fleet Footed",
+            "restrictions": [
+                "any_figure"
+            ],
+            "cost": 0,
+            "limit": 1
+        },
+        {
+            "id": "force_lightning",
+            "title": "Force Lightning",
+            "affiliation": "empire",
+            "restrictions": [
+                "force_user"
+            ],
+            "cost": 3,
+            "limit": 1
+        },
+        {
+            "id": "furious_charge",
+            "title": "Furious Charge",
+            "affiliation": "rebel",
+            "restrictions": [
+                "gaarkhan"
+            ],
+            "cost": 2,
+            "limit": 1
+        },
+        {
+            "id": "guardian_stance",
+            "title": "Guardian Stance",
+            "restrictions": [
+                "guardian"
+            ],
+            "cost": 1,
+            "limit": 1
         }
     ]
 }

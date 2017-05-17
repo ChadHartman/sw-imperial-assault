@@ -19,11 +19,11 @@
             <h2>Affiliation</h2>
             <ul>
                 <li>
-                    <input id="affiliation_no_filter" ng-model="affiliationFilter" type="radio" name="affiliation" value="no_filter" />
+                    <input id="affiliation_no_filter" ng-model="filter.affiliation" type="radio" name="affiliation" value="no_filter" />
                     <label for="affiliation_no_filter">No Filter</label>
                 </li>
                 <li ng-repeat="affiliation in affiliations">
-                    <input id="affiliation_{{affiliation}}" ng-model="$parent.affiliationFilter" type="radio" name="affiliation" ng-value="affiliation"
+                    <input id="affiliation_{{affiliation}}" ng-model="$parent.filter.affiliation" type="radio" name="affiliation" ng-value="affiliation"
                     />
                     <label for="affiliation_{{affiliation}}">{{ affiliation }}</label>
                 </li>
@@ -31,32 +31,28 @@
             <h2>Restrictions</h2>
             <ul>
                 <li>
-                    <input id="restriction_no_filter" type="radio" name="restriction" ng-model="restrictionFilter" value="no_filter" />
+                    <input id="restriction_no_filter" type="radio" name="restriction" ng-model="filter.restriction" value="no_filter" />
                     <label for="restriction_no_filter">No Filter</label>
                 </li>
                 <li>
-                    <input id="restriction_no_restrictions" type="radio" name="restriction" ng-model="restrictionFilter" value="no_restrictions"
+                    <input id="restriction_no_restrictions" type="radio" name="restriction" ng-model="filter.restriction" value="no_restrictions"
                     />
                     <label for="restriction_no_restrictions">No Restrictions</label>
                 </li>
                 <li ng-repeat="restriction in restrictions">
-                    <input id="restriction_{{restriction}}" type="radio" name="restriction" ng-model="$parent.restrictionFilter" ng-value="restriction"
+                    <input id="restriction_{{restriction}}" type="radio" name="restriction" ng-model="$parent.filter.restriction" ng-value="restriction"
                     />
                     <label for="restriction_{{restriction}}">{{ restriction }}</label>
                 </li>
             </ul>
         </div>
         <div id="pool" class="column">
-            <div class="card" ng-repeat="card in cards track by $index" ng-hide="isFilteredOut(card)" ng-click="selectCard(card)">
-                <p>{{ card.id }}</p>
-            </div>
-            <!--<img ng-repeat="card in cards track by $index" ng-hide="isFilteredOut(card)" ng-src="{{ card.url }}" ng-click="selectCard(card)" />-->
+            <h2>Available</h2>
+            <img class="card" ng-repeat="card in available track by $index" ng-hide="filter.filter(card, deck)" ng-src="{{ card.url }}" ng-click="selectCard(card)" />
         </div>
         <div id="selections" class="column">
-            <div class="card" ng-repeat="card in selectedCards track by $index" ng-hide="isFilteredOut(card)" ng-click="deselectCard(card)">
-                <p>{{ card.id }}</p>
-            </div>
-            <!--<img ng-repeat="card in selectedCards track by $index" ng-src="{{ card.url }}" ng-click="deselectCard(card)" />-->
+            <h2>Selected</h2>
+            <img class="card" ng-repeat="card in deck.cards track by $index" ng-src="{{ card.url }}" ng-click="deselectCard(card)" />
         </div>
     </div>
 </div>

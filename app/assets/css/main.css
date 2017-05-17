@@ -13,10 +13,6 @@ body {
     padding: 10px;
 }
 
-#build {
-    overflow: auto;
-}
-
 #build #toolbar {
     background: white;
     border: 1px solid black;
@@ -31,19 +27,12 @@ body {
 #build .column {
     float: left;
     width: 30%;
-    border: 1px solid black;
-}
-
-#build .column img {
-    width: 200px;
 }
 
 #build #deck-editor .card {
     width: 200px;
     height: 305px;
-    border: 1px solid black;
-    background: white;
-    margin-bottom: -200px;
+    margin-bottom: -250px;
 }
 
 #build #deck-editor .card:hover {

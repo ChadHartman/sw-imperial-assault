@@ -3,8 +3,7 @@
 
 namespace swia.ng {
 
-    const NO_FILTER = "no_filter";
-    const NO_RESTRICTIONS = "no_restrictions";
+
 
     export class BuildController {
 
@@ -16,14 +15,12 @@ namespace swia.ng {
             private readonly $scope: BuildController.Scope,
             ccLoader: CommandCardLoader) {
 
-            $scope.affiliationFilter = NO_FILTER;
-            $scope.restrictionFilter = NO_FILTER;
-            $scope.selectedCards = [];
-            $scope.isFilteredOut = this.isFilteredOut.bind(this);
+            $scope.deck = new model.Deck([]);
             $scope.selectCard = this.selectCard.bind(this);
             $scope.deselectCard = this.deselectCard.bind(this);
-            $scope.selectedPoints = this.selectedPoints.bind(this);
             $scope.saveDeck = this.saveDeck.bind(this);
+
+            $scope.filter = new build.Filter();
 
             ccLoader.cards(this.onCardsLoad.bind(this));
         }
@@ -35,12 +32,12 @@ namespace swia.ng {
                 return;
             }
 
-            if (this.$scope.selectedCards.length !== 15) {
+            if (this.$scope.deck.cards.length !== 15) {
                 this.$scope.error = "There must be 15 cards";
                 return;
             }
 
-            if (this.$scope.selectedPoints() > 15) {
+            if (this.$scope.deck.points > 15) {
                 this.$scope.error = "Points must be 15 and under";
                 return;
             }
@@ -53,7 +50,7 @@ namespace swia.ng {
                 created: timestamp,
                 updated: timestamp
             };
-            for (let card of this.$scope.selectedCards) {
+            for (let card of this.$scope.deck.cards) {
                 save.cards.push(card.id);
             }
             console.log(save);
@@ -61,67 +58,21 @@ namespace swia.ng {
             delete this.$scope.error;
         }
 
-        private selectedPoints(): number {
-            let total = 0;
-            for (let card of this.$scope.selectedCards) {
-                total += card.cost;
-            }
-            return total;
+        private selectCard(card: model.CommandCard) {
+            this.$scope.deck.cards.push(card);
         }
 
-        private selectCard(card: CommandCard) {
-            this.$scope.selectedCards.push(card);
+        private deselectCard(card: model.CommandCard) {
+            let index = this.$scope.deck.cards.indexOf(card);
+            this.$scope.deck.cards.splice(index, 1);
         }
 
-        private deselectCard(card: CommandCard) {
-            let index = this.$scope.selectedCards.indexOf(card);
-            this.$scope.selectedCards.splice(index, 1);
-        }
-
-        private isFilteredOut(card: CommandCard): boolean {
-            return this.isAffiliationFiltered(card) ||
-                this.isRestrictionFiltered(card) ||
-                this.isLimitReached(card);
-        }
-
-        private isAffiliationFiltered(card: CommandCard): boolean {
-
-            if (this.$scope.affiliationFilter === NO_FILTER) {
-                return false;
-            }
-
-            return this.$scope.affiliationFilter !== card.affiliation;
-        }
-
-        private isRestrictionFiltered(card: CommandCard): boolean {
-
-            if (this.$scope.restrictionFilter === NO_FILTER) {
-                return false;
-            }
-
-            if (this.$scope.restrictionFilter === NO_RESTRICTIONS && !card.restrictions) {
-                return false;
-            }
-
-            return !card.restrictions ||
-                card.restrictions.indexOf(this.$scope.restrictionFilter) === -1;
-        }
-
-        private isLimitReached(card: CommandCard): boolean {
-            let count = 0;
-            for (let selected of this.$scope.selectedCards) {
-                if (card === selected) {
-                    count++;
-                }
-            }
-            return count >= card.limit;
-        }
-
-        private onCardsLoad(cards: CommandCard[]) {
-            this.$scope.cards = cards;
+        private onCardsLoad(cards: model.CommandCard[]) {
+            this.$scope.available = cards;
 
             let affiliations = new Set();
             let restrictions = new Set();
+            let costs = new Set();
 
             for (let card of cards) {
 
@@ -136,27 +87,29 @@ namespace swia.ng {
                         restrictions.add(restriction);
                     }
                 }
+
+                costs.add(card.cost);
             }
 
             this.$scope.affiliations = Array.from(affiliations).sort();
             this.$scope.restrictions = Array.from(restrictions).sort();
+            this.$scope.costs = Array.from(costs).sort();
         }
     }
 
     export module BuildController {
+
         export interface Scope {
             deckName: string;
             error: string;
-            affiliationFilter: string;
-            restrictionFilter: string;
-            cards: CommandCard[];
-            selectedCards: CommandCard[];
+            filter: build.Filter;
+            available: model.CommandCard[];
+            deck: model.Deck;
             affiliations: string[];
             restrictions: string[];
-            isFilteredOut: (card: CommandCard) => boolean;
-            selectCard: (card: CommandCard) => void;
-            deselectCard: (card: CommandCard) => void;
-            selectedPoints: () => number;
+            costs: number[];
+            selectCard: (card: model.CommandCard) => void;
+            deselectCard: (card: model.CommandCard) => void;
             saveDeck: () => void;
         }
     }
