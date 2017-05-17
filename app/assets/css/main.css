@@ -13,6 +13,10 @@ body {
     padding: 10px;
 }
 
+#build #filters label {
+    text-transform: capitalize;
+}
+
 #build #toolbar {
     background: white;
     border: 1px solid black;

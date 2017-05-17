@@ -42,7 +42,7 @@
                 <li ng-repeat="restriction in restrictions">
                     <input id="restriction_{{restriction}}" type="radio" name="restriction" ng-model="$parent.filter.restriction" ng-value="restriction"
                     />
-                    <label for="restriction_{{restriction}}">{{ restriction }}</label>
+                    <label for="restriction_{{restriction}}">{{ restriction | spacer }}</label>
                 </li>
             </ul>
             <h2>Cost</h2>
