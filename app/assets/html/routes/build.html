@@ -47,7 +47,7 @@
             </ul>
         </div>
         <div id="pool" class="column">
-            <img ng-repeat="card in cards" ng-hide="isFilteredOut(card)" ng-src="{{ card.url }}" ng-click="selectCard(card)" />
+            <img ng-repeat="card in cards track by $index" ng-hide="isFilteredOut(card)" ng-src="{{ card.url }}" ng-click="selectCard(card)" />
         </div>
         <div id="selections" class="column">
             <img ng-repeat="card in selectedCards track by $index" ng-src="{{ card.url }}" ng-click="deselectCard(card)" />
