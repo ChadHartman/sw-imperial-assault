@@ -1,9 +1,8 @@
 /// <reference path="../modules/swia.ts"/>
 /// <reference path="../services/CommandCardLoader.ts"/>
+/// <reference path="../services/Store.ts"/>
 
 namespace swia.ng {
-
-
 
     export class BuildController {
 
@@ -13,9 +12,11 @@ namespace swia.ng {
 
         constructor(
             private readonly $scope: BuildController.Scope,
-            ccLoader: CommandCardLoader) {
+            private readonly $location,
+            ccLoader: CommandCardLoader,
+            private readonly store: Store) {
 
-            $scope.deck = new model.Deck([]);
+            $scope.deck = new model.Deck();
             $scope.selectCard = this.selectCard.bind(this);
             $scope.deselectCard = this.deselectCard.bind(this);
             $scope.saveDeck = this.saveDeck.bind(this);
@@ -42,20 +43,9 @@ namespace swia.ng {
                 return;
             }
 
-            let timestamp = Date.now();
-
-            let save: model.SaveState = {
-                name: this.$scope.deckName,
-                cards: [],
-                created: timestamp,
-                updated: timestamp
-            };
-            for (let card of this.$scope.deck.cards) {
-                save.cards.push(card.id);
-            }
-            console.log(save);
-
-            delete this.$scope.error;
+            this.$scope.deck.name = this.$scope.deckName;
+            this.store.save(this.$scope.deck);
+            this.$location.path(IndexController.PATH);
         }
 
         private selectCard(card: model.CommandCard) {
@@ -116,7 +106,9 @@ namespace swia.ng {
 
     module.controller(BuildController.NAME, [
         '$scope',
+        '$location',
         CommandCardLoader.NAME,
+        Store.NAME,
         BuildController
     ]);
 }
