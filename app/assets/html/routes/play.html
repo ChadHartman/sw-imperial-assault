@@ -3,8 +3,17 @@
     <div id="hand">
         <img class="card" ng-click="discard(card)" ng-repeat="card in hand" ng-src="assets/img/command/{{ card.id }}.jpg" />
     </div>
-    <h2>Draw</h2>
-    <div>
-        <img class="card" ng-hide="drawDeck.length === 0" ng-click="draw()" src="assets/img/command/back.jpg" />
+    <div id="decks">
+        <div class="column">
+            <h2>Draw</h2>
+            <img class="card" ng-hide="drawDeck.length === 0" ng-click="draw()" src="assets/img/command/back.jpg" />
+        </div>
+        <div class="column">
+            <h2>Discard</h2>
+            <div>
+                <img class="card discard" ng-click="restore(card)" ng-repeat="card in discardDeck" ng-src="assets/img/command/{{ card.id }}.jpg"
+                />
+            </div>
+        </div>
     </div>
 </div>

@@ -45,7 +45,6 @@ body {
 
 #play-deck #hand {
     overflow-x: auto;
-    border: 1px solid black;
     height: 310px;
     white-space: nowrap;
     padding: 10px;
@@ -53,4 +52,18 @@ body {
 
 #play-deck .card {
     width: 200px;
+}
+
+#play-deck #decks .column {
+    float:left;
+    width: 40%;
+}
+
+#play-deck #decks .discard {
+    display: block;
+    margin-bottom: -250px;
+}
+
+#play-deck #decks .discard:hover {
+    margin-bottom: 0px;
 }

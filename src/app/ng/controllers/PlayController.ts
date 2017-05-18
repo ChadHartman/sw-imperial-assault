@@ -17,6 +17,7 @@ namespace swia.ng {
             this.$scope.discardDeck = [];
             this.$scope.draw = this.draw.bind(this);
             this.$scope.discard = this.discard.bind(this);
+            this.$scope.restore = this.restore.bind(this);
 
             store.deck($routeParams.deck_id, this.onDeckLoad.bind(this));
         }
@@ -37,6 +38,12 @@ namespace swia.ng {
         private draw() {
             this.$scope.hand.push(util.popRandom(this.$scope.drawDeck));
         }
+
+        private restore(card: model.CommandCard) {
+            let index = this.$scope.discardDeck.indexOf(card);
+            let discarded = this.$scope.discardDeck.splice(index, 1)[0];
+            this.$scope.hand.push(discarded);
+        }
     }
 
     export module PlayController {
@@ -47,6 +54,7 @@ namespace swia.ng {
             discardDeck: model.CommandCard[];
             draw: () => void;
             discard: (card: model.CommandCard) => void;
+            restore: (card: model.CommandCard) => void;
         }
 
         export interface RouteParams {
