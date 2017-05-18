@@ -7,6 +7,7 @@ namespace swia.model {
         public name: string;
         public created: number;
         public updated: number;
+        public exportUrl: string;
 
         constructor() {
             this.cards = [];

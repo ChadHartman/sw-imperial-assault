@@ -1,12 +1,22 @@
-<ul>
-    <li>
-        <a href="#/build">
-            <p>build...</p>
-        </a>
-    </li>
-    <li ng-repeat="deck in decks">
-        <a href="#/play/{{ deck.id }}">
-            <p>Play {{ deck.name }}</p>
-        </a>
-    </li>
-</ul>
+<div id="index">
+    <a href="#/build">
+        <h2>build...</h2>
+    </a>
+    <table id="plays">
+        <tr ng-repeat="deck in decks">
+            <td>
+                <a href="#/play/{{ deck.id }}">
+                    <p>Play {{ deck.name }} </p>
+                </a>
+            </td>
+            <td>
+                <a href="{{ deck.exportUrl }}">
+                    <p>export url</p>
+                </a>
+            </td>
+            <td>
+                <button ng-click="deleteDeck(deck)">delete</button>
+            </td>
+        </tr>
+    </table>
+</div>

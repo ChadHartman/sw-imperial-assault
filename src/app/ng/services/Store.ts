@@ -31,6 +31,25 @@ namespace swia.ng {
             }
         }
 
+        public deleteDeck(id: number) {
+            for (let i = 0; i < this.state.decks.length; i++) {
+                let deck = this.state.decks[i];
+                if (deck.id === id) {
+                    this.state.decks.splice(i, 1);
+                    localStorage[LS_KEY] = JSON.stringify(this.state);
+                    delete this.deckCache;
+                    return;
+                }
+            }
+            throw new Error(`Unable to find deck ${id}`);
+        }
+
+        public import(state: model.Deck.State) {
+            this.state.decks.push(state);
+            localStorage[LS_KEY] = JSON.stringify(this.state);
+            delete this.deckCache;
+        }
+
         public save(deck: model.Deck) {
 
             if (!deck.id) {
@@ -61,6 +80,7 @@ namespace swia.ng {
                 for (let deckState of self.state.decks) {
                     self.deckCache.push(model.Deck.from(deckState, cards))
                 }
+
                 callback(self.deckCache);
             });
         }

@@ -11,19 +11,32 @@ namespace swia.ng {
 
         constructor(
             private readonly $scope: IndexController.Scope,
-            store: Store) {
-                
+            private readonly store: Store) {
+
+            this.$scope.deleteDeck = this.deleteDeck.bind(this);
+
             store.decks(this.onDecksLoad.bind(this));
         }
 
         private onDecksLoad(decks: model.Deck[]) {
             this.$scope.decks = decks;
+            for (let deck of decks) {
+                deck.exportUrl = "#/import?deck=" + encodeURIComponent(JSON.stringify(deck.state));
+            }
+        }
+
+        private deleteDeck(deck: model.Deck) {
+            if (window.confirm("Are you sure?")) {
+                this.store.deleteDeck(deck.id);
+                this.store.decks(this.onDecksLoad.bind(this));
+            }
         }
     }
 
     export module IndexController {
         export interface Scope {
             decks: model.Deck[];
+            deleteDeck: (deck: model.Deck) => void;
         }
     }
 

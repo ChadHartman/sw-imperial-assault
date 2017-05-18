@@ -2,6 +2,7 @@
 /// <reference path="../controllers/IndexController.ts"/>
 /// <reference path="../controllers/BuildController.ts"/>
 /// <reference path="../controllers/PlayController.ts"/>
+/// <reference path="../controllers/ImportController.ts"/>
 
 namespace swia.ng {
 
@@ -20,6 +21,7 @@ namespace swia.ng {
             addRoute($routeProvider, IndexController);
             addRoute($routeProvider, BuildController);
             addRoute($routeProvider, PlayController);
+            addRoute($routeProvider, ImportController);
             $routeProvider.otherwise({
                 redirectTo: '/'
             });

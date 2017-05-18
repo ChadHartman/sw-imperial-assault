@@ -1,4 +1,5 @@
 /// <reference path="../modules/swia.ts"/>
+/// <reference path="../../util.ts"/>
 
 namespace swia.ng {
 
