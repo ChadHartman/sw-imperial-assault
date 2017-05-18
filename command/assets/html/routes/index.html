@@ -1,0 +1,12 @@
+<ul>
+    <li>
+        <a href="#/build">
+            <p>build...</p>
+        </a>
+    </li>
+    <li ng-repeat="deck in decks">
+        <a href="#/play/{{ deck.id }}">
+            <p>Play {{ deck.name }}</p>
+        </a>
+    </li>
+</ul>

@@ -1,0 +1,69 @@
+html {
+    font-family: sans-serif;
+}
+
+body {
+    margin: 0;
+}
+
+#content {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+#build #filters label {
+    text-transform: capitalize;
+}
+
+#build #toolbar {
+    background: white;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+#build #toolbar #error {
+    color: #a00;
+    font-weight: bold;
+}
+
+#build .column {
+    float: left;
+    width: 30%;
+}
+
+#build #deck-editor .card {
+    width: 200px;
+    height: 305px;
+    margin-bottom: -250px;
+}
+
+#build #deck-editor .card:hover {
+    margin-bottom: 0px;
+}
+
+#play-deck #hand {
+    overflow-x: auto;
+    height: 310px;
+    white-space: nowrap;
+    padding: 10px;
+}
+
+#play-deck .card {
+    width: 200px;
+}
+
+#play-deck #decks .column {
+    float:left;
+    width: 40%;
+}
+
+#play-deck #decks .discard {
+    display: block;
+    margin-bottom: -250px;
+}
+
+#play-deck #decks .discard:hover {
+    margin-bottom: 0px;
+}

@@ -1,0 +1,23 @@
+<div id="play-deck">
+    <a href="#/">
+        <h3>Home</h3>
+    </a>
+    <h1>Deck: {{ name }}</h1>
+    <h2>Hand</h2>
+    <div id="hand">
+        <img class="card" ng-click="discard(card)" ng-repeat="card in hand" ng-src="assets/img/command/{{ card.id }}.jpg" />
+    </div>
+    <div id="decks">
+        <div class="column">
+            <h2>Draw</h2>
+            <img class="card" ng-hide="drawDeck.length === 0" ng-click="draw()" src="assets/img/command/back.jpg" />
+        </div>
+        <div class="column">
+            <h2>Discard</h2>
+            <div>
+                <img class="card discard" ng-click="restore(card)" ng-repeat="card in discardDeck" ng-src="assets/img/command/{{ card.id }}.jpg"
+                />
+            </div>
+        </div>
+    </div>
+</div>
