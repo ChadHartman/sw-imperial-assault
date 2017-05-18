@@ -42,3 +42,15 @@ body {
 #build #deck-editor .card:hover {
     margin-bottom: 0px;
 }
+
+#play-deck #hand {
+    overflow-x: auto;
+    border: 1px solid black;
+    height: 310px;
+    white-space: nowrap;
+    padding: 10px;
+}
+
+#play-deck .card {
+    width: 200px;
+}

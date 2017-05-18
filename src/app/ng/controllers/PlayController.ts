@@ -9,17 +9,46 @@ namespace swia.ng {
         public static readonly HTML_NAME = "play";
 
         constructor(
-            $scope,
+            private readonly $scope: PlayController.Scope,
             $routeParams: PlayController.RouteParams,
             store: Store) {
 
-            store.deck($routeParams.deck_id, function (deck: model.Deck) {
-                console.log(deck);
-            })
+            this.$scope.hand = [];
+            this.$scope.discardDeck = [];
+            this.$scope.draw = this.draw.bind(this);
+            this.$scope.discard = this.discard.bind(this);
+
+            store.deck($routeParams.deck_id, this.onDeckLoad.bind(this));
+        }
+
+        private onDeckLoad(deck: model.Deck) {
+            this.$scope.drawDeck = angular.copy(deck.cards);
+            for (let i = 0; i < 3; i++) {
+                this.$scope.hand.push(util.popRandom(this.$scope.drawDeck));
+            }
+        }
+
+        private discard(card: model.CommandCard) {
+            let index = this.$scope.hand.indexOf(card);
+            let discarded = this.$scope.hand.splice(index, 1)[0];
+            this.$scope.discardDeck.push(discarded);
+        }
+
+        private draw() {
+            this.$scope.hand.push(util.popRandom(this.$scope.drawDeck));
         }
     }
 
     export module PlayController {
+
+        export interface Scope {
+            drawDeck: model.CommandCard[];
+            hand: model.CommandCard[];
+            discardDeck: model.CommandCard[];
+            draw: () => void;
+            discard: (card: model.CommandCard) => void;
+        }
+
         export interface RouteParams {
             deck_id: number;
         }

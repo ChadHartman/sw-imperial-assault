@@ -1,1 +1,10 @@
-<h1>play</h1>
+<div id="play-deck">
+    <h2>Hand</h2>
+    <div id="hand">
+        <img class="card" ng-click="discard(card)" ng-repeat="card in hand" ng-src="assets/img/command/{{ card.id }}.jpg" />
+    </div>
+    <h2>Draw</h2>
+    <div>
+        <img class="card" ng-hide="drawDeck.length === 0" ng-click="draw()" src="assets/img/command/back.jpg" />
+    </div>
+</div>
