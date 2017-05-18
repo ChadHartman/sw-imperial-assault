@@ -1,4 +1,8 @@
 <div id="play-deck">
+    <a href="#/">
+        <h3>Home</h3>
+    </a>
+    <h1>Deck: {{ name }}</h1>
     <h2>Hand</h2>
     <div id="hand">
         <img class="card" ng-click="discard(card)" ng-repeat="card in hand" ng-src="assets/img/command/{{ card.id }}.jpg" />

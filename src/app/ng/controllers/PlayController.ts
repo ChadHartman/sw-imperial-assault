@@ -23,6 +23,7 @@ namespace swia.ng {
         }
 
         private onDeckLoad(deck: model.Deck) {
+            this.$scope.name = deck.name;
             this.$scope.drawDeck = angular.copy(deck.cards);
             for (let i = 0; i < 3; i++) {
                 this.$scope.hand.push(util.popRandom(this.$scope.drawDeck));
@@ -49,6 +50,7 @@ namespace swia.ng {
     export module PlayController {
 
         export interface Scope {
+            name: string;
             drawDeck: model.CommandCard[];
             hand: model.CommandCard[];
             discardDeck: model.CommandCard[];
