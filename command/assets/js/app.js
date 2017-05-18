@@ -125,6 +125,23 @@ var swia;
                     };
                 }
             }
+            deleteDeck(id) {
+                for (let i = 0; i < this.state.decks.length; i++) {
+                    let deck = this.state.decks[i];
+                    if (deck.id === id) {
+                        this.state.decks.splice(i, 1);
+                        localStorage[LS_KEY] = JSON.stringify(this.state);
+                        delete this.deckCache;
+                        return;
+                    }
+                }
+                throw new Error(`Unable to find deck ${id}`);
+            }
+            import(state) {
+                this.state.decks.push(state);
+                localStorage[LS_KEY] = JSON.stringify(this.state);
+                delete this.deckCache;
+            }
             save(deck) {
                 if (!deck.id) {
                     deck.id = ++this.state.__last_id__;
@@ -191,10 +208,21 @@ var swia;
         class IndexController {
             constructor($scope, store) {
                 this.$scope = $scope;
+                this.store = store;
+                this.$scope.deleteDeck = this.deleteDeck.bind(this);
                 store.decks(this.onDecksLoad.bind(this));
             }
             onDecksLoad(decks) {
                 this.$scope.decks = decks;
+                for (let deck of decks) {
+                    deck.exportUrl = "#/import?deck=" + encodeURIComponent(JSON.stringify(deck.state));
+                }
+            }
+            deleteDeck(deck) {
+                if (window.confirm("Are you sure?")) {
+                    this.store.deleteDeck(deck.id);
+                    this.store.decks(this.onDecksLoad.bind(this));
+                }
             }
         }
         IndexController.NAME = "indexController";
@@ -287,7 +315,20 @@ var swia;
         ]);
     })(ng = swia.ng || (swia.ng = {}));
 })(swia || (swia = {}));
+"use strict";
+var swia;
+(function (swia) {
+    var util;
+    (function (util) {
+        function popRandom(array) {
+            let index = Math.floor(Math.random() * array.length);
+            return array.splice(index, 1)[0];
+        }
+        util.popRandom = popRandom;
+    })(util = swia.util || (swia.util = {}));
+})(swia || (swia = {}));
 /// <reference path="../modules/swia.ts"/>
+/// <reference path="../../util.ts"/>
 "use strict";
 var swia;
 (function (swia) {
@@ -337,9 +378,36 @@ var swia;
     })(ng = swia.ng || (swia.ng = {}));
 })(swia || (swia = {}));
 /// <reference path="../modules/swia.ts"/>
+"use strict";
+var swia;
+(function (swia) {
+    var ng;
+    (function (ng) {
+        class ImportController {
+            constructor($routeParams, $location, store) {
+                let deckState = JSON.parse($routeParams.deck);
+                store.import(deckState);
+                // Clear out query string
+                $location.path(ng.IndexController.PATH + "?");
+            }
+        }
+        ImportController.NAME = "importController";
+        ImportController.PATH = "/import";
+        ImportController.HTML_NAME = "import";
+        ng.ImportController = ImportController;
+        ng.module.controller(ImportController.NAME, [
+            '$routeParams',
+            '$location',
+            ng.Store.NAME,
+            ImportController
+        ]);
+    })(ng = swia.ng || (swia.ng = {}));
+})(swia || (swia = {}));
+/// <reference path="../modules/swia.ts"/>
 /// <reference path="../controllers/IndexController.ts"/>
 /// <reference path="../controllers/BuildController.ts"/>
 /// <reference path="../controllers/PlayController.ts"/>
+/// <reference path="../controllers/ImportController.ts"/>
 "use strict";
 var swia;
 (function (swia) {
@@ -359,6 +427,7 @@ var swia;
                 addRoute($routeProvider, ng.IndexController);
                 addRoute($routeProvider, ng.BuildController);
                 addRoute($routeProvider, ng.PlayController);
+                addRoute($routeProvider, ng.ImportController);
                 $routeProvider.otherwise({
                     redirectTo: '/'
                 });
@@ -443,17 +512,5 @@ var swia;
             });
         })(filter = ng.filter || (ng.filter = {}));
     })(ng = swia.ng || (swia.ng = {}));
-})(swia || (swia = {}));
-"use strict";
-var swia;
-(function (swia) {
-    var util;
-    (function (util) {
-        function popRandom(array) {
-            let index = Math.floor(Math.random() * array.length);
-            return array.splice(index, 1)[0];
-        }
-        util.popRandom = popRandom;
-    })(util = swia.util || (swia.util = {}));
 })(swia || (swia = {}));
 //# sourceMappingURL=app.js.map
