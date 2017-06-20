@@ -500,6 +500,15 @@
         },
         {
             "cost": 0,
+            "id": "take_cover",
+            "restrictions": [
+                "any_figure"
+            ],
+            "limit": 1,
+            "title": "Take Cover"
+        },
+        {
+            "cost": 0,
             "id": "take_initiative",
             "limit": 1,
             "title": "Take Initiative"
