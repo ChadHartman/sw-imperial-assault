@@ -1484,7 +1484,6 @@
             "title": "Terminal Network"
         },
         {
-            "affiliation": "rebel",
             "cost": 1,
             "id": "terminal_protocol",
             "limit": 1,
@@ -1504,7 +1503,6 @@
             "title": "There Is Another"
         },
         {
-            "affiliation": "rebel",
             "cost": 0,
             "id": "to_the_limit",
             "limit": 1,
