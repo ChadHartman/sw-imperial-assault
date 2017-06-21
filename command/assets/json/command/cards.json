@@ -1,181 +1,668 @@
 {
     "cards": [
         {
-            "id": "adrenaline",
-            "title": "Adrenaline",
-            "cost": 2,
-            "limit": 1
-        },
-        {
-            "id": "burst_fire",
             "affiliation": "rebel",
-            "restrictions": [
-                "fenn_signis"
-            ],
-            "title": "Burst Fire",
             "cost": 2,
-            "limit": 1
-        },
-        {
-            "id": "celebration",
-            "title": "Celebration",
-            "cost": 0,
-            "limit": 1
-        },
-        {
-            "id": "close_the_gap",
-            "title": "Close the Gap",
-            "cost": 2,
-            "limit": 1
-        },
-        {
-            "id": "coordinated_attack",
-            "title": "Coordinated Attack",
-            "affiliation": "rebel",
-            "restrictions": [
-                "loku_kanoloa"
-            ],
-            "cost": 2,
-            "limit": 1
-        },
-        {
-            "id": "covering_fire",
-            "title": "Covering Fire",
-            "cost": 3,
-            "limit": 1
-        },
-        {
-            "id": "cruel_strike",
-            "title": "Cruel Strike",
-            "restrictions": [
-                "any_figure"
-            ],
-            "cost": 0,
-            "limit": 1
-        },
-        {
-            "id": "deadeye",
-            "title": "Deadeye",
-            "restrictions": [
-                "any_figure"
-            ],
-            "cost": 0,
-            "limit": 1
-        },
-        {
-            "id": "debts_repaid",
-            "title": "Debts Repaid",
-            "affiliation": "rebel",
-            "restrictions": [
-                "chewbacca"
-            ],
-            "cost": 3,
-            "limit": 1
-        },
-        {
-            "id": "deflection",
-            "title": "Deflection",
+            "id": "a_powerful_influence",
+            "limit": 1,
             "restrictions": [
                 "force_user"
             ],
-            "cost": 1,
-            "limit": 2
+            "title": "A Powerful Influence"
         },
         {
-            "id": "disable",
-            "title": "Disable",
+            "cost": 2,
+            "id": "adrenaline",
+            "limit": 1,
+            "title": "Adrenaline"
+        },
+        {
+            "cost": 0,
+            "id": "advance_warning",
+            "limit": 1,
+            "restrictions": [
+                "leader"
+            ],
+            "title": "Advance Warning"
+        },
+        {
+            "cost": 0,
+            "id": "against_the_odds",
+            "limit": 1,
+            "title": "Against the Odds"
+        },
+        {
+            "cost": 3,
+            "id": "assassinate",
+            "limit": 1,
+            "restrictions": [
+                "hunter"
+            ],
+            "title": "Assassinate"
+        },
+        {
+            "affiliation": "empire",
+            "cost": 1,
+            "id": "ballistics_matrix",
+            "limit": 1,
+            "restrictions": [
+                "bt_1"
+            ],
+            "title": "Ballistics Matrix"
+        },
+        {
+            "cost": 1,
+            "id": "battlefield_awareness",
+            "limit": 1,
+            "restrictions": [
+                "leader"
+            ],
+            "title": "Battlefield Awareness"
+        },
+        {
+            "cost": 1,
+            "id": "behind_enemy_lines",
+            "limit": 1,
+            "restrictions": [
+                "spy"
+            ],
+            "title": "Behind Enemy Lines"
+        },
+        {
+            "cost": 1,
+            "id": "black_market_prices",
+            "limit": 1,
             "restrictions": [
                 "smuggler"
             ],
-            "cost": 2,
-            "limit": 1
+            "title": "Black Market Prices"
         },
         {
-            "id": "element_of_surprise",
-            "title": "Element of Surprise",
-            "restrictions": [
-                "any_figure"
-            ],
-            "cost": 0,
-            "limit": 1
-        },
-        {
-            "id": "endless_reserves",
-            "title": "Endless Reserves",
-            "affiliation": "empire",
-            "restrictions": [
-                "general_weiss"
-            ],
-            "cost": 2,
-            "limit": 1
-        },
-        {
-            "id": "explosive_weaponry",
-            "title": "Explosive Weaponry",
-            "restrictions": [
-                "heavy_weapon"
-            ],
+            "affiliation": "mercenary",
             "cost": 1,
-            "limit": 2
-        },
-        {
-            "id": "expose_weakness",
-            "title": "Expose Weakness",
+            "id": "bladestorm",
+            "limit": 1,
             "restrictions": [
-                "any_figure"
+                "shyla_varad"
             ],
-            "cost": 0,
-            "limit": 1
+            "title": "Bladestorm"
         },
         {
-            "id": "ferocity",
-            "title": "Ferocity",
-            "cost": 1,
-            "limit": 1
-        },
-        {
-            "id": "fleet_footed",
-            "title": "Fleet Footed",
-            "restrictions": [
-                "any_figure"
-            ],
-            "cost": 0,
-            "limit": 1
-        },
-        {
-            "id": "force_lightning",
-            "title": "Force Lightning",
-            "affiliation": "empire",
-            "restrictions": [
-                "force_user"
-            ],
-            "cost": 3,
-            "limit": 1
-        },
-        {
-            "id": "furious_charge",
-            "title": "Furious Charge",
-            "affiliation": "rebel",
-            "restrictions": [
-                "gaarkhan"
-            ],
+            "affiliation": "mercenary",
             "cost": 2,
-            "limit": 1
+            "id": "blaze_of_glory",
+            "limit": 1,
+            "restrictions": [
+                "ig_88"
+            ],
+            "title": "Blaze of Glory"
         },
         {
-            "id": "guardian_stance",
-            "title": "Guardian Stance",
+            "cost": 1,
+            "id": "blitz",
+            "limit": 1,
+            "restrictions": [
+                "any_figure"
+            ],
+            "title": "Blitz"
+        },
+        {
+            "affiliation": "mercenary",
+            "cost": 2,
+            "id": "blood_feud",
+            "limit": 1,
+            "restrictions": [
+                "jabba_the_hutt"
+            ],
+            "title": "Blood Feud"
+        },
+        {
+            "cost": 1,
+            "id": "bodyguard",
+            "limit": 2,
             "restrictions": [
                 "guardian"
             ],
+            "title": "Bodyguard"
+        },
+        {
             "cost": 1,
-            "limit": 1
+            "id": "brace_for_impact",
+            "limit": 1,
+            "restrictions": [
+                "any_figure"
+            ],
+            "title": "Brace For Impact"
+        },
+        {
+            "cost": 0,
+            "id": "brace_yourself",
+            "limit": 1,
+            "restrictions": [
+                "any_figure"
+            ],
+            "title": "Brace Yourself"
+        },
+        {
+            "affiliation": "rebel",
+            "cost": 2,
+            "id": "burst_fire",
+            "limit": 1,
+            "restrictions": [
+                "fenn_signis"
+            ],
+            "title": "Burst Fire"
+        },
+        {
+            "cost": 2,
+            "id": "call_the_vanguard",
+            "limit": 1,
+            "title": "Call the Vanguard"
+        },
+        {
+            "cost": 1,
+            "id": "camouflage",
+            "limit": 1,
+            "restrictions": [
+                "any_figure"
+            ],
+            "title": "Camouflage"
+        },
+        {
+            "cost": 1,
+            "id": "capture_the_weary",
+            "limit": 1,
+            "restrictions": [
+                "hunter"
+            ],
+            "title": "Capture the Weary"
+        },
+        {
+            "affiliation": "empire",
+            "cost": 2,
+            "id": "cavalry_charge",
+            "limit": 1,
+            "restrictions": [
+                "captain_terro"
+            ],
+            "title": "Cavalry Charge"
+        },
+        {
+            "cost": 0,
+            "id": "celebration",
+            "limit": 1,
+            "title": "Celebration"
+        },
+        {
+            "cost": 1,
+            "id": "change_of_plans",
+            "limit": 1,
+            "title": "Change of Plans"
+        },
+        {
+            "affiliation": "rebel",
+            "cost": 1,
+            "id": "cheat_to_win",
+            "limit": 1,
+            "restrictions": [
+                "lando_calrissian"
+            ],
+            "title": "Cheat To Win"
+        },
+        {
+            "cost": 2,
+            "id": "close_the_gap",
+            "limit": 1,
+            "title": "Close the Gap"
+        },
+        {
+            "cost": 1,
+            "id": "collect_intel",
+            "limit": 2,
+            "title": "Collect Intel"
+        },
+        {
+            "cost": 2,
+            "id": "comm_disruption",
+            "limit": 1,
+            "title": "Comm Disruption"
+        },
+        {
+            "affiliation": "rebel",
+            "cost": 2,
+            "id": "coordinated_attack",
+            "limit": 1,
+            "restrictions": [
+                "loku_kanoloa"
+            ],
+            "title": "Coordinated Attack"
+        },
+        {
+            "cost": 2,
+            "id": "counter_attack",
+            "limit": 1,
+            "restrictions": [
+                "brawler"
+            ],
+            "title": "Counter Attack"
+        },
+        {
+            "cost": 3,
+            "id": "covering_fire",
+            "limit": 1,
+            "title": "Covering Fire"
+        },
+        {
+            "cost": 2,
+            "id": "cripple",
+            "limit": 1,
+            "restrictions": [
+                "brawler",
+                "hunter"
+            ],
+            "title": "Cripple"
+        },
+        {
+            "cost": 0,
+            "id": "cruel_strike",
+            "limit": 1,
+            "restrictions": [
+                "any_figure"
+            ],
+            "title": "Cruel Strike"
+        },
+        {
+            "cost": 3,
+            "id": "crush",
+            "limit": 1,
+            "restrictions": [
+                "any_massive_figure"
+            ],
+            "title": "Crush"
+        },
+        {
+            "cost": 0,
+            "id": "cut_lines",
+            "limit": 1,
+            "restrictions": [
+                "spy"
+            ],
+            "title": "Cut Lines"
+        },
+        {
+            "cost": 1,
+            "id": "dangerous_bargains",
+            "limit": 1,
+            "title": "Dangerous Bargains"
+        },
+        {
+            "cost": 1,
+            "id": "data_theft",
+            "limit": 1,
+            "restrictions": [
+                "spy"
+            ],
+            "title": "Data Theft"
+        },
+        {
+            "cost": 0,
+            "id": "deadeye",
+            "limit": 1,
+            "restrictions": [
+                "any_figure"
+            ],
+            "title": "Deadeye"
+        },
+        {
+            "affiliation": "empire",
+            "cost": 0,
+            "id": "deadly_precision",
+            "limit": 1,
+            "restrictions": [
+                "force_user"
+            ],
+            "title": "Deadly Precision"
+        },
+        {
+            "affiliation": "rebel",
+            "cost": 3,
+            "id": "debts_repaid",
+            "limit": 1,
+            "restrictions": [
+                "chewbacca"
+            ],
+            "title": "Debts Repaid"
+        },
+        {
+            "cost": 1,
+            "id": "deflection",
+            "limit": 2,
+            "restrictions": [
+                "force_user"
+            ],
+            "title": "Deflection"
+        },
+        {
+            "cost": 0,
+            "id": "devotion",
+            "limit": 1,
+            "restrictions": [
+                "droid"
+            ],
+            "title": "Devotion"
+        },
+        {
+            "cost": 2,
+            "id": "dirty_trick",
+            "limit": 1,
+            "restrictions": [
+                "smuggler",
+                "hunter"
+            ],
+            "title": "Dirty Trick"
+        },
+        {
+            "cost": 2,
+            "id": "disable",
+            "limit": 1,
+            "restrictions": [
+                "smuggler"
+            ],
+            "title": "Disable"
+        },
+        {
+            "cost": 0,
+            "id": "disorient",
+            "limit": 1,
+            "title": "Disorient"
+        },
+        {
+            "affiliation": "mercenary",
+            "cost": 1,
+            "id": "draw",
+            "limit": 1,
+            "restrictions": [
+                "vinto_hreeda"
+            ],
+            "title": "Draw!"
+        },
+        {
+            "affiliation": "empire",
+            "cost": 1,
+            "id": "eerie_visage",
+            "limit": 1,
+            "restrictions": [
+                "0_0_0"
+            ],
+            "title": "Eerie Visage"
+        },
+        {
+            "cost": 1,
+            "id": "efficient_travel",
+            "limit": 1,
+            "title": "Efficient Travel"
+        },
+        {
+            "cost": 0,
+            "id": "element_of_surprise",
+            "limit": 1,
+            "restrictions": [
+                "any_figure"
+            ],
+            "title": "Element of Surprise"
+        },
+        {
+            "cost": 2,
+            "id": "emergency_aid",
+            "limit": 1,
+            "restrictions": [
+                "any_figure"
+            ],
+            "title": "Emergency Aid"
+        },
+        {
+            "affiliation": "empire",
+            "cost": 2,
+            "id": "endless_reserves",
+            "limit": 1,
+            "restrictions": [
+                "general_weiss"
+            ],
+            "title": "Endless Reserves"
+        },
+        {
+            "affiliation": "empire",
+            "cost": 0,
+            "id": "espionage_mastery",
+            "limit": 1,
+            "restrictions": [
+                "agent_blaise"
+            ],
+            "title": "Espionage Mastery"
+        },
+        {
+            "affiliation": "rebel",
+            "cost": 2,
+            "id": "etiquette_and_protocol",
+            "limit": 1,
+            "restrictions": [
+                "c_3po"
+            ],
+            "title": "Etiquette and Protocol"
+        },
+        {
+            "affiliation": "rebel",
+            "cost": 2,
+            "id": "evacuate",
+            "limit": 1,
+            "restrictions": [
+                "hera_syndulla"
+            ],
+            "title": "Evacuate"
+        },
+        {
+            "cost": 1,
+            "id": "explosive_weaponry",
+            "limit": 2,
+            "restrictions": [
+                "heavy_weapon"
+            ],
+            "title": "Explosive Weaponry"
+        },
+        {
+            "cost": 0,
+            "id": "expose_weakness",
+            "limit": 1,
+            "restrictions": [
+                "any_figure"
+            ],
+            "title": "Expose Weakness"
+        },
+        {
+            "affiliation": "mercenary",
+            "cost": 1,
+            "id": "extra_protection",
+            "limit": 1,
+            "restrictions": [
+                "onar_koma"
+            ],
+            "title": "Extra Protection"
+        },
+        {
+            "affiliation": "rebel",
+            "cost": 1,
+            "id": "fatal_deception",
+            "limit": 1,
+            "restrictions": [
+                "murne_rin"
+            ],
+            "title": "Fatal Deception"
+        },
+        {
+            "cost": 1,
+            "id": "feral_swipes",
+            "limit": 1,
+            "restrictions": [
+                "creature"
+            ],
+            "title": "Feral Swipes"
+        },
+        {
+            "cost": 1,
+            "id": "ferocity",
+            "limit": 1,
+            "title": "Ferocity"
+        },
+        {
+            "cost": 1,
+            "id": "field_tactician",
+            "limit": 1,
+            "restrictions": [
+                "any_small_figure"
+            ],
+            "title": "Field Tactician"
+        },
+        {
+            "cost": 0,
+            "id": "fleet_footed",
+            "limit": 1,
+            "restrictions": [
+                "any_figure"
+            ],
+            "title": "Fleet Footed"
+        },
+        {
+            "affiliation": "empire",
+            "cost": 2,
+            "id": "flurry_of_blades",
+            "limit": 1,
+            "restrictions": [
+                "royal_guard_champion"
+            ],
+            "title": "Flurry of Blades"
+        },
+        {
+            "cost": 1,
+            "id": "focus",
+            "limit": 1,
+            "restrictions": [
+                "any_figure"
+            ],
+            "title": "Focus"
+        },
+        {
+            "cost": 2,
+            "id": "force_illusion",
+            "limit": 1,
+            "restrictions": [
+                "force_user"
+            ],
+            "title": "Force Illusion"
+        },
+        {
+            "affiliation": "empire",
+            "cost": 3,
+            "id": "force_lightning",
+            "limit": 1,
+            "restrictions": [
+                "force_user"
+            ],
+            "title": "Force Lightning"
+        },
+        {
+            "cost": 0,
+            "id": "force_rush",
+            "limit": 1,
+            "restrictions": [
+                "force_user"
+            ],
+            "title": "Force Rush"
+        },
+        {
+            "cost": 2,
+            "id": "force_surge",
+            "limit": 1,
+            "restrictions": [
+                "force_user"
+            ],
+            "title": "Force Surge"
+        },
+        {
+            "cost": 1,
+            "id": "fuel_upgrade",
+            "limit": 1,
+            "title": "Fuel Upgrade"
+        },
+        {
+            "affiliation": "rebel",
+            "cost": 2,
+            "id": "furious_charge",
+            "limit": 1,
+            "restrictions": [
+                "Gaarkhan"
+            ],
+            "title": "Furious Charge"
+        },
+        {
+            "cost": 1,
+            "id": "glory_of_the_kill",
+            "limit": 1,
+            "restrictions": [
+                "hunter"
+            ],
+            "title": "Glory of the Kill"
+        },
+        {
+            "cost": 3,
+            "id": "grenadier",
+            "limit": 1,
+            "restrictions": [
+                "trooper"
+            ],
+            "title": "Grenadier"
+        },
+        {
+            "cost": 2,
+            "id": "grisly_contest",
+            "limit": 1,
+            "restrictions": [
+                "brawler"
+            ],
+            "title": "Grisly Contest"
+        },
+        {
+            "cost": 1,
+            "id": "guardian_stance",
+            "limit": 1,
+            "restrictions": [
+                "guardian"
+            ],
+            "title": "Guardian Stance"
+        },
+        {
+            "cost": 0,
+            "id": "hard_to_hit",
+            "limit": 1,
+            "restrictions": [
+                "any_figure"
+            ],
+            "title": "Hard To Hit"
         },
         {
             "cost": 0,
             "id": "harsh_environment",
             "limit": 1,
             "title": "Harsh Environment"
+        },
+        {
+            "affiliation": "rebel",
+            "cost": 2,
+            "id": "heart_of_freedom",
+            "limit": 1,
+            "restrictions": [
+                "any_figure"
+            ],
+            "title": "Heart of Freedom"
         },
         {
             "cost": 1,
@@ -188,13 +675,40 @@
         },
         {
             "cost": 2,
+            "id": "heightened_reflexes",
+            "limit": 1,
+            "restrictions": [
+                "hunter"
+            ],
+            "title": "Heightened Reflexes"
+        },
+        {
+            "affiliation": "rebel",
+            "cost": 2,
             "id": "hidden_trap",
             "limit": 1,
-            "affiliation": "rebel",
             "restrictions": [
                 "saska_teft"
             ],
             "title": "Hidden Trap"
+        },
+        {
+            "cost": 3,
+            "id": "hide_in_plain_sight",
+            "limit": 1,
+            "restrictions": [
+                "spy"
+            ],
+            "title": "Hide In Plain Sight"
+        },
+        {
+            "cost": 1,
+            "id": "hit_and_run",
+            "limit": 1,
+            "restrictions": [
+                "any_figure"
+            ],
+            "title": "Hit And Run"
         },
         {
             "cost": 2,
@@ -206,6 +720,16 @@
             "title": "Hold Ground"
         },
         {
+            "affiliation": "empire",
+            "cost": 2,
+            "id": "hunt_them_down",
+            "limit": 1,
+            "restrictions": [
+                "the_grand_inquisitor"
+            ],
+            "title": "Hunt Them Down"
+        },
+        {
             "cost": 1,
             "id": "hunter_protocol",
             "limit": 1,
@@ -215,14 +739,52 @@
             "title": "Hunter Protocol"
         },
         {
+            "cost": 0,
+            "id": "i_can_feel_it",
+            "limit": 1,
+            "restrictions": [
+                "force_user"
+            ],
+            "title": "I Can Feel It"
+        },
+        {
+            "affiliation": "rebel",
             "cost": 2,
             "id": "i_make_my_own_luck",
             "limit": 1,
-            "affiliation": "rebel",
             "restrictions": [
                 "han_solo"
             ],
-            "title": "I make my own Luck"
+            "title": "I Make My Own Luck"
+        },
+        {
+            "affiliation": "rebel",
+            "cost": 1,
+            "id": "i_must_go_alone",
+            "limit": 1,
+            "restrictions": [
+                "obi_wan_kenobi"
+            ],
+            "title": "I Must Go Alone"
+        },
+        {
+            "cost": 0,
+            "id": "improvised_weapons",
+            "limit": 1,
+            "restrictions": [
+                "any_figure"
+            ],
+            "title": "Improvised Weapons"
+        },
+        {
+            "cost": 1,
+            "id": "in_the_shadows",
+            "limit": 1,
+            "restrictions": [
+                "smuggler",
+                "hunter"
+            ],
+            "title": "In the Shadows"
         },
         {
             "cost": 2,
@@ -234,34 +796,77 @@
             "title": "Inspiring Speech"
         },
         {
+            "cost": 1,
+            "id": "intelligence_leak",
+            "limit": 1,
+            "restrictions": [
+                "spy"
+            ],
+            "title": "Intelligence Leak"
+        },
+        {
+            "cost": 1,
+            "id": "jump_jets",
+            "limit": 1,
+            "restrictions": [
+                "any_small_figure"
+            ],
+            "title": "Jump Jets"
+        },
+        {
+            "cost": 2,
+            "id": "jundland_terror",
+            "limit": 2,
+            "title": "Jundland Terror"
+        },
+        {
+            "affiliation": "rebel",
             "cost": 2,
             "id": "knowledge_and_defense",
             "limit": 1,
-            "affiliation": "rebel",
             "restrictions": [
                 "force_user"
             ],
-            "title": "Knowledge and Defense"
+            "title": "Knowledge And Defense"
         },
         {
+            "cost": 2,
+            "id": "lock_on",
+            "limit": 1,
+            "restrictions": [
+                "heavy_weapon"
+            ],
+            "title": "Lock On"
+        },
+        {
+            "affiliation": "empire",
             "cost": 3,
             "id": "lord_of_the_sith",
             "limit": 1,
-            "affiliation": "empire",
             "restrictions": [
                 "darth_vader"
             ],
             "title": "Lord of the Sith"
         },
         {
+            "affiliation": "empire",
             "cost": 3,
             "id": "lure_of_the_dark_side",
             "limit": 1,
-            "affiliation": "empire",
             "restrictions": [
                 "force_user"
             ],
             "title": "Lure of the Dark Side"
+        },
+        {
+            "affiliation": "mercenary",
+            "cost": 3,
+            "id": "mandalorian_tactics",
+            "limit": 1,
+            "restrictions": [
+                "boba_fett"
+            ],
+            "title": "Mandalorian Tactics"
         },
         {
             "cost": 1,
@@ -273,10 +878,10 @@
             "title": "Marksman"
         },
         {
+            "affiliation": "rebel",
             "cost": 2,
             "id": "master_operative",
             "limit": 1,
-            "affiliation": "rebel",
             "restrictions": [
                 "verena_talos"
             ],
@@ -292,24 +897,51 @@
             "title": "Maximum Firepower"
         },
         {
+            "affiliation": "rebel",
             "cost": 2,
             "id": "meditation",
             "limit": 1,
-            "affiliation": "rebel",
             "restrictions": [
                 "force_user"
             ],
             "title": "Meditation"
         },
         {
+            "cost": 1,
+            "id": "merciless",
+            "limit": 2,
+            "restrictions": [
+                "hunter"
+            ],
+            "title": "Merciless"
+        },
+        {
+            "affiliation": "rebel",
             "cost": 2,
             "id": "miracle_worker",
             "limit": 1,
-            "affiliation": "rebel",
             "restrictions": [
                 "mhd_19"
             ],
             "title": "Miracle Worker"
+        },
+        {
+            "cost": 0,
+            "id": "mitigate",
+            "limit": 1,
+            "restrictions": [
+                "any_figure"
+            ],
+            "title": "Mitigate"
+        },
+        {
+            "cost": 2,
+            "id": "navigation_upgrade",
+            "limit": 1,
+            "restrictions": [
+                "droid"
+            ],
+            "title": "Navigation Upgrade"
         },
         {
             "cost": 1,
@@ -327,14 +959,59 @@
             "title": "New Orders"
         },
         {
+            "cost": 0,
+            "id": "of_no_importance",
+            "limit": 1,
+            "title": "Of No Importance"
+        },
+        {
+            "affiliation": "rebel",
+            "cost": 0,
+            "id": "on_a_mission",
+            "limit": 1,
+            "restrictions": [
+                "c1_10p"
+            ],
+            "title": "On A Mission"
+        },
+        {
+            "cost": 3,
+            "id": "on_the_lam",
+            "limit": 1,
+            "restrictions": [
+                "smuggler"
+            ],
+            "title": "On the Lam"
+        },
+        {
+            "affiliation": "rebel",
             "cost": 2,
             "id": "one_in_a_million",
             "limit": 1,
-            "affiliation": "rebel",
             "restrictions": [
                 "jyn_odan"
             ],
-            "title": "One in a Million"
+            "title": "One in A Million"
+        },
+        {
+            "affiliation": "mercenary",
+            "cost": 0,
+            "id": "opportunistic",
+            "limit": 1,
+            "restrictions": [
+                "any_figure"
+            ],
+            "title": "Opportunistic"
+        },
+        {
+            "affiliation": "empire",
+            "cost": 3,
+            "id": "optimal_bombardment",
+            "limit": 1,
+            "restrictions": [
+                "general_sorin"
+            ],
+            "title": "Optimal Bombardment"
         },
         {
             "cost": 0,
@@ -344,6 +1021,12 @@
                 "any_ready_vehicle"
             ],
             "title": "Overcharged Weapons"
+        },
+        {
+            "cost": 3,
+            "id": "overdrive",
+            "limit": 1,
+            "title": "Overdrive"
         },
         {
             "cost": 2,
@@ -356,6 +1039,44 @@
         },
         {
             "cost": 0,
+            "id": "parry",
+            "limit": 1,
+            "restrictions": [
+                "brawler",
+                "guardian"
+            ],
+            "title": "Parry"
+        },
+        {
+            "cost": 2,
+            "id": "parting_blow",
+            "limit": 2,
+            "restrictions": [
+                "brawler"
+            ],
+            "title": "Parting Blow"
+        },
+        {
+            "affiliation": "mercenary",
+            "cost": 2,
+            "id": "payback",
+            "limit": 1,
+            "restrictions": [
+                "dengar"
+            ],
+            "title": "Payback"
+        },
+        {
+            "cost": 1,
+            "id": "pickpocket",
+            "limit": 1,
+            "restrictions": [
+                "smuggler"
+            ],
+            "title": "Pickpocket"
+        },
+        {
+            "cost": 0,
             "id": "planning",
             "limit": 1,
             "restrictions": [
@@ -364,13 +1085,37 @@
             "title": "Planning"
         },
         {
+            "cost": 0,
+            "id": "positioning_advantage",
+            "limit": 1,
+            "restrictions": [
+                "any_figure"
+            ],
+            "title": "Positioning Advantage"
+        },
+        {
             "cost": 1,
             "id": "price_on_their_heads",
             "limit": 1,
             "restrictions": [
                 "hunter"
             ],
-            "title": "Price on Their Heads"
+            "title": "Price On Their Heads"
+        },
+        {
+            "cost": 1,
+            "id": "primary_target",
+            "limit": 1,
+            "restrictions": [
+                "hunter"
+            ],
+            "title": "Primary Target"
+        },
+        {
+            "cost": 1,
+            "id": "provoke",
+            "limit": 1,
+            "title": "Provoke"
         },
         {
             "cost": 1,
@@ -382,6 +1127,16 @@
             "title": "Pummel"
         },
         {
+            "affiliation": "empire",
+            "cost": 3,
+            "id": "rally_the_troops",
+            "limit": 1,
+            "restrictions": [
+                "kayn_somos"
+            ],
+            "title": "Rally the Troops"
+        },
+        {
             "cost": 0,
             "id": "rally",
             "limit": 1,
@@ -389,6 +1144,15 @@
                 "any_figure"
             ],
             "title": "Rally"
+        },
+        {
+            "cost": 1,
+            "id": "rank_and_file",
+            "limit": 1,
+            "restrictions": [
+                "trooper"
+            ],
+            "title": "Rank And File"
         },
         {
             "cost": 0,
@@ -407,6 +1171,21 @@
                 "leader"
             ],
             "title": "Regroup"
+        },
+        {
+            "cost": 2,
+            "id": "reinforcements",
+            "limit": 2,
+            "title": "Reinforcements"
+        },
+        {
+            "cost": 2,
+            "id": "repair",
+            "limit": 2,
+            "restrictions": [
+                "any_figure"
+            ],
+            "title": "Repair"
         },
         {
             "cost": 1,
@@ -429,9 +1208,18 @@
         },
         {
             "cost": 2,
+            "id": "run_for_cover",
+            "limit": 1,
+            "restrictions": [
+                "smuggler"
+            ],
+            "title": "Run For Cover"
+        },
+        {
+            "affiliation": "rebel",
+            "cost": 2,
             "id": "sarlacc_sweep",
             "limit": 1,
-            "affiliation": "rebel",
             "restrictions": [
                 "diala_passil"
             ],
@@ -439,25 +1227,81 @@
         },
         {
             "cost": 0,
-            "id": "set_a_trap",
+            "id": "self_defense",
             "limit": 1,
-            "title": "Set a Trap"
+            "restrictions": [
+                "any_figure"
+            ],
+            "title": "Self Defense"
         },
         {
+            "cost": 0,
+            "id": "set_a_trap",
+            "limit": 1,
+            "title": "Set A Trap"
+        },
+        {
+            "cost": 0,
+            "id": "set_for_stun",
+            "limit": 1,
+            "restrictions": [
+                "any_figure"
+            ],
+            "title": "Set For Stun"
+        },
+        {
+            "affiliation": "rebel",
             "cost": 3,
             "id": "shadow_ops",
             "limit": 1,
-            "affiliation": "rebel",
             "restrictions": [
                 "mak_eshkarey"
             ],
             "title": "Shadow Ops"
         },
         {
+            "cost": 1,
+            "id": "shared_experience",
+            "limit": 1,
+            "restrictions": [
+                "droid",
+                "vehicle"
+            ],
+            "title": "Shared Experience"
+        },
+        {
+            "affiliation": "mercenary",
+            "cost": 0,
+            "id": "shoot_the_messenger",
+            "limit": 1,
+            "restrictions": [
+                "any_figure"
+            ],
+            "title": "Shoot the Messenger"
+        },
+        {
+            "cost": 1,
+            "id": "single_purpose",
+            "limit": 1,
+            "restrictions": [
+                "any_figure"
+            ],
+            "title": "Single Purpose"
+        },
+        {
             "cost": 0,
             "id": "sit_tight",
             "limit": 1,
             "title": "Sit Tight"
+        },
+        {
+            "cost": 2,
+            "id": "size_advantage",
+            "limit": 1,
+            "restrictions": [
+                "any_large_figure"
+            ],
+            "title": "Size Advantage"
         },
         {
             "cost": 2,
@@ -470,10 +1314,28 @@
             "title": "Slippery Target"
         },
         {
+            "cost": 1,
+            "id": "smuggled_supplies",
+            "limit": 1,
+            "restrictions": [
+                "smuggler"
+            ],
+            "title": "Smuggled Supplies"
+        },
+        {
+            "cost": 1,
+            "id": "smugglers_tricks",
+            "limit": 1,
+            "restrictions": [
+                "smuggler"
+            ],
+            "title": "Smugglers Tricks"
+        },
+        {
+            "affiliation": "rebel",
             "cost": 3,
             "id": "son_of_skywalker",
             "limit": 1,
-            "affiliation": "rebel",
             "restrictions": [
                 "luke_skywalker"
             ],
@@ -481,13 +1343,72 @@
         },
         {
             "cost": 2,
+            "id": "squad_swarm",
+            "limit": 1,
+            "title": "Squad Swarm"
+        },
+        {
+            "cost": 0,
+            "id": "stall_for_time",
+            "limit": 1,
+            "restrictions": [
+                "leader",
+                "spy"
+            ],
+            "title": "Stall For Time"
+        },
+        {
+            "affiliation": "rebel",
+            "cost": 2,
             "id": "stay_down",
             "limit": 1,
-            "affiliation": "rebel",
             "restrictions": [
-                "biv_hodhrik"
+                "biv_bodhrik"
             ],
             "title": "Stay Down"
+        },
+        {
+            "cost": 1,
+            "id": "stealth_tactics",
+            "limit": 1,
+            "restrictions": [
+                "any_small_figure"
+            ],
+            "title": "Stealth Tactics"
+        },
+        {
+            "cost": 0,
+            "id": "stimulants",
+            "limit": 1,
+            "restrictions": [
+                "smuggler"
+            ],
+            "title": "Stimulants"
+        },
+        {
+            "cost": 1,
+            "id": "strategic_shift",
+            "limit": 1,
+            "restrictions": [
+                "spy"
+            ],
+            "title": "Strategic Shift"
+        },
+        {
+            "cost": 1,
+            "id": "strength_in_numbers",
+            "limit": 1,
+            "title": "Strength In Numbers"
+        },
+        {
+            "affiliation": "mercenary",
+            "cost": 0,
+            "id": "stroke_of_brilliance",
+            "limit": 1,
+            "restrictions": [
+                "greedo"
+            ],
+            "title": "Stroke of Brilliance"
         },
         {
             "cost": 1,
@@ -500,19 +1421,48 @@
         },
         {
             "cost": 0,
+            "id": "take_cover",
+            "limit": 1,
+            "restrictions": [
+                "any_figure"
+            ],
+            "title": "Take Cover"
+        },
+        {
+            "cost": 0,
             "id": "take_initiative",
             "limit": 1,
             "title": "Take Initiative"
         },
         {
+            "affiliation": "rebel",
             "cost": 3,
             "id": "take_it_down",
             "limit": 1,
-            "affiliation": "rebel",
             "restrictions": [
                 "gideon_argus"
             ],
-            "title": "Take it Down"
+            "title": "Take It Down"
+        },
+        {
+            "cost": 0,
+            "id": "take_position",
+            "limit": 1,
+            "restrictions": [
+                "guardian",
+                "vehicle"
+            ],
+            "title": "Take Position"
+        },
+        {
+            "cost": 0,
+            "id": "targeting_network",
+            "limit": 1,
+            "restrictions": [
+                "droid",
+                "heavy_weapon"
+            ],
+            "title": "Targeting Network"
         },
         {
             "cost": 1,
@@ -524,6 +1474,35 @@
             "title": "Telekinetic Throw"
         },
         {
+            "affiliation": "rebel",
+            "cost": 2,
+            "id": "terminal_network",
+            "limit": 1,
+            "restrictions": [
+                "r2_d2"
+            ],
+            "title": "Terminal Network"
+        },
+        {
+            "cost": 1,
+            "id": "terminal_protocol",
+            "limit": 1,
+            "restrictions": [
+                "droid"
+            ],
+            "title": "Terminal Protocol"
+        },
+        {
+            "affiliation": "rebel",
+            "cost": 0,
+            "id": "there_is_another",
+            "limit": 1,
+            "restrictions": [
+                "leia_organa"
+            ],
+            "title": "There Is Another"
+        },
+        {
             "cost": 0,
             "id": "to_the_limit",
             "limit": 1,
@@ -533,6 +1512,54 @@
             "title": "To the Limit"
         },
         {
+            "cost": 2,
+            "id": "tools_for_the_job",
+            "limit": 1,
+            "restrictions": [
+                "hunter",
+                "smuggler"
+            ],
+            "title": "Tools For the Job"
+        },
+        {
+            "cost": 1,
+            "id": "tough_luck",
+            "limit": 1,
+            "restrictions": [
+                "any_figure"
+            ],
+            "title": "Tough Luck"
+        },
+        {
+            "cost": 0,
+            "id": "toxic_dart",
+            "limit": 1,
+            "restrictions": [
+                "hunter",
+                "smuggler"
+            ],
+            "title": "Toxic Dart"
+        },
+        {
+            "affiliation": "mercenary",
+            "cost": 2,
+            "id": "trandoshan_terror",
+            "limit": 1,
+            "restrictions": [
+                "bossk"
+            ],
+            "title": "Trandoshan Terror"
+        },
+        {
+            "cost": 2,
+            "id": "triangulate",
+            "limit": 1,
+            "restrictions": [
+                "droid"
+            ],
+            "title": "Triangulate"
+        },
+        {
             "cost": 0,
             "id": "urgency",
             "limit": 1,
@@ -540,6 +1567,41 @@
                 "any_figure"
             ],
             "title": "Urgency"
+        },
+        {
+            "cost": 1,
+            "id": "utinni",
+            "limit": 1,
+            "title": "Utinni"
+        },
+        {
+            "affiliation": "rebel",
+            "cost": 2,
+            "id": "vanish",
+            "limit": 1,
+            "restrictions": [
+                "davith_elso"
+            ],
+            "title": "Vanish"
+        },
+        {
+            "cost": 0,
+            "id": "wild_attack",
+            "limit": 1,
+            "restrictions": [
+                "any_figure"
+            ],
+            "title": "Wild Attack"
+        },
+        {
+            "cost": 2,
+            "id": "wild_fury",
+            "limit": 1,
+            "restrictions": [
+                "creature",
+                "wookie"
+            ],
+            "title": "Wild Fury"
         },
         {
             "cost": 2,
