@@ -3,29 +3,177 @@
 
 <head>
     <meta charset="utf-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
-        crossorigin="anonymous"></script>
-    <script src="app.js"></script>
+    <script src="assets/js/angular.min.js"></script>
     <style>
         html {
             font-family: sans-serif;
         }
 
-        #message {
-            clear: both;
+        #content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        #config input,
+        #config textarea,
+        #config button {
+            border-radius: 10px;
+            box-shadow: 5px 5px 5px grey;
+            font-size: 12pt;
+            margin-bottom: 10px;
+            width: 300px;
+        }
+
+        #config h3 {
+            width: 300px;
+            margin: 0px 0px 10px 0px;
+        }
+
+        #content h2 {
+            margin: 10px;
+        }
+
+        #config .error {
+            color: #a00;
+            font-weight: bold;
+        }
+
+        .card-row {
+            overflow: auto;
+        }
+
+        .player {
+            background-color: #bbf;
+        }
+
+        .opponent {
+            background-color: #fbb;
+        }
+
+        .container {
+            padding: 10px;
+            border-radius: 10px;
+            margin: 0px 10px 10px 0px;
+            box-shadow: 5px 5px 5px grey;
+            height: 160px;
+        }
+
+        .deck-container {
+            width: 100px;
+            float: left;
+        }
+
+        .hand-container {
+            width: auto;
+            overflow: hidden;
+        }
+
+        .hand-container h2 {
+            margin-left: 20px;
+        }
+
+        .player-played-container,
+        .player-discard-container {
+            float: left;
+            width: 47%;
+        }
+
+        .opponent-played-container,
+        .opponent-discard-container {
+            float: right;
+            width: 47%;
+        }
+
+        .card {
+            width: 90px;
+            height: 145px;
+            background-size: cover;
+            padding: 5px;
+        }
+
+        #deck {
+            background-image: url(assets/img/back.jpg);
+        }
+
+        .card-button {
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.7);
+            opacity: 0;
+            padding: 10px;
+        }
+
+        .card-button:hover {
+            opacity: 1;
+        }
+
+        .card-button p {
+            margin: 0;
         }
     </style>
 
 </head>
 
 <body>
-    <div id="#content" ng-controller="PlayerController as player">
-        <div id="deck" class="card-section">&nbsp;</div>
-        <div id="play" class="card-section">&nbsp;</div>
-        <div id="discard" class="card-section">&nbsp;</div>
+    <div id="content" ng-controller="PlayerController as player">
+        <div id="config" ng-hide="config.play">
+            <h3>Username</h3>
+            <input type="text" ng-model="config.username" />
+            <h3>Opponent Username</h3>
+            <input type="text" ng-model="config.opponent" />
+            <h3>Cards</h3>
+            <textarea ng-model="config.deck"></textarea>
+            <br/>
+            <button ng-click="playClick()">Play</button>
+            <p class="error">{{ config.error }}</p>
+        </div>
+        <div id="player" ng-show="config.play">
+            <div class="card-row">
+                <div class="deck-container">
+                    <h2>Deck</h2>
+                </div>
+                <div class="hand-container">
+                    <h2>Hand</h2>
+                </div>
+            </div>
+            <div class="card-row">
+                <div class="deck-container player container">
+                    <div id="deck" class="card">
+                        <div class="card-button">
+                            <p>Draw</p>
+                        </div>
+                        <div class="card-button">
+                            <p>Play</p>
+                        </div>
+                        <div class="card-button">
+                            <p>Discard</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hand-container player container">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="card-row">
+                <h2>In Play</h2>
+                <div class="player-played-container player container">
+                    &nbsp;
+                </div>
+                <div class="opponent-played-container opponent container">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="card-row">
+                <h2>Discard</h2>
+                <div class="player-discard-container player container">
+                    &nbsp;
+                </div>
+                <div class="opponent-discard-container opponent container">
+                    &nbsp;
+                </div>
+            </div>
+        </div>
     </div>
-
+    <script src="assets/js/app.js"></script>
 </body>
 
 </html>
