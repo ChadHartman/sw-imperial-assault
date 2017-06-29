@@ -55,7 +55,7 @@
             border-radius: 10px;
             margin: 0px 10px 10px 0px;
             box-shadow: 5px 5px 5px grey;
-            height: 160px;
+            min-height: 160px;
         }
 
         .deck-container {
@@ -75,20 +75,23 @@
         .player-played-container,
         .player-discard-container {
             float: left;
-            width: 47%;
+            width: 44%;
         }
 
         .opponent-played-container,
         .opponent-discard-container {
             float: right;
-            width: 47%;
+            width: 44%;
         }
 
         .card {
+            margin: 0px 10px 10px 0px;
+            display: inline-block;
             width: 90px;
             height: 145px;
             background-size: cover;
             padding: 5px;
+            box-shadow: 5px 5px 5px grey;
         }
 
         #deck {
@@ -123,7 +126,7 @@
             <h3>Cards</h3>
             <textarea ng-model="config.deck"></textarea>
             <br/>
-            <button ng-click="playClick()">Play</button>
+            <button ng-click="config.begin()">Play</button>
             <p class="error">{{ config.error }}</p>
         </div>
         <div id="player" ng-show="config.play">
@@ -137,26 +140,46 @@
             </div>
             <div class="card-row">
                 <div class="deck-container player container">
-                    <div id="deck" class="card">
-                        <div class="card-button">
+                    <div id="deck" class="card" ng-hide="player.deck.length === 0">
+                        <div class="card-button" ng-click="player.moveRandom(player.deck, player.hand)">
                             <p>Draw</p>
                         </div>
-                        <div class="card-button">
+                        <div class="card-button" ng-click="player.moveRandom(player.deck, player.played)">
                             <p>Play</p>
                         </div>
-                        <div class="card-button">
+                        <div class="card-button" ng-click="player.moveRandom(player.deck, player.discarded)">
                             <p>Discard</p>
                         </div>
                     </div>
                 </div>
                 <div class="hand-container player container">
-                    &nbsp;
+                    <div class="card" ng-repeat="card in player.hand track by $index" ng-style="{'background-image':'url(assets/img/'+card.id+'.jpg)'}">
+                        <div class="card-button" ng-click="player.move($index, player.hand, player.deck)">
+                            <p>Return</p>
+                        </div>
+                        <div class="card-button" ng-click="player.move($index, player.hand, player.played)">
+                            <p>Play</p>
+                        </div>
+                        <div class="card-button" ng-click="player.move($index, player.hand, player.discarded)">
+                            <p>Discard</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="card-row">
                 <h2>In Play</h2>
                 <div class="player-played-container player container">
-                    &nbsp;
+                    <div class="card" ng-repeat="card in player.played track by $index" ng-style="{'background-image':'url(assets/img/'+card.id+'.jpg)'}">
+                        <div class="card-button" ng-click="player.move($index, player.played, player.deck)">
+                            <p>Return to deck</p>
+                        </div>
+                        <div class="card-button" ng-click="player.move($index, player.played, player.hand)">
+                            <p>Return to hand</p>
+                        </div>
+                        <div class="card-button" ng-click="player.move($index, player.played, player.discarded)">
+                            <p>Discard</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="opponent-played-container opponent container">
                     &nbsp;
@@ -165,7 +188,17 @@
             <div class="card-row">
                 <h2>Discard</h2>
                 <div class="player-discard-container player container">
-                    &nbsp;
+                    <div class="card" ng-repeat="card in player.discarded track by $index" ng-style="{'background-image':'url(assets/img/'+card.id+'.jpg)'}">
+                        <div class="card-button" ng-click="player.move($index, player.discarded, player.deck)">
+                            <p>Return to deck</p>
+                        </div>
+                        <div class="card-button" ng-click="player.move($index, player.discarded, player.hand)">
+                            <p>Return to hand</p>
+                        </div>
+                        <div class="card-button" ng-click="player.move($index, player.discarded, player.played)">
+                            <p>Play</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="opponent-discard-container opponent container">
                     &nbsp;
