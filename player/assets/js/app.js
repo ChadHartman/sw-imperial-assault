@@ -25,21 +25,17 @@ app.util = {
     }
 };
 
-app.controller('PlayerController', ['$scope', '$http', function ($scope, $http) {
+app.controller('PlayerController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
 
-    // let publish = function (username, played, discarded) {
-    //     $http({
-    //         method: "POST",
-    //         url: `http://httprelay.io/link/${encodeURIComponent($scope.config.username)}`,
-    //         data: {
-    //             played: $scope.player.played,
-    //             discarded: $scope.player.discarded
-    //         }
-    //     }).then(null, function (reason) {
-    //         console.error(reason);
-    //         $scope.player.error = reason;
-    //     });
-    // };
+    let publish = function () {
+        let path = 'games/' + app.util.normalizeText($scope.config.username);
+        firebase.database().ref(path).set({
+            played: $scope.player.played,
+            discarded: $scope.player.discarded
+        });
+    }
+
+    $scope.opponent = {};
 
     // TODO: remove constants
     $scope.config = {
@@ -49,20 +45,28 @@ app.controller('PlayerController', ['$scope', '$http', function ($scope, $http) 
         show: function () {
             return !$scope.config.play;
         },
-        begin: function () {
-
+        validate: function () {
             if (!$scope.config.username) {
                 $scope.config.error = "Missing username";
-                return;
+                return false;
             }
 
             if (!$scope.config.opponent) {
                 $scope.config.error = "Missing opponent's username";
-                return;
+                return false;
             }
 
             if (!$scope.config.deck) {
                 $scope.config.error = "Missing deck";
+                return false;
+            }
+
+            delete $scope.config.error;
+            return true;
+        },
+        begin: function () {
+
+            if (!this.validate()) {
                 return;
             }
 
@@ -75,6 +79,18 @@ app.controller('PlayerController', ['$scope', '$http', function ($scope, $http) 
             });
 
             $scope.config.play = true;
+
+            let path = 'games/' + app.util.normalizeText($scope.config.opponent);
+
+            firebase.database().ref(path).on('value', function (snapshot) {
+                let opponent = snapshot.val();
+                if (opponent) {
+                    $timeout(function () {
+                        $scope.opponent.played = opponent.played;
+                        $scope.opponent.discarded = opponent.discarded;
+                    });
+                }
+            });
         }
     }
 
@@ -88,9 +104,11 @@ app.controller('PlayerController', ['$scope', '$http', function ($scope, $http) 
         },
         moveRandom: function (origin, destination) {
             destination.push(app.util.popRandom(origin));
+            publish();
         },
         move: function (index, origin, destination) {
             destination.push(origin.splice(index, 1)[0]);
+            publish();
         },
         showInfo: function (card) {
             $scope.info.card = card;
