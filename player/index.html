@@ -4,8 +4,12 @@
 <head>
     <meta charset="utf-8">
     <script src="assets/js/angular.min.js"></script>
+    <script src="assets/js/firebase.js"></script>
+    <script src="assets/js/firebase-setup.js"></script>
     <style>
-        html {
+        html,
+        input,
+        textarea {
             font-family: sans-serif;
         }
 
@@ -14,14 +18,15 @@
             margin: 0 auto;
         }
 
-        #config input,
-        #config textarea,
-        #config button {
+        #content input,
+        #content textarea,
+        #content button {
             border-radius: 10px;
             box-shadow: 5px 5px 5px grey;
             font-size: 12pt;
             margin-bottom: 10px;
             width: 300px;
+            padding: 5px;
         }
 
         #config h3 {
@@ -112,13 +117,17 @@
         .card-button p {
             margin: 0;
         }
+
+        #info {
+            cursor: pointer;
+        }
     </style>
 
 </head>
 
 <body>
     <div id="content" ng-controller="PlayerController as player">
-        <div id="config" ng-hide="config.play">
+        <div id="config" ng-show="config.show()">
             <h3>Username</h3>
             <input type="text" ng-model="config.username" />
             <h3>Opponent Username</h3>
@@ -129,7 +138,7 @@
             <button ng-click="config.begin()">Play</button>
             <p class="error">{{ config.error }}</p>
         </div>
-        <div id="player" ng-show="config.play">
+        <div id="player" ng-show="player.show()">
             <div class="card-row">
                 <div class="deck-container">
                     <h2>Deck</h2>
@@ -163,6 +172,9 @@
                         <div class="card-button" ng-click="player.move($index, player.hand, player.discarded)">
                             <p>Discard</p>
                         </div>
+                        <div class="card-button" ng-click="player.showInfo(card)">
+                            <p>Info</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -178,6 +190,9 @@
                         </div>
                         <div class="card-button" ng-click="player.move($index, player.played, player.discarded)">
                             <p>Discard</p>
+                        </div>
+                        <div class="card-button" ng-click="player.showInfo(card)">
+                            <p>Info</p>
                         </div>
                     </div>
                 </div>
@@ -198,12 +213,20 @@
                         <div class="card-button" ng-click="player.move($index, player.discarded, player.played)">
                             <p>Play</p>
                         </div>
+                        <div class="card-button" ng-click="player.showInfo(card)">
+                            <p>Info</p>
+                        </div>
                     </div>
                 </div>
                 <div class="opponent-discard-container opponent container">
                     &nbsp;
                 </div>
             </div>
+        </div>
+        <div id="info" ng-show="info.show()" ng-click="info.back()">
+            <p>Click anywhere to go back</p>
+            <p>{{ info.card.name }} ({{ info.card.id }})</p>
+            <img ng-src="assets/img/{{ info.card.id }}.jpg" />
         </div>
     </div>
     <script src="assets/js/app.js"></script>

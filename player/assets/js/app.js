@@ -25,13 +25,30 @@ app.util = {
     }
 };
 
-app.controller('PlayerController', ['$scope', function ($scope) {
+app.controller('PlayerController', ['$scope', '$http', function ($scope, $http) {
+
+    // let publish = function (username, played, discarded) {
+    //     $http({
+    //         method: "POST",
+    //         url: `http://httprelay.io/link/${encodeURIComponent($scope.config.username)}`,
+    //         data: {
+    //             played: $scope.player.played,
+    //             discarded: $scope.player.discarded
+    //         }
+    //     }).then(null, function (reason) {
+    //         console.error(reason);
+    //         $scope.player.error = reason;
+    //     });
+    // };
 
     // TODO: remove constants
     $scope.config = {
         username: "Chad",
         opponent: "Seth",
         deck: "Celebration\nCovering Fire\nDeflection\nElement of Surprise\nFleet Footed\nMarksman\nPlanning\nRecovery\nTake Cover\nTake Initiative\nTelekinetic Throw\nUrgency\nForce Lightning\nLord of the Sith\nLure of the Dark Side",
+        show: function () {
+            return !$scope.config.play;
+        },
         begin: function () {
 
             if (!$scope.config.username) {
@@ -49,8 +66,6 @@ app.controller('PlayerController', ['$scope', function ($scope) {
                 return;
             }
 
-            $scope.config.play = true;
-
             $scope.config.deck.split("\n").forEach(function (element) {
                 let id = app.util.normalizeText(element);
                 $scope.player.deck.push({
@@ -59,7 +74,7 @@ app.controller('PlayerController', ['$scope', function ($scope) {
                 });
             });
 
-            app.scope = $scope;
+            $scope.config.play = true;
         }
     }
 
@@ -68,11 +83,26 @@ app.controller('PlayerController', ['$scope', function ($scope) {
         hand: [],
         played: [],
         discarded: [],
+        show: function () {
+            return $scope.config.play && !$scope.info.show();
+        },
         moveRandom: function (origin, destination) {
             destination.push(app.util.popRandom(origin));
         },
         move: function (index, origin, destination) {
             destination.push(origin.splice(index, 1)[0]);
+        },
+        showInfo: function (card) {
+            $scope.info.card = card;
+        }
+    };
+
+    $scope.info = {
+        back: function () {
+            delete $scope.info.card;
+        },
+        show: function () {
+            return $scope.info.card;
         }
     };
 }]);
