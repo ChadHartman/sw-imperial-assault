@@ -1,6 +1,81 @@
 "use strict";
 
-var app = angular.module('playerApp', []);
+(function () {
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyAfLRJnIB3MPajxi0qQBN-Y5vDY-o4LkjM",
+        authDomain: "swia-card-player.firebaseapp.com",
+        databaseURL: "https://swia-card-player.firebaseio.com",
+        projectId: "swia-card-player",
+        storageBucket: "",
+        messagingSenderId: "494843917868"
+    };
+    firebase.initializeApp(config);
+})();
+
+var app = angular.module('playerApp', ["ngRoute"]);
+
+app.config(['$locationProvider', function ($locationProvider) {
+    $locationProvider.hashPrefix('');
+}]);
+
+app.config(['$routeProvider', function ($routeProvider) {
+    $routeProvider
+        .when("/", {
+            templateUrl: `assets/html/config.html`
+            , controller: "ConfigController"
+        })
+        .when("/player", {
+            templateUrl: `assets/html/player.html`
+            , controller: "PlayerController"
+        })
+        .otherwise({
+            redirectTo: '/'
+        });
+}]);
+
+app.factory('authResolver', [
+    '$routeParams',
+    '$timeout',
+    function ($routeParams, $timeout) {
+
+        let auth = {
+            signedIn: false,
+            signingIn: false,
+            signIn: function () {
+                this.signingIn = true;
+                if (!$routeParams.e || !$routeParams.p) {
+                    this.error = "Missing credentials.";
+                    return;
+                }
+                self = this;
+
+                let success = function () {
+                    $timeout(function () {
+                        self.signedIn = true;
+                        self.signingIn = false;
+                    });
+                };
+
+                let failure = function (error) {
+                    $timeout(function () {
+                        self.error = error.message;
+                        self.signingIn = false;
+                    });
+                };
+
+                firebase.auth().signInWithEmailAndPassword(
+                    $routeParams.e,
+                    $routeParams.p
+                ).then(success).catch(failure);
+            }
+        };
+
+        return function () {
+            return auth;
+        };
+    }]
+);
 
 app.util = {
     normalizeText: function (text) {
@@ -25,102 +100,135 @@ app.util = {
     }
 };
 
-app.controller('PlayerController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
+app.controller('ConfigController', [
+    '$scope',
+    '$routeParams',
+    'authResolver',
 
-    let publish = function () {
-        let path = 'games/' + app.util.normalizeText($scope.config.username);
-        firebase.database().ref(path).set({
-            played: $scope.player.played,
-            discarded: $scope.player.discarded
-        });
-    }
+    function ($scope, $routeParams, authResolver) {
 
-    $scope.opponent = {};
+        let auth = authResolver();
 
-    // TODO: remove constants
-    $scope.config = {
-        username: "Chad",
-        opponent: "Seth",
-        deck: "Celebration\nCovering Fire\nDeflection\nElement of Surprise\nFleet Footed\nMarksman\nPlanning\nRecovery\nTake Cover\nTake Initiative\nTelekinetic Throw\nUrgency\nForce Lightning\nLord of the Sith\nLure of the Dark Side",
-        show: function () {
-            return !$scope.config.play;
-        },
-        validate: function () {
-            if (!$scope.config.username) {
-                $scope.config.error = "Missing username";
-                return false;
+        if (!auth.signedIn && !auth.signingIn) {
+            auth.signIn();
+        }
+
+        $scope.invalid = function () {
+
+            if (auth.error) {
+                $scope.error = auth.error;
+                return true;
             }
 
-            if (!$scope.config.opponent) {
-                $scope.config.error = "Missing opponent's username";
-                return false;
+            if (!$scope.player) {
+                $scope.error = "Missing username";
+                return true;
             }
 
-            if (!$scope.config.deck) {
-                $scope.config.error = "Missing deck";
-                return false;
+            if (!$scope.opponent) {
+                $scope.error = "Missing opponent's username";
+                return true;
             }
 
-            delete $scope.config.error;
-            return true;
-        },
-        begin: function () {
+            if (!$scope.deck) {
+                $scope.error = "Missing deck";
+                return true;
+            }
 
-            if (!this.validate()) {
+            delete $scope.error;
+
+            return false;
+        };
+
+        $scope.update = function () {
+
+            if ($scope.invalid()) {
                 return;
             }
 
-            $scope.config.deck.split("\n").forEach(function (element) {
-                let id = app.util.normalizeText(element);
-                $scope.player.deck.push({
-                    name: element,
-                    id: id
-                });
+            let e = encodeURIComponent($routeParams.e || '');
+            let p = encodeURIComponent($routeParams.p || '');
+            let player = app.util.normalizeText($scope.player || '');
+            let opponent = app.util.normalizeText($scope.opponent || '');
+            let deck = encodeURIComponent($scope.deck || '');
+
+            $scope.params = `e=${e}&p=${p}&player=${player}&opponent=${opponent}&deck=${deck}`;
+        };
+    }
+]);
+
+app.controller('PlayerController', [
+    '$scope',
+    '$routeParams',
+    '$timeout',
+    'authResolver',
+    function ($scope, $routeParams, $timeout, authResolver) {
+
+        let auth = authResolver();
+
+        if (!auth.signedIn && !auth.signingIn) {
+            auth.signIn();
+        }
+
+        $scope.opponent = {
+            name: $routeParams.opponent
+        };
+
+        $scope.player = {
+            name: $routeParams.player,
+            deck: [],
+            hand: [],
+            played: [],
+            discarded: []
+        };
+
+        $routeParams.deck.trim().split("\n").forEach(function (element) {
+            let id = app.util.normalizeText(element);
+            $scope.player.deck.push({
+                name: element,
+                id: id
             });
+        });
 
-            $scope.config.play = true;
+        let path = 'games/' + app.util.normalizeText($scope.opponent.name);
+        firebase.database().ref(path).on('value', function (snapshot) {
+            let opponentInfo = snapshot.val();
+            if (opponentInfo) {
+                $timeout(function () {
+                    $scope.opponent.played = opponentInfo.played;
+                    $scope.opponent.discarded = opponentInfo.discarded;
+                });
+            }
+        });
 
-            let path = 'games/' + app.util.normalizeText($scope.config.opponent);
-
-            firebase.database().ref(path).on('value', function (snapshot) {
-                let opponent = snapshot.val();
-                if (opponent) {
-                    $timeout(function () {
-                        $scope.opponent.played = opponent.played;
-                        $scope.opponent.discarded = opponent.discarded;
-                    });
-                }
+        let publish = function () {
+            let path = 'games/' + app.util.normalizeText($scope.player.name);
+            firebase.database().ref(path).set({
+                played: $scope.player.played,
+                discarded: $scope.player.discarded
             });
         }
-    }
 
-    $scope.player = {
-        deck: [],
-        hand: [],
-        played: [],
-        discarded: [],
-        show: function () {
-            return $scope.config.play && !$scope.info.show();
-        },
-        moveRandom: function (origin, destination) {
+        publish();
+
+        $scope.moveRandom = function ($event, origin, destination) {
+            $event.stopPropagation();
             destination.push(app.util.popRandom(origin));
             publish();
-        },
-        move: function (index, origin, destination) {
+        };
+
+        $scope.move = function ($event, index, origin, destination) {
+            $event.stopPropagation();
             destination.push(origin.splice(index, 1)[0]);
             publish();
-        },
-        showInfo: function (card) {
-            $scope.info.card = card;
         }
-    };
 
-    $scope.info = {
-        back: function () {
-            delete $scope.info.card;
-        },
-        show: function () {
-            return $scope.info.card;
+        $scope.info = function (card) {
+            $scope.cardDetailId = card.id;
         }
-    };
-}]);
+
+        $scope.back = function () {
+            delete $scope.cardDetailId;
+        }
+    }]
+);

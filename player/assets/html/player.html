@@ -1,0 +1,102 @@
+<div id="player">
+    <h1>{{ player.name }} vs {{ opponent.name }}</h1>
+    <div class="card-row">
+        <div class="deck-container">
+            <h2><i class="fa fa-align-justify" aria-hidden="true"></i>&nbsp;Deck ({{ player.deck.length }})</h2>
+        </div>
+        <div class="hand-container">
+            <h2><i class="fa fa-hand-paper-o" aria-hidden="true"></i>&nbsp;Hand ({{ player.hand.length }})</h2>
+        </div>
+    </div>
+    <div class="card-row">
+        <div class="deck-container player container">
+            <div id="deck" class="card" ng-hide="player.deck.length === 0" ng-click="moveRandom($event, player.deck, player.hand)" title="click to draw">
+                <div class="card-button-container">
+                    <div class="card-button" ng-click="moveRandom($event, player.deck, player.discarded)" title="discard">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hand-container player container">
+            <div class="card" ng-repeat="card in player.hand track by $index" ng-style="{'background-image':'url(assets/img/'+card.id+'.jpg)'}"
+                ng-click="info(card)" title="{{ card.name }}">
+                <div class="card-button-container">
+                    <div class="card-button" ng-click="move($event, $index, player.hand, player.deck)" title="return to deck">
+                        <i class="fa fa-align-justify" aria-hidden="true"></i>
+                    </div>
+                    <div class="card-button" ng-click="move($event, $index, player.hand, player.played)" title="play">
+                        <i class="fa fa-play-circle" aria-hidden="true"></i>
+                    </div>
+                    <div class="card-button" ng-click="move($event, $index, player.hand, player.discarded)" title="discard">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-row">
+        <h2><i class="fa fa-play-circle" aria-hidden="true"></i>&nbsp;In Play ({{ player.played.length }})</h2>
+        <div class="player-played-container player container">
+            <div class="card" ng-repeat="card in player.played track by $index" ng-style="{'background-image':'url(assets/img/'+card.id+'.jpg)'}"
+                ng-click="info(card)" title="{{ card.name }}">
+                <div class="card-button-container">
+                    <div class="card-button" ng-click="move($event, $index, player.played, player.deck)" title="return to deck">
+                        <i class="fa fa-align-justify" aria-hidden="true"></i>
+                    </div>
+                    <div class="card-button" ng-click="move($event, $index, player.played, player.hand)" title="return to hand">
+                        <i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+                    </div>
+                    <div class="card-button" ng-click="move($event, $index, player.played, player.discarded)" title="discard">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="opponent-played-container opponent container">
+            <div class="card" ng-repeat="card in opponent.played track by $index" ng-style="{'background-image':'url(assets/img/'+card.id+'.jpg)'}"
+                ng-click="info(card)" title="{{ card.name }}">
+            </div>
+        </div>
+    </div>
+    <div class="card-row">
+        <h2><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;Discard ({{ player.discarded.length }})</h2>
+        <div class="player-discard-container player container">
+            <div class="card" ng-repeat="card in player.discarded track by $index" ng-style="{'background-image':'url(assets/img/'+card.id+'.jpg)'}"
+                ng-click="info(card)" title="{{ card.name }}">
+                <div class="card-button-container">
+                    <div class="card-button" ng-click="move($event, $index, player.discarded, player.deck)" title="return to deck">
+                        <i class="fa fa-align-justify" aria-hidden="true"></i>
+                    </div>
+                    <div class="card-button" ng-click="move($event, $index, player.discarded, player.hand)" title="return to hand">
+                        <i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+                    </div>
+                    <div class="card-button" ng-click="move($event, $index, player.discarded, player.played)" title="play">
+                        <i class="fa fa-play-circle" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="opponent-discard-container opponent container">
+            <div class="card" ng-repeat="card in opponent.discarded track by $index" ng-style="{'background-image':'url(assets/img/'+card.id+'.jpg)'}"
+                ng-click="info(card)" title="{{ card.name }}">
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    #info {
+        position: fixed;
+        background: rgba(0, 0, 0, .5);
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        text-align: center;
+        padding: 100px;
+    }
+</style>
+
+<div id="info" ng-show="cardDetailId" ng-click="back()">
+    <img ng-src="assets/img/{{ cardDetailId }}.jpg" />
+</div>

@@ -1,0 +1,11 @@
+<div id="config">
+    <h3>Player</h3>
+    <input type="text" ng-model="player" ng-change="update()" />
+    <h3>Opponent</h3>
+    <input type="text" ng-model="opponent" ng-change="update()" />
+    <h3>Command Cards</h3>
+    <textarea ng-model="deck" ng-change="update()"></textarea>
+    <br/>
+    <a ng-class="{ inactive: invalid() }" href="#/player/?{{ params }}">play</a>
+    <p class="error">{{ error }}</p>
+</div>
