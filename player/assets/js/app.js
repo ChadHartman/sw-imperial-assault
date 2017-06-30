@@ -193,12 +193,15 @@ app.controller('PlayerController', [
         let path = 'games/' + app.util.normalizeText($scope.opponent.name);
         firebase.database().ref(path).on('value', function (snapshot) {
             let opponentInfo = snapshot.val();
-            if (opponentInfo) {
-                $timeout(function () {
+            $timeout(function () {
+                if (opponentInfo) {
                     $scope.opponent.played = opponentInfo.played;
                     $scope.opponent.discarded = opponentInfo.discarded;
-                });
-            }
+                } else {
+                    $scope.opponent.played = [];
+                    $scope.opponent.discarded = [];
+                }
+            });
         });
 
         let publish = function () {
