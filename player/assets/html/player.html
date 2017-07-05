@@ -1,5 +1,11 @@
+<style>
+    .signed-out {
+        color: grey;
+        font-style: italic;
+    }
+</style>
 <div id="player">
-    <h1>{{ player.name }} vs {{ opponent.name }}</h1>
+    <h1>{{ player.name }} vs <span ng-class='{"signed-out": opponent.isSignedOut() }'>{{ opponent.name }}</span></h1>
     <div class="card-row">
         <div class="deck-container">
             <h2><i class="fa fa-align-justify" aria-hidden="true"></i>&nbsp;Deck ({{ player.deck.length }})</h2>

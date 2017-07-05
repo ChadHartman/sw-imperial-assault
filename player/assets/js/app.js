@@ -171,7 +171,10 @@ app.controller('PlayerController', [
         }
 
         $scope.opponent = {
-            name: $routeParams.opponent
+            name: $routeParams.opponent,
+            isSignedOut: function () {
+                return (Date.now() - (this.updated || 0)) > 900000;
+            }
         };
 
         $scope.player = {
@@ -197,9 +200,11 @@ app.controller('PlayerController', [
                 if (opponentInfo) {
                     $scope.opponent.played = opponentInfo.played;
                     $scope.opponent.discarded = opponentInfo.discarded;
+                    $scope.opponent.updated = opponentInfo.updated || 0;
                 } else {
                     $scope.opponent.played = [];
                     $scope.opponent.discarded = [];
+                    $scope.opponent.updated = 0;
                 }
             });
         });
@@ -208,7 +213,8 @@ app.controller('PlayerController', [
             let path = 'games/' + app.util.normalizeText($scope.player.name);
             firebase.database().ref(path).set({
                 played: $scope.player.played,
-                discarded: $scope.player.discarded
+                discarded: $scope.player.discarded,
+                updated: Date.now()
             });
         }
 

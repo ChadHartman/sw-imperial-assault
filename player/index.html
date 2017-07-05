@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <title>Command Card Player</title>
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <script src="assets/js/angular.min.js"></script>
     <script src="assets/js/angular-route.min.js"></script>
@@ -144,13 +145,7 @@
 </head>
 
 <body>
-    <div id="content" ng-view>
-        <div id="info" ng-show="info.show()" ng-click="info.back()">
-            <p>Click anywhere to go back</p>
-            <p>{{ info.card.name }} ({{ info.card.id }})</p>
-            <img ng-src="assets/img/{{ info.card.id }}.jpg" />
-        </div>
-    </div>
+    <div id="content" ng-view> </div>
 </body>
 
 </html>
