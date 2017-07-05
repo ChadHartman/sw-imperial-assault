@@ -113,6 +113,15 @@ app.controller('ConfigController', [
             auth.signIn();
         }
 
+        if (localStorage.config) {
+            
+            let config = JSON.parse(localStorage.config);
+
+            $scope.player = config.player || '';
+            $scope.opponent = config.opponent || '';
+            $scope.deck = config.deck || '';
+        }
+
         $scope.invalid = function () {
 
             if (auth.error) {
@@ -164,6 +173,12 @@ app.controller('PlayerController', [
     'authResolver',
     function ($scope, $routeParams, $timeout, authResolver) {
 
+        localStorage.config = JSON.stringify({
+            player: $routeParams.player,
+            opponent: $routeParams.opponent,
+            deck: $routeParams.deck
+        });
+
         let auth = authResolver();
 
         if (!auth.signedIn && !auth.signingIn) {
@@ -198,8 +213,8 @@ app.controller('PlayerController', [
             let opponentInfo = snapshot.val();
             $timeout(function () {
                 if (opponentInfo) {
-                    $scope.opponent.played = opponentInfo.played;
-                    $scope.opponent.discarded = opponentInfo.discarded;
+                    $scope.opponent.played = opponentInfo.played || [];
+                    $scope.opponent.discarded = opponentInfo.discarded || [];
                     $scope.opponent.updated = opponentInfo.updated || 0;
                 } else {
                     $scope.opponent.played = [];
