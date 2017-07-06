@@ -1,0 +1,106 @@
+<style>
+    #spectator table {
+        width: 100%;
+    }
+
+    #spectator h1 {
+        text-align: center;
+    }
+
+    .left,
+    .right {
+        width: 45%;
+        display: inline-block;
+    }
+
+    .view-only-card {
+        margin: 0px 10px 10px 0px;
+        display: inline-block;
+        width: 100px;
+        height: 155px;
+        background-size: cover;
+        padding: 0px;
+        box-shadow: 0px 0px 5px black;
+        position: relative;
+        cursor: pointer;
+    }
+</style>
+<div id="spectator">
+    <div>
+        <div class="left">
+            <h1>{{ player.name }}</h1>
+        </div>
+        <div class="right">
+            <h1>{{ opponent.name }}</h1>
+        </div>
+    </div>
+    <div>
+        <div class="left">
+            <h2><i class="fa fa-play-circle" aria-hidden="true"></i>&nbsp;Hand ({{ player.hand.length }})</h2>
+        </div>
+        <div class="right">
+            <h2><i class="fa fa-play-circle" aria-hidden="true"></i>&nbsp;Hand ({{ opponent.hand.length }})</h2>
+        </div>
+    </div>
+    <div>
+        <div class="left player container">
+            <img class="view-only-card" ng-repeat="card in player.hand" ng-src="assets/img/{{ card.id }}.jpg" ng-click="info(card)" />
+        </div>
+        <div class="right opponent container">
+            <img class="view-only-card" ng-repeat="card in opponent.hand" ng-src="assets/img/{{ card.id }}.jpg" ng-click="info(card)"
+            />
+        </div>
+    </div>
+    <div>
+        <div class="left">
+            <h2><i class="fa fa-play-circle" aria-hidden="true"></i>&nbsp;In Play ({{ player.played.length }})</h2>
+        </div>
+        <div class="right">
+            <h2><i class="fa fa-play-circle" aria-hidden="true"></i>&nbsp;In Play ({{ opponent.played.length }})</h2>
+        </div>
+    </div>
+    <div>
+        <div class="left player container">
+            <img class="view-only-card" ng-repeat="card in player.played" ng-src="assets/img/{{ card.id }}.jpg" ng-click="info(card)"
+            />
+        </div>
+        <div class="right opponent container">
+            <img class="view-only-card" ng-repeat="card in opponent.played" ng-src="assets/img/{{ card.id }}.jpg" ng-click="info(card)"
+            />
+        </div>
+    </div>
+    <div>
+        <div class="left">
+            <h2><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;Discard ({{ player.discarded.length }})</h2>
+        </div>
+        <div class="right">
+            <h2><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;Discard ({{ opponent.discarded.length }})</h2>
+        </div>
+    </div>
+    <div>
+        <div class="left player container">
+            <img class="view-only-card" ng-repeat="card in player.discarded" ng-src="assets/img/{{ card.id }}.jpg" ng-click="info(card)"
+            />
+        </div>
+        <div class="right opponent container">
+            <img class="view-only-card" ng-repeat="card in opponent.discarded" ng-src="assets/img/{{ card.id }}.jpg" ng-click="info(card)"
+            />
+        </div>
+    </div>
+</div>
+<style>
+    #info {
+        position: fixed;
+        background: rgba(0, 0, 0, .5);
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        text-align: center;
+        padding: 100px;
+    }
+</style>
+
+<div id="info" ng-show="cardDetailId" ng-click="back()">
+    <img ng-src="assets/img/{{ cardDetailId }}.jpg" />
+</div>

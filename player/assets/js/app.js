@@ -29,6 +29,10 @@ app.config(['$routeProvider', function ($routeProvider) {
             templateUrl: `assets/html/player.html`
             , controller: "PlayerController"
         })
+        .when("/spectator", {
+            templateUrl: `assets/html/spectator.html`
+            , controller: "SpectatorController"
+        })
         .otherwise({
             redirectTo: '/'
         });
@@ -113,15 +117,6 @@ app.controller('ConfigController', [
             auth.signIn();
         }
 
-        if (localStorage.config) {
-            
-            let config = JSON.parse(localStorage.config);
-
-            $scope.player = config.player || '';
-            $scope.opponent = config.opponent || '';
-            $scope.deck = config.deck || '';
-        }
-
         $scope.invalid = function () {
 
             if (auth.error) {
@@ -130,12 +125,12 @@ app.controller('ConfigController', [
             }
 
             if (!$scope.player) {
-                $scope.error = "Missing username";
+                $scope.error = "Missing player name";
                 return true;
             }
 
             if (!$scope.opponent) {
-                $scope.error = "Missing opponent's username";
+                $scope.error = "Missing opponent's name";
                 return true;
             }
 
@@ -151,10 +146,6 @@ app.controller('ConfigController', [
 
         $scope.update = function () {
 
-            if ($scope.invalid()) {
-                return;
-            }
-
             let e = encodeURIComponent($routeParams.e || '');
             let p = encodeURIComponent($routeParams.p || '');
             let player = app.util.normalizeText($scope.player || '');
@@ -163,6 +154,16 @@ app.controller('ConfigController', [
 
             $scope.params = `e=${e}&p=${p}&player=${player}&opponent=${opponent}&deck=${deck}`;
         };
+
+        if (localStorage.config) {
+
+            let config = JSON.parse(localStorage.config);
+
+            $scope.player = config.player || '';
+            $scope.opponent = config.opponent || '';
+            $scope.deck = config.deck || '';
+            $scope.update();
+        }
     }
 ]);
 
@@ -227,6 +228,7 @@ app.controller('PlayerController', [
         let publish = function () {
             let path = 'games/' + app.util.normalizeText($scope.player.name);
             firebase.database().ref(path).set({
+                hand: $scope.player.hand,
                 played: $scope.player.played,
                 discarded: $scope.player.discarded,
                 updated: Date.now()
@@ -254,5 +256,60 @@ app.controller('PlayerController', [
         $scope.back = function () {
             delete $scope.cardDetailId;
         }
+    }]
+);
+
+app.controller('SpectatorController', [
+    '$scope',
+    '$routeParams',
+    '$timeout',
+    'authResolver',
+    function ($scope, $routeParams, $timeout, authResolver) {
+
+        let auth = authResolver();
+
+        if (!auth.signedIn && !auth.signingIn) {
+            auth.signIn();
+        }
+
+        $scope.player = {
+            name: $routeParams.player
+        };
+
+        $scope.opponent = {
+            name: $routeParams.opponent
+        };
+
+
+        $scope.info = function (card) {
+            $scope.cardDetailId = card.id;
+        }
+
+        $scope.back = function (card) {
+            delete $scope.cardDetailId;
+        }
+
+        let subscribe = function (actor) {
+            let path = 'games/' + app.util.normalizeText(actor.name);
+            firebase.database().ref(path).on('value', function (snapshot) {
+                let info = snapshot.val();
+                $timeout(function () {
+                    if (info) {
+                        actor.hand = info.hand || [];
+                        actor.played = info.played || [];
+                        actor.discarded = info.discarded || [];
+                        actor.updated = info.updated || 0;
+                    } else {
+                        actor.hand = [];
+                        actor.played = [];
+                        actor.discarded = [];
+                        actor.updated = 0;
+                    }
+                });
+            });
+        }
+
+        subscribe($scope.player);
+        subscribe($scope.opponent);
     }]
 );
