@@ -3,8 +3,15 @@
         color: grey;
         font-style: italic;
     }
+    #preloader {
+        display: none;
+    }
 </style>
 <div id="player">
+    <div id="preloader">
+        <img ng-repeat="card in player.deck" ng-src="assets/img/{{card.id}}.jpg"/>
+        <img ng-repeat="card in opponent.deck" ng-src="assets/img/{{card.id}}.jpg"/>
+    </div>
     <h1>{{ player.name }} vs <span ng-class='{"signed-out": opponent.isSignedOut() }'>{{ opponent.name }}</span></h1>
     <div class="card-row">
         <div class="deck-container">

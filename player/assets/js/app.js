@@ -101,6 +101,21 @@ app.util = {
     popRandom: function (array) {
         let index = Math.floor(Math.random() * array.length);
         return array.splice(index, 1)[0];
+    },
+    copyArray: function (itemKeys, array) {
+        let arrayCopy = [];
+        for(let i = 0; i < array.length; i++) {
+            
+            let item = array[i];
+            let itemCopy = {};
+            arrayCopy.push(itemCopy);
+            
+            for(let j = 0; j < itemKeys.length; j++) {
+                let key = itemKeys[j];
+                itemCopy[key] = item[key];
+            }
+        }
+        return arrayCopy;
     }
 };
 
@@ -214,10 +229,12 @@ app.controller('PlayerController', [
             let opponentInfo = snapshot.val();
             $timeout(function () {
                 if (opponentInfo) {
+                    $scope.opponent.deck = opponentInfo.deck || [];
                     $scope.opponent.played = opponentInfo.played || [];
                     $scope.opponent.discarded = opponentInfo.discarded || [];
                     $scope.opponent.updated = opponentInfo.updated || 0;
                 } else {
+                    $scope.opponent.deck = [];
                     $scope.opponent.played = [];
                     $scope.opponent.discarded = [];
                     $scope.opponent.updated = 0;
@@ -225,12 +242,15 @@ app.controller('PlayerController', [
             });
         });
 
+        let publishKeys = ["id", "name"];
+
         let publish = function () {
             let path = 'games/' + app.util.normalizeText($scope.player.name);
             firebase.database().ref(path).set({
-                hand: $scope.player.hand,
-                played: $scope.player.played,
-                discarded: $scope.player.discarded,
+                deck: app.util.copyArray(publishKeys, $scope.player.deck),
+                hand: app.util.copyArray(publishKeys, $scope.player.hand),
+                played: app.util.copyArray(publishKeys, $scope.player.played),
+                discarded: app.util.copyArray(publishKeys, $scope.player.discarded),
                 updated: Date.now()
             });
         }
