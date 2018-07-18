@@ -1,42 +1,124 @@
 $(document).ready(function () {
 
     // Tier 1
-    let items = [
-        "armored_gauntlets.jpg",
-        "bacta_pump.jpg",
-        "balanced_hilt.jpg",
-        "charge_pistol.jpg",
-        "charged_ammo_pack.jpg",
-        "combat_coat.jpg",
-        "ddc_defender.jpg",
-        "dh_17.jpg",
-        "dl_44.jpg",
-        "e_11.jpg",
-        "emergency_injector.jpg",
-        "extended_haft.jpg",
-        "gaffi_stick.jpg",
-        "hand_cannon.jpg",
-        "marksman_barrel.jpg",
-        "portable_medkit.jpg",
-        "responsive_armor.jpg",
-        "shadowsilk_cloak.jpg",
-        "survival_gear.jpg",
-        "tactical_display.jpg",
-        "tatooine_hunting_rifle.jpg",
-        "under_barrel_hh_4.jpg",
-        "vibroblade.jpg",
-        "vibroknife.jpg",
-        "vibrosword.jpg"
+    let items = [{
+            "name": "armored_gauntlets.jpg",
+            "category": "weapon_melee"
+        },
+        {
+            "name": "bacta_pump.jpg",
+            "category": "item"
+        },
+        {
+            "name": "balanced_hilt.jpg",
+            "category": "upgrade_melee"
+        },
+        {
+            "name": "charge_pistol.jpg",
+            "category": "weapon_ranged"
+        },
+        {
+            "name": "charged_ammo_pack.jpg",
+            "category": "upgrade_ranged"
+        },
+        {
+            "name": "combat_coat.jpg",
+            "category": "armor"
+        },
+        {
+            "name": "ddc_defender.jpg",
+            "category": "weapon_ranged"
+        },
+        {
+            "name": "dh_17.jpg",
+            "category": "weapon_ranged"
+        },
+        {
+            "name": "dl_44.jpg",
+            "category": "weapon_ranged"
+        },
+        {
+            "name": "e_11.jpg",
+            "category": "weapon_ranged"
+        },
+        {
+            "name": "emergency_injector.jpg",
+            "category": "item"
+        },
+        {
+            "name": "extended_haft.jpg",
+            "category": "upgrade_melee"
+        },
+        {
+            "name": "gaffi_stick.jpg",
+            "category": "weapon_melee"
+        },
+        {
+            "name": "hand_cannon.jpg",
+            "category": "weapon_ranged"
+        },
+        {
+            "name": "marksman_barrel.jpg",
+            "category": "upgrade_ranged"
+        },
+        {
+            "name": "portable_medkit.jpg",
+            "category": "item"
+        },
+        {
+            "name": "responsive_armor.jpg",
+            "category": "armor"
+        },
+        {
+            "name": "shadowsilk_cloak.jpg",
+            "category": "armor"
+        },
+        {
+            "name": "survival_gear.jpg",
+            "category": "item"
+        },
+        {
+            "name": "tactical_display.jpg",
+            "category": "upgrade_ranged"
+        },
+        {
+            "name": "tatooine_hunting_rifle.jpg",
+            "category": "weapon_ranged"
+        },
+        {
+            "name": "under_barrel_hh_4.jpg",
+            "category": "upgrade_ranged"
+        },
+        {
+            "name": "vibroblade.jpg",
+            "category": "weapon_melee"
+        },
+        {
+            "name": "vibroknife.jpg",
+            "category": "weapon_melee"
+        },
+        {
+            "name": "vibrosword.jpg",
+            "category": "weapon_melee"
+        }
     ];
 
     let count = Math.ceil(items.length / 2);
+    let selected = [];
+    let sorter = (a, b) => {
+        return a.category.localeCompare(b.category);
+    };
 
     for (let i = 0; i < count; i++) {
-        let item = items.splice(Math.floor(Math.random() * items.length), 1)[0];
-        
+        selected.push(...items.splice(Math.floor(Math.random() * items.length), 1));
+    }
+
+    selected.sort(sorter);
+
+    for (let item of selected) {
         let img = new Image();
-        img.src = `assets/img/tier_1/${item}`;
-        
+        img.src = `assets/img/tier_1/${item.name}`;
+
         $('body').append(img);
     }
 
