@@ -1,107 +1,134 @@
+"use strict";
+
+var app = app || {};
+
+app.getQueryParams = function () {
+    let queryParams = {};
+    if (window.location.search.length > 0) {
+        let params = window.location.search.substr(1).split('&');
+        for (let param of params) {
+            let comps = param.split('=');
+            queryParams[comps[0]] = comps[1];
+        }
+    }
+    return queryParams;
+};
+
 $(document).ready(function () {
 
     // Tier 1
-    let items = [{
-            "name": "armored_gauntlets.jpg",
+    let tier1 = [{
+            "name": "armored_gauntlets",
             "category": "weapon_melee"
         },
         {
-            "name": "bacta_pump.jpg",
+            "name": "bacta_pump",
             "category": "item"
         },
         {
-            "name": "balanced_hilt.jpg",
+            "name": "balanced_hilt",
             "category": "upgrade_melee"
         },
         {
-            "name": "charge_pistol.jpg",
+            "name": "charge_pistol",
             "category": "weapon_ranged"
         },
         {
-            "name": "charged_ammo_pack.jpg",
+            "name": "charged_ammo_pack",
             "category": "upgrade_ranged"
         },
         {
-            "name": "combat_coat.jpg",
+            "name": "combat_coat",
             "category": "armor"
         },
         {
-            "name": "ddc_defender.jpg",
+            "name": "ddc_defender",
             "category": "weapon_ranged"
         },
         {
-            "name": "dh_17.jpg",
+            "name": "dh_17",
             "category": "weapon_ranged"
         },
         {
-            "name": "dl_44.jpg",
+            "name": "dl_44",
             "category": "weapon_ranged"
         },
         {
-            "name": "e_11.jpg",
+            "name": "e_11",
             "category": "weapon_ranged"
         },
         {
-            "name": "emergency_injector.jpg",
+            "name": "emergency_injector",
             "category": "item"
         },
         {
-            "name": "extended_haft.jpg",
+            "name": "extended_haft",
             "category": "upgrade_melee"
         },
         {
-            "name": "gaffi_stick.jpg",
+            "name": "gaffi_stick",
             "category": "weapon_melee"
         },
         {
-            "name": "hand_cannon.jpg",
+            "name": "hand_cannon",
             "category": "weapon_ranged"
         },
         {
-            "name": "marksman_barrel.jpg",
+            "name": "marksman_barrel",
             "category": "upgrade_ranged"
         },
         {
-            "name": "portable_medkit.jpg",
+            "name": "portable_medkit",
             "category": "item"
         },
         {
-            "name": "responsive_armor.jpg",
+            "name": "responsive_armor",
             "category": "armor"
         },
         {
-            "name": "shadowsilk_cloak.jpg",
+            "name": "shadowsilk_cloak",
             "category": "armor"
         },
         {
-            "name": "survival_gear.jpg",
+            "name": "survival_gear",
             "category": "item"
         },
         {
-            "name": "tactical_display.jpg",
+            "name": "tactical_display",
             "category": "upgrade_ranged"
         },
         {
-            "name": "tatooine_hunting_rifle.jpg",
+            "name": "tatooine_hunting_rifle",
             "category": "weapon_ranged"
         },
         {
-            "name": "under_barrel_hh_4.jpg",
+            "name": "under_barrel_hh_4",
             "category": "upgrade_ranged"
         },
         {
-            "name": "vibroblade.jpg",
+            "name": "vibroblade",
             "category": "weapon_melee"
         },
         {
-            "name": "vibroknife.jpg",
+            "name": "vibroknife",
             "category": "weapon_melee"
         },
         {
-            "name": "vibrosword.jpg",
+            "name": "vibrosword",
             "category": "weapon_melee"
         }
     ];
+
+    let items = [];
+    let exclusions = app.getQueryParams()["exclude"] || "";
+    exclusions = exclusions.length > 0 ? exclusions.split(',') : [];
+
+    for (let item of tier1) {
+        if (exclusions.indexOf(item.name) !== -1) {
+            continue;
+        }
+        items.push(item);
+    }
 
     let count = Math.ceil(items.length / 2);
     let selected = [];
@@ -117,7 +144,7 @@ $(document).ready(function () {
 
     for (let item of selected) {
         let img = new Image();
-        img.src = `assets/img/tier_1/${item.name}`;
+        img.src = `assets/img/tier_1/${item.name}.jpg`;
 
         $('body').append(img);
     }
