@@ -119,8 +119,9 @@ $(document).ready(function () {
         }
     ];
 
+    let queryParams = app.getQueryParams();
     let items = [];
-    let exclusions = app.getQueryParams()["exclude"] || "";
+    let exclusions = queryParams["exclude"] || "";
     exclusions = exclusions.length > 0 ? exclusions.split(',') : [];
 
     for (let item of tier1) {
@@ -130,7 +131,7 @@ $(document).ready(function () {
         items.push(item);
     }
 
-    let count = Math.ceil(items.length / 2);
+    let count = Math.ceil(tier1.length / 2);
     let selected = [];
     let sorter = (a, b) => {
         return a.category.localeCompare(b.category);
