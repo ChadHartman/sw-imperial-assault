@@ -6,17 +6,44 @@
     <script src="assets/js/zepto.min.js"></script>
     <script src="assets/js/app.js"></script>
     <style>
+        html {
+            font-family: sans-serif;
+        }
+
         img {
             float: left;
             width: 200px;
             height: 300px;
             margin: 3px;
         }
+
+        h1 {
+            font-size: 20pt;
+        }
     </style>
 </head>
 
 <body>
-
+    <div id="tiers">
+        <input id="filter-tier1" data-tier="1" type="checkbox" />
+        <label for="filter-tier1">Tier 1</label>
+        <input id="filter-tier2" data-tier="2" type="checkbox" />
+        <label for="filter-tier2">Tier 2</label>
+        <input id="filter-tier3" data-tier="3" type="checkbox" />
+        <label for="filter-tier3">Tier 3</label>
+    </div>
+    <hr/>
+    <div id="tier1-shop" class="shop">
+        <h1>Tier 1</h1>
+    </div>
+    <hr/>
+    <div id="tier2-shop" class="shop">
+        <h1>Tier 2</h1>
+    </div>
+    <hr/>
+    <div id="tier3-shop" class="shop">
+        <h1>Tier 3</h1>
+    </div>
 </body>
 
 </html>

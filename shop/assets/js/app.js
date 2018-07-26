@@ -2,22 +2,13 @@
 
 var app = app || {};
 
-app.getQueryParams = function () {
-    let queryParams = {};
-    if (window.location.search.length > 0) {
-        let params = window.location.search.substr(1).split('&');
-        for (let param of params) {
-            let comps = param.split('=');
-            queryParams[comps[0]] = comps[1];
-        }
-    }
-    return queryParams;
-};
+app.state = app.state || {};
+app.state.filteredTiers = [];
+app.state.filteredItems = [];
+app.constants = app.constants || {};
 
-$(document).ready(function () {
-
-    // Tier 1
-    let tier1 = [{
+app.constants.tiers = {
+    1: [{
             "name": "armored_gauntlets",
             "category": "weapon_melee"
         },
@@ -71,11 +62,11 @@ $(document).ready(function () {
         },
         {
             "name": "hand_cannon",
-            "category": "weapon_ranged"
+            "category": "weapon_ranged",
         },
         {
             "name": "marksman_barrel",
-            "category": "upgrade_ranged"
+            "category": "upgrade_ranged",
         },
         {
             "name": "portable_medkit",
@@ -117,37 +108,192 @@ $(document).ready(function () {
             "name": "vibrosword",
             "category": "weapon_melee"
         }
-    ];
+    ],
+    2: [{
+            "name": "434_deathhammer",
+            "category": "weapon_ranged"
+        },
+        {
+            "name": "a280",
+            "category": "weapon_ranged"
+        },
+        {
+            "name": "bd_1_vibro_ax",
+            "category": "weapon_melee"
+        },
+        {
+            "name": "bolt_upgrade",
+            "category": "upgrade_ranged"
+        },
+        {
+            "name": "combat_coat",
+            "category": "armor"
+        },
+        {
+            "name": "cybernetic_arm",
+            "category": "item"
+        },
+        {
+            "name": "double_vibrosword",
+            "category": "weapon_melee"
+        },
+        {
+            "name": "ee_3_carbine",
+            "category": "weapon_ranged"
+        },
+        {
+            "name": "energized_hilt",
+            "category": "upgrade_melee"
+        },
+        {
+            "name": "environmental_hazard_suit",
+            "category": "armor"
+        },
+        {
+            "name": "extra_ammunition",
+            "category": "item"
+        },
+        {
+            "name": "focusing_beam",
+            "category": "upgrade_melee"
+        },
+        {
+            "name": "high_impact_guard",
+            "category": "upgrade_melee"
+        },
+        {
+            "name": "hunters_rifle",
+            "category": "weapon_ranged"
+        },
+        {
+            "name": "laminate_armor",
+            "category": "armor"
+        },
+        {
+            "name": "overcharger",
+            "category": "upgrade_ranged"
+        },
+        {
+            "name": "plasma_cell",
+            "category": "upgrade_ranged"
+        },
+        {
+            "name": "polearm",
+            "category": "weapon_melee"
+        },
+        {
+            "name": "r5_astromech",
+            "category": "item"
+        },
+        {
+            "name": "slicing_tools",
+            "category": "item"
+        },
+        {
+            "name": "spread_barrel",
+            "category": "upgrade_ranged"
+        },
+        {
+            "name": "stun_baton",
+            "category": "weapon_melee"
+        },
+        {
+            "name": "t_21",
+            "category": "weapon_ranged"
+        },
+        {
+            "name": "vibro_knucklers",
+            "category": "weapon_melee"
+        },
+        {
+            "name": "weighted_head",
+            "category": "upgrade_melee"
+        }
+    ],
+    3: []
+};
 
-    let queryParams = app.getQueryParams();
-    let items = [];
-    let exclusions = queryParams["exclude"] || "";
-    exclusions = exclusions.length > 0 ? exclusions.split(',') : [];
+app.createItemId = function (tierId, name) {
+    return `tier${tierId}-${name}`;
+}
 
-    for (let item of tier1) {
-        if (exclusions.indexOf(item.name) !== -1) {
+app.filterItem = function (event) {
+    let elem = $(event.target);
+    let tierId = elem.attr('data-tier');
+    let name = elem.attr('data-name');
+    let itemId = app.createItemId(tierId, name);
+
+    app.state.filteredItems.push(itemId);
+    app.drawShop();
+};
+
+app.setupTier = function (tierId) {
+
+    let available = [];
+    let items = app.constants.tiers[tierId];
+    for (let item of items) {
+        let itemId = app.createItemId(tierId, item.name);
+        if (app.state.filteredItems.indexOf(itemId) !== -1) {
             continue;
         }
-        items.push(item);
+        available.push(item);
     }
 
-    let count = Math.ceil(tier1.length / 2);
+    let count = Math.ceil(items.length / 2);
     let selected = [];
-    let sorter = (a, b) => {
-        return a.category.localeCompare(b.category);
-    };
 
     for (let i = 0; i < count; i++) {
-        selected.push(...items.splice(Math.floor(Math.random() * items.length), 1));
+        selected.push(...available.splice(Math.floor(Math.random() * available.length), 1));
     }
 
-    selected.sort(sorter);
+    selected.sort((a, b) => {
+        return a.category.localeCompare(b.category);
+    });
 
     for (let item of selected) {
-        let img = new Image();
-        img.src = `assets/img/tier_1/${item.name}.jpg`;
+        let img = $('<img/>')
+            .attr('src', `assets/img/tier_${tierId}/${item.name}.jpg`)
+            .attr('data-tier', tierId)
+            .attr('data-name', item.name)
+            .click(app.filterItem);
 
-        $('body').append(img);
+        $(`#tier${tierId}-shop`).append(img);
     }
+};
 
-});
+app.drawShop = function () {
+
+    $('div.shop').empty();
+
+    for (let tierId of app.state.filteredTiers) {
+        this.setupTier(tierId);
+    }
+};
+
+app.toggleFilter = function (event) {
+    app.state.filteredTiers = [];
+
+    $('input[type="checkbox"]').each((index, element) => {
+        if (element.checked) {
+            app.state.filteredTiers.push($(element).attr('data-tier'));
+        }
+    });
+
+    app.drawShop();
+};
+
+app.setup = function () {
+    $('input[type="checkbox"]').click(app.toggleFilter);
+    app.drawShop();
+};
+
+$(document).ready(app.setup);
+
+
+let s = new Set();
+for (let tierId in app.constants.tiers) {
+    for (let item of app.constants.tiers[tierId]) {
+        s.add(item.category);
+    }
+}
+console.log(s);
