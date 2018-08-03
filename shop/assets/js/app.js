@@ -7,211 +7,321 @@ app.state.filteredTiers = [];
 app.state.filteredItems = [];
 app.constants = app.constants || {};
 
-app.constants.tiers = {
-    1: [{
-            "name": "armored_gauntlets",
-            "category": "weapon_melee"
-        },
-        {
-            "name": "bacta_pump",
-            "category": "item"
-        },
-        {
-            "name": "balanced_hilt",
-            "category": "upgrade_melee"
-        },
-        {
-            "name": "charge_pistol",
-            "category": "weapon_ranged"
-        },
-        {
-            "name": "charged_ammo_pack",
-            "category": "upgrade_ranged"
-        },
-        {
-            "name": "combat_coat",
-            "category": "armor"
-        },
-        {
-            "name": "ddc_defender",
-            "category": "weapon_ranged"
-        },
-        {
-            "name": "dh_17",
-            "category": "weapon_ranged"
-        },
-        {
-            "name": "dl_44",
-            "category": "weapon_ranged"
-        },
-        {
-            "name": "e_11",
-            "category": "weapon_ranged"
-        },
-        {
-            "name": "emergency_injector",
-            "category": "item"
-        },
-        {
-            "name": "extended_haft",
-            "category": "upgrade_melee"
-        },
-        {
-            "name": "gaffi_stick",
-            "category": "weapon_melee"
-        },
-        {
-            "name": "hand_cannon",
-            "category": "weapon_ranged",
-        },
-        {
-            "name": "marksman_barrel",
-            "category": "upgrade_ranged",
-        },
-        {
-            "name": "portable_medkit",
-            "category": "item"
-        },
-        {
-            "name": "responsive_armor",
-            "category": "armor"
-        },
-        {
-            "name": "shadowsilk_cloak",
-            "category": "armor"
-        },
-        {
-            "name": "survival_gear",
-            "category": "item"
-        },
-        {
-            "name": "tactical_display",
-            "category": "upgrade_ranged"
-        },
-        {
-            "name": "tatooine_hunting_rifle",
-            "category": "weapon_ranged"
-        },
-        {
-            "name": "under_barrel_hh_4",
-            "category": "upgrade_ranged"
-        },
-        {
-            "name": "vibroblade",
-            "category": "weapon_melee"
-        },
-        {
-            "name": "vibroknife",
-            "category": "weapon_melee"
-        },
-        {
-            "name": "vibrosword",
-            "category": "weapon_melee"
-        }
-    ],
-    2: [{
-            "name": "434_deathhammer",
-            "category": "weapon_ranged"
-        },
-        {
-            "name": "a280",
-            "category": "weapon_ranged"
-        },
-        {
-            "name": "bd_1_vibro_ax",
-            "category": "weapon_melee"
-        },
-        {
-            "name": "bolt_upgrade",
-            "category": "upgrade_ranged"
-        },
-        {
-            "name": "combat_coat",
-            "category": "armor"
-        },
-        {
-            "name": "cybernetic_arm",
-            "category": "item"
-        },
-        {
-            "name": "double_vibrosword",
-            "category": "weapon_melee"
-        },
-        {
-            "name": "ee_3_carbine",
-            "category": "weapon_ranged"
-        },
-        {
-            "name": "energized_hilt",
-            "category": "upgrade_melee"
-        },
-        {
-            "name": "environmental_hazard_suit",
-            "category": "armor"
-        },
-        {
-            "name": "extra_ammunition",
-            "category": "item"
-        },
-        {
-            "name": "focusing_beam",
-            "category": "upgrade_melee"
-        },
-        {
-            "name": "high_impact_guard",
-            "category": "upgrade_melee"
-        },
-        {
-            "name": "hunters_rifle",
-            "category": "weapon_ranged"
-        },
-        {
-            "name": "laminate_armor",
-            "category": "armor"
-        },
-        {
-            "name": "overcharger",
-            "category": "upgrade_ranged"
-        },
-        {
-            "name": "plasma_cell",
-            "category": "upgrade_ranged"
-        },
-        {
-            "name": "polearm",
-            "category": "weapon_melee"
-        },
-        {
-            "name": "r5_astromech",
-            "category": "item"
-        },
-        {
-            "name": "slicing_tools",
-            "category": "item"
-        },
-        {
-            "name": "spread_barrel",
-            "category": "upgrade_ranged"
-        },
-        {
-            "name": "stun_baton",
-            "category": "weapon_melee"
-        },
-        {
-            "name": "t_21",
-            "category": "weapon_ranged"
-        },
-        {
-            "name": "vibro_knucklers",
-            "category": "weapon_melee"
-        },
-        {
-            "name": "weighted_head",
-            "category": "upgrade_melee"
-        }
-    ],
-    3: []
-};
+(function (app) {
+
+    const ARMOR = "armor";
+    const ITEM = "item";
+    const UPGRADE_MELEE = "upgrade_melee";
+    const UPGRADE_RANGED = "upgrade_ranged";
+    const WEAPON_MELEE = "weapon_melee";
+    const WEAPON_RANGED = "weapon_ranged";
+
+    app.constants.tiers = {
+        1: [{
+                "name": "armored_gauntlets",
+                "category": WEAPON_MELEE
+            },
+            {
+                "name": "bacta_pump",
+                "category": ITEM
+            },
+            {
+                "name": "balanced_hilt",
+                "category": UPGRADE_MELEE
+            },
+            {
+                "name": "charge_pistol",
+                "category": WEAPON_RANGED
+            },
+            {
+                "name": "charged_ammo_pack",
+                "category": UPGRADE_RANGED
+            },
+            {
+                "name": "combat_coat",
+                "category": ARMOR
+            },
+            {
+                "name": "ddc_defender",
+                "category": WEAPON_RANGED
+            },
+            {
+                "name": "dh_17",
+                "category": WEAPON_RANGED
+            },
+            {
+                "name": "dl_44",
+                "category": WEAPON_RANGED
+            },
+            {
+                "name": "e_11",
+                "category": WEAPON_RANGED
+            },
+            {
+                "name": "emergency_injector",
+                "category": ITEM
+            },
+            {
+                "name": "extended_haft",
+                "category": UPGRADE_MELEE
+            },
+            {
+                "name": "gaffi_stick",
+                "category": WEAPON_MELEE
+            },
+            {
+                "name": "hand_cannon",
+                "category": WEAPON_RANGED,
+            },
+            {
+                "name": "marksman_barrel",
+                "category": UPGRADE_RANGED,
+            },
+            {
+                "name": "portable_medkit",
+                "category": ITEM
+            },
+            {
+                "name": "responsive_armor",
+                "category": ARMOR
+            },
+            {
+                "name": "shadowsilk_cloak",
+                "category": ARMOR
+            },
+            {
+                "name": "survival_gear",
+                "category": ITEM
+            },
+            {
+                "name": "tactical_display",
+                "category": UPGRADE_RANGED
+            },
+            {
+                "name": "tatooine_hunting_rifle",
+                "category": WEAPON_RANGED
+            },
+            {
+                "name": "under_barrel_hh_4",
+                "category": UPGRADE_RANGED
+            },
+            {
+                "name": "vibroblade",
+                "category": WEAPON_MELEE
+            },
+            {
+                "name": "vibroknife",
+                "category": WEAPON_MELEE
+            },
+            {
+                "name": "vibrosword",
+                "category": WEAPON_MELEE
+            }
+        ],
+        2: [{
+                "name": "434_deathhammer",
+                "category": WEAPON_RANGED
+            },
+            {
+                "name": "a280",
+                "category": WEAPON_RANGED
+            },
+            {
+                "name": "bd_1_vibro_ax",
+                "category": WEAPON_MELEE
+            },
+            {
+                "name": "bolt_upgrade",
+                "category": UPGRADE_RANGED
+            },
+            {
+                "name": "combat_coat",
+                "category": ARMOR
+            },
+            {
+                "name": "cybernetic_arm",
+                "category": ITEM
+            },
+            {
+                "name": "double_vibrosword",
+                "category": WEAPON_MELEE
+            },
+            {
+                "name": "ee_3_carbine",
+                "category": WEAPON_RANGED
+            },
+            {
+                "name": "energized_hilt",
+                "category": UPGRADE_MELEE
+            },
+            {
+                "name": "environmental_hazard_suit",
+                "category": ARMOR
+            },
+            {
+                "name": "extra_ammunition",
+                "category": ITEM
+            },
+            {
+                "name": "focusing_beam",
+                "category": UPGRADE_MELEE
+            },
+            {
+                "name": "high_impact_guard",
+                "category": UPGRADE_MELEE
+            },
+            {
+                "name": "hunters_rifle",
+                "category": WEAPON_RANGED
+            },
+            {
+                "name": "laminate_armor",
+                "category": ARMOR
+            },
+            {
+                "name": "overcharger",
+                "category": UPGRADE_RANGED
+            },
+            {
+                "name": "plasma_cell",
+                "category": UPGRADE_RANGED
+            },
+            {
+                "name": "polearm",
+                "category": WEAPON_MELEE
+            },
+            {
+                "name": "r5_astromech",
+                "category": ITEM
+            },
+            {
+                "name": "slicing_tools",
+                "category": ITEM
+            },
+            {
+                "name": "spread_barrel",
+                "category": UPGRADE_RANGED
+            },
+            {
+                "name": "stun_baton",
+                "category": WEAPON_MELEE
+            },
+            {
+                "name": "t_21",
+                "category": WEAPON_RANGED
+            },
+            {
+                "name": "vibro_knucklers",
+                "category": WEAPON_MELEE
+            },
+            {
+                "name": "weighted_head",
+                "category": UPGRADE_MELEE
+            }
+        ],
+        3: [{
+                "name": "a_12_sniper_rifle",
+                "category": WEAPON_RANGED
+            },
+            {
+                "name": "admirals_uniform",
+                "category": ARMOR
+            },
+            {
+                "name": "personal_shields",
+                "category": ITEM
+            },
+            {
+                "name": "combat_knife",
+                "category": ITEM
+            },
+            {
+                "name": "power_charger",
+                "category": ITEM
+            },
+            {
+                "name": "combat_visor",
+                "category": ITEM
+            },
+            {
+                "name": "pulse_cannon",
+                "category": WEAPON_RANGED
+            },
+            {
+                "name": "concussion_grenades",
+                "category": ITEM
+            },
+            {
+                "name": "reinforced_helmet",
+                "category": ITEM
+            },
+            {
+                "name": "disruption_cell",
+                "category": UPGRADE_RANGED
+            },
+            {
+                "name": "ryyk_blades",
+                "category": WEAPON_MELEE
+            },
+            {
+                "name": "disruptor_pistol",
+                "category": WEAPON_RANGED
+            },
+            {
+                "name": "shock_emitter",
+                "category": UPGRADE_MELEE
+            },
+            {
+                "name": "dlt_19",
+                "category": WEAPON_RANGED
+            },
+            {
+                "name": "sniper_scope",
+                "category": UPGRADE_RANGED
+            },
+            {
+                "name": "dxr_6",
+                "category": WEAPON_RANGED
+            },
+            {
+                "name": "sporting_blaster",
+                "category": WEAPON_RANGED
+            },
+            {
+                "name": "force_pike",
+                "category": WEAPON_MELEE
+            },
+            {
+                "name": "supply_pack",
+                "category": ITEM
+            },
+            {
+                "name": "hidden_blade",
+                "category": ITEM
+            },
+            {
+                "name": "telescoping_sights",
+                "category": UPGRADE_RANGED
+            },
+            {
+                "name": "laminate_armor",
+                "category": ARMOR
+            },
+            {
+                "name": "valken_38_carbine",
+                "category": WEAPON_RANGED
+            },
+            {
+                "name": "modified_energy_cannon",
+                "category": WEAPON_RANGED
+            },
+            {
+                "name": "vibrogenerator",
+                "category": UPGRADE_MELEE
+            }
+        ]
+    };
+})(app);
 
 app.createItemId = function (tierId, name) {
     return `tier${tierId}-${name}`;
@@ -288,12 +398,3 @@ app.setup = function () {
 };
 
 $(document).ready(app.setup);
-
-
-let s = new Set();
-for (let tierId in app.constants.tiers) {
-    for (let item of app.constants.tiers[tierId]) {
-        s.add(item.category);
-    }
-}
-console.log(s);
