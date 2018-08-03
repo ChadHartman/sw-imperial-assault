@@ -217,6 +217,10 @@ app.constants = app.constants || {};
             {
                 "name": "weighted_head",
                 "category": UPGRADE_MELEE
+            },
+            {
+                "name": "dt_12_heavy_blaster_pistol",
+                "category": WEAPON_RANGED
             }
         ],
         3: [{
@@ -318,6 +322,14 @@ app.constants = app.constants || {};
             {
                 "name": "vibrogenerator",
                 "category": UPGRADE_MELEE
+            },
+            {
+                "name": "ancient_lightsaber",
+                "category": WEAPON_MELEE
+            },
+            {
+                "name": "electrostaff",
+                "category": WEAPON_MELEE
             }
         ]
     };
