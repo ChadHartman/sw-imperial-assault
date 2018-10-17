@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="assets/js/zepto.min.js"></script>
+    <script src="assets/js/constants.js"></script>
+    <script src="assets/js/app.js"></script>
+    <style>
+        html {
+            font-family: sans-serif;
+        }
+
+        img {
+            float: left;
+            width: 200px;
+            height: 300px;
+            margin: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td valign="top">
+                <label for="draw-count"> Draw Count:</label>
+                <input id="draw-count" type="number" />
+                <br />
+                <label for="omit-missions">Omit Missions:</label>
+                <input id="omit-missions" type="checkbox" />
+            </td>
+            <td>
+                <div id="decks">
+                </div>
+            </td>
+        </tr>
+    </table>
+    <hr />
+    <div id="draw">
+
+    </div>
+</body>
+
+</html>
